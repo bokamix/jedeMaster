@@ -6,13 +6,13 @@ const INITIAL_STATE = {
   list: []
 }
 
-const moviesReducer = (state = INITIAL_STATE, action) => {
+const logsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case types.ADD_MOVIE:
+    case types.ADD_LOG:
       return {
         ...state, list: [...state.list, action.item]
       }
-    case types.RESET_MOVIES:
+    case types.RESET_LOGS:
       return {
         ...state, list: []
       }
@@ -21,4 +21,4 @@ const moviesReducer = (state = INITIAL_STATE, action) => {
   }
 }
 
-export default moviesReducer
+export default logsReducer

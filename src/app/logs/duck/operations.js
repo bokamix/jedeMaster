@@ -1,16 +1,16 @@
 import actions from './actions'
 
-const fetchMovies = async () => {
+const fetchLogs = async () => {
   const response = await fetch('http://localhost:3000/movies', { method: 'GET' })
   const json = await response.json()
 
   return json
 }
 
-export const getAllMovies = () =>
+export const getAllLogs = () =>
   async (dispatch) => {
-    const movies = await fetchMovies()
+    const logs = await fetchLogs()
 
-    movies.map(movie => dispatch(actions.add(movie.title)))
+    logs.map(log => dispatch(actions.add(log.title)))
   }
 

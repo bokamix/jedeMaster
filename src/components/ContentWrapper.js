@@ -11,8 +11,8 @@ import GoalForm from "./GoalForm";
 import moment from "moment";
 import Container from "@material-ui/core/Container";
 import MenuPanel from "./MenuPanel";
-import MoviesContainer from "../app/movies/components/MoviesContainer"
-import MoviesForm from "../app/movies/components/MoviesForm"
+import LogsContainer from "../app/logs/components/LogsContainer"
+import LogsForm from "../app/logs/components/LogsForm"
 
 const MainWrapper = styled.div`
   margin: 0 auto;
@@ -339,8 +339,8 @@ const checkItemDone = () => {
             )}   <MenuPanel />
         </Container>
       </div>
-      <MoviesContainer/>
-      <MoviesForm />
+      <LogsContainer/>
+      <LogsForm />
       
     </MainWrapper>
   );
