@@ -8,6 +8,8 @@ import ListOfResons from "../components/ListOfResons";
 import NavigationIcon from "@material-ui/icons/Navigation";
 import Fab from "@material-ui/core/Fab";
 import GoalForm from "./GoalForm";
+import DoneIcon from '@material-ui/icons/Done';
+import ClearIcon from '@material-ui/icons/Clear';
 import moment from "moment";
 import Container from "@material-ui/core/Container";
 import MenuPanel from "./MenuPanel";
@@ -30,6 +32,13 @@ const StartButton = styled.div`
 const MainTitle = styled.h2`
   text-align: center;
 `;
+
+const PrograsWrapper = styled.div`
+display:flex;
+flex-wrap: wrap;
+justify-content:center;
+`
+
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
@@ -40,52 +49,82 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.secondary
   }
 }));
-////////////////////////////////////////
+
 const lastLogIsToday = () =>{
-  let listOfCheckTaskWork = JSON.parse(window.localStorage.getItem("dayLogs"));
-  let today = moment().toISOString();
-  let lastElement = listOfCheckTaskWork[listOfCheckTaskWork.length - 1]; 
-  let isSame = moment(lastElement.date).isSame(moment(today), 'day') 
-  return isSame
+  if(JSON.parse(window.localStorage.getItem("dayLogs"))){
+    let listOfCheckTaskWork = JSON.parse(window.localStorage.getItem("dayLogs"));
+    let today = moment().toISOString();
+    let lastElement = listOfCheckTaskWork[listOfCheckTaskWork.length - 1]; 
+    let isSame = moment(lastElement.date).isSame(moment(today), 'day') 
+    return isSame
+  } 
 }
 
 const resetChecklist = () =>{
-  let listOfCheckTaskWork = JSON.parse(window.localStorage.getItem("listOfCheckTask"));
-  listOfCheckTaskWork.forEach((item)=>{
-    item.done = "false"   
-  })
-  window.localStorage.setItem("listOfCheckTask",JSON.stringify(listOfCheckTaskWork));
-  
+  if(JSON.parse(window.localStorage.getItem("listOfCheckTask"))){
+    let listOfCheckTaskWork = JSON.parse(window.localStorage.getItem("listOfCheckTask"));
+    listOfCheckTaskWork.forEach((item)=>{
+      item.done = "false"   
+    })
+    window.localStorage.setItem("listOfCheckTask",JSON.stringify(listOfCheckTaskWork));
+    }
 }
-
 
 const getCheckActivity =()=>{
   if(lastLogIsToday()){
   }
   else{resetChecklist()}
 }
-
-
-
-
 getCheckActivity()
+
+const setGoalStatus = () =>{
+  if(window.localStorage.getItem("goalItem")){
+   let goalInfo = JSON.parse(window.localStorage.getItem("goalItem"));    
+   let goalStatus = goalInfo.isActive
+    return goalStatus
+  }
+} 
+
+/////////////////////////////////////////////// Start App ////////////////////////////////////////
+//////////////////////////////////////// ////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export default function ContentWrapper() {
   const classes = useStyles();
-  const [active, setActive] = React.useState(false);
+  const [active, setActive] = React.useState(setGoalStatus());
 
   // window.localStorage.clear();
+ 
   let goalItem;
+const getGoal = () =>{   
   if (!window.localStorage.getItem("goalItem")) {
     goalItem = {
       goal: "Podstawowe nawyki",
+      isActive: false,
       startDate: "2019-11-05T10:26:09.491Z",
       endDate: "2020-01-04T10:26:09.491Z"
     };
     window.localStorage.setItem("goalItem", JSON.stringify(goalItem));
   } else {
-    goalItem = JSON.parse(window.localStorage.getItem("goalItem"));
+    goalItem = JSON.parse(window.localStorage.getItem("goalItem"));    
   }
+}
+getGoal()
+
+const startChallenge = () => {
+  let startDate = moment();
+  let endDate = moment();
+  endDate.add(14, "days");
+  goalItem.startDate = startDate.toISOString();
+  goalItem.endDate = endDate.toISOString();
+  goalItem.isActive = true;
+  setActive(true)
+  window.localStorage.setItem("goalItem", JSON.stringify(goalItem));
+};
+
+
+
   useEffect(() => {     
     isLastLogToday()
 });
@@ -135,20 +174,6 @@ export default function ContentWrapper() {
   }
   getListOfCheck()
   
-
-
-
-  const startChallenge = () => {
-    let startDate = moment(); //.format('DD-MM-YYYY');
-    let endDate = moment();
-    endDate.add(14, "days");
-    goalItem.startDate = startDate.toISOString();
-    goalItem.endDate = endDate.toISOString();
-    goalItem.isActive = true;
-    setActive(true);
-    window.localStorage.setItem("goalItem", JSON.stringify(goalItem));
-  };
-
 //// Init Last Active Day
 
 
@@ -266,12 +291,6 @@ const isLastLogToday =()=>{
   }  
 }
 
-
-
-
-
-
-
 /// Funkcja która sprawdza czy isnieje log i pobiera go jeśli nie to zwraca wartość
 
 const checkItemDone = () => {
@@ -291,7 +310,19 @@ const checkItemDone = () => {
       }      
 }
 
+const showProgresIcons = () =>{
+  if(JSON.parse(window.localStorage.getItem("dayLogs"))){
 
+    let dayLogsWork = JSON.parse(window.localStorage.getItem("dayLogs"));
+    return dayLogsWork.map((item, num)=>{
+      return <span key={num}>{item.isDone ==="false" ? <ClearIcon  /> : < DoneIcon />}</span>
+  
+  })
+  }
+   
+  
+
+}
 
 
 
@@ -315,7 +346,11 @@ const checkItemDone = () => {
             <Grid item xs={12} sm={6}>
               <Paper className={classes.paper}>
                 {active ? <h3>Zostało {daysLeft} dni</h3> : ``}
-              </Paper>
+              </Paper> 
+              <Paper className={classes.paper} >
+                <PrograsWrapper>{showProgresIcons()}</PrograsWrapper>
+               
+              </Paper>                
             </Grid>
           </Grid>
           <Grid container spacing={6}>
