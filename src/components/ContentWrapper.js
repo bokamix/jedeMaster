@@ -41,6 +41,35 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 ////////////////////////////////////////
+const lastLogIsToday = () =>{
+  let listOfCheckTaskWork = JSON.parse(window.localStorage.getItem("dayLogs"));
+  let today = moment().toISOString();
+  let lastElement = listOfCheckTaskWork[listOfCheckTaskWork.length - 1]; 
+  let isSame = moment(lastElement.date).isSame(moment(today), 'day') 
+  return isSame
+}
+
+const resetChecklist = () =>{
+  let listOfCheckTaskWork = JSON.parse(window.localStorage.getItem("listOfCheckTask"));
+  listOfCheckTaskWork.forEach((item)=>{
+    item.done = "false"   
+  })
+  window.localStorage.setItem("listOfCheckTask",JSON.stringify(listOfCheckTaskWork));
+  
+}
+
+
+const getCheckActivity =()=>{
+  if(lastLogIsToday()){
+  }
+  else{resetChecklist()}
+}
+
+
+
+
+getCheckActivity()
+
 export default function ContentWrapper() {
   const classes = useStyles();
   const [active, setActive] = React.useState(false);
@@ -59,13 +88,11 @@ export default function ContentWrapper() {
   }
   useEffect(() => {     
     isLastLogToday()
-    console.log("init")
 });
 
   let newChecked = [];
   let listOfCheckTask;
   const getListOfCheck =()=>{ 
-    console.log(`listOfCheckTask`)
     if (!window.localStorage.getItem("listOfCheckTask")) {
       listOfCheckTask = [
         {
@@ -109,7 +136,6 @@ export default function ContentWrapper() {
   getListOfCheck()
   
 
-    
 
 
   const startChallenge = () => {
@@ -243,20 +269,7 @@ const isLastLogToday =()=>{
 
 
 
-const resetChecklist = () =>{
-  let listOfCheckTaskWork = JSON.parse(window.localStorage.getItem("listOfCheckTask"));
-  listOfCheckTaskWork.forEach((item)=>{
-    item.done = "false"   
-  })
-  window.localStorage.setItem("listOfCheckTask",JSON.stringify(listOfCheckTaskWork));
-  
-  listOfCheckTaskWork.forEach((element, number) => {
-    newChecked=[]
-    if (element.done === "true") {
-      newChecked.push(number);
-    }})
 
-}
 
 
 /// Funkcja która sprawdza czy isnieje log i pobiera go jeśli nie to zwraca wartość
@@ -281,13 +294,13 @@ const checkItemDone = () => {
 
 
 
+
 // list.sort((a, b) => (a.color > b.color) ? 1 : -1)
   ////////////////////////////////////
   return (
     <MainWrapper>   
-      <button onClick={()=>isLastLogToday()}>Is Last like today</button>
-      <button onClick={()=>sortLogItems()}>sort</button>
-      <button onClick={()=>resetChecklist()}>reset</button>
+      {/* <button onClick={()=>isLastLogToday()}>Is Last like today</button>
+      <button onClick={()=>sortLogItems()}>sort</button> */}
      
             <MainTitle>JedeStym</MainTitle>
       <div className={classes.root}>
@@ -339,8 +352,7 @@ const checkItemDone = () => {
             )}   <MenuPanel />
         </Container>
       </div>
-      <LogsContainer/>
-      <LogsForm />
+
       
     </MainWrapper>
   );
