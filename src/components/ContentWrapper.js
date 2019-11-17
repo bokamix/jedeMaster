@@ -15,6 +15,7 @@ import Container from "@material-ui/core/Container";
 import MenuPanel from "./MenuPanel";
 import LogsContainer from "../app/logs/components/LogsContainer"
 import LogsForm from "../app/logs/components/LogsForm"
+import CanbanCard from "./CanbanCard"
 
 const MainWrapper = styled.div`
   margin: 0 auto;
@@ -23,6 +24,7 @@ const MainWrapper = styled.div`
     width: 800px;
   }
 `;
+
 const StartButton = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -46,7 +48,9 @@ const useStyles = makeStyles(theme => ({
   paper: {
     padding: theme.spacing(2),
     textAlign: "center",
-    color: theme.palette.text.secondary
+    color: "#ffffffc4",
+
+    background: '#202334'
   }
 }));
 
@@ -122,8 +126,6 @@ const startChallenge = () => {
   setActive(true)
   window.localStorage.setItem("goalItem", JSON.stringify(goalItem));
 };
-
-
 
   useEffect(() => {     
     isLastLogToday()
@@ -319,11 +321,7 @@ const showProgresIcons = () =>{
   
   })
   }
-   
-  
-
 }
-
 
 
 // list.sort((a, b) => (a.color > b.color) ? 1 : -1)
@@ -331,8 +329,7 @@ const showProgresIcons = () =>{
   return (
     <MainWrapper>   
       {/* <button onClick={()=>isLastLogToday()}>Is Last like today</button>
-      <button onClick={()=>sortLogItems()}>sort</button> */}
-     
+      <button onClick={()=>sortLogItems()}>sort</button> */}     
             <MainTitle>JedeStym</MainTitle>
       <div className={classes.root}>
         <Container>
@@ -365,11 +362,9 @@ const showProgresIcons = () =>{
                 <h3>Dlaczego chcesz to zrobić?</h3>
                 <ListOfResons />
               </Paper>
-            </Grid>
-            {/* <Grid item xs>
-           <Paper xs={1} className={classes.paper}><h3>Zostało 3 dni do końca okresu 2 tygodniowego</h3></Paper>
-        </Grid> */}
+            </Grid>    
           </Grid>
+          {/* <CanbanCard /> */}
           {!active ? (
             <StartButton>
               <Fab
@@ -388,7 +383,8 @@ const showProgresIcons = () =>{
         </Container>
       </div>
 
-      
+     
+
     </MainWrapper>
   );
 }

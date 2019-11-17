@@ -11,15 +11,40 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import PersonIcon from '@material-ui/icons/Person'; 
 import GolfCourseIcon from '@material-ui/icons/GolfCourse';
+import LayersClearIcon from '@material-ui/icons/LayersClear';
+import styled from "styled-components";
+import { height } from '@material-ui/system';
+const MenuEventLisinerRight = styled.div`
+position:absolute;
+right:0;
+top:0;
+width:200px;
+height:100%;
+`
+const MenuEventLisinerLeft = styled.div`
+position:absolute;
+left:0;
+top:0;
+width:200px;
+height:100%;
+`
 
 
 const useStyles = makeStyles({
+  root:{
+    background:"black"
+  },
   list: {
     width: 250,
+    color: "#ffffffc4",
+    background: '#202334',
+    height: '100%'
+    },
+  fullList: {    
+    width: 'auto', 
+    background: 'black' 
   },
-  fullList: {
-    width: 'auto',
-  },
+ 
 });
 
 export default function MenuPanel() {
@@ -39,14 +64,21 @@ export default function MenuPanel() {
     setState({ ...state, [side]: open });
   };
 
+  const resetAllDataInLocalStorage = () =>{
+    window.localStorage.clear();
+  
+  }
+  
+
   const sideList = side => (
     <div
+    
       className={classes.list}
       role="presentation"
       onClick={toggleDrawer(side, false)}
       onKeyDown={toggleDrawer(side, false)}
     >
-      <List>
+      <List >
         {['Twój profil'].map((text, index) => (
          
      <ListItem button key={text}>
@@ -57,12 +89,16 @@ export default function MenuPanel() {
       </List>
       <Divider />
       <List>
-        {['Wyzwanie'].map((text, index) => (
-          <ListItem button key={text}>
+       
+        <ListItem button>
             <ListItemIcon><GolfCourseIcon/></ListItemIcon>
-            <ListItemText primary={text} />
+            <ListItemText primary="Wyzwanie" />
           </ListItem>
-        ))}
+          <ListItem button onClick={resetAllDataInLocalStorage}>
+            <ListItemIcon><LayersClearIcon/></ListItemIcon>
+            <ListItemText primary="Resetuj wszystkie dane" />
+          </ListItem>
+          
       </List>
     </div>
   );
@@ -95,8 +131,8 @@ export default function MenuPanel() {
   );
 
   return (
+    <>
     <div>
-      <Button onClick={toggleDrawer('left', true)}>Open Left</Button>     
       <Drawer open={state.left} onClose={toggleDrawer('left', false)}>
         {sideList('left')}
       </Drawer>
@@ -109,6 +145,10 @@ export default function MenuPanel() {
       <Drawer anchor="right" open={state.right} onClose={toggleDrawer('right', false)}>
         {sideList('right')}
       </Drawer>
+    
     </div>
+      <MenuEventLisinerRight onClick={toggleDrawer('right', true)}/>
+      <MenuEventLisinerLeft onClick={toggleDrawer('left', true)}/>
+      </>
   );
 }

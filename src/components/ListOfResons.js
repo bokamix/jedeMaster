@@ -13,7 +13,8 @@ const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
     maxWidth: 300,
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: '#202334'
+    
   },
   container: {
     display: "flex",
