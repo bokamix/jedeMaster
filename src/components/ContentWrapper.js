@@ -72,8 +72,18 @@ const resetChecklist = () =>{
     }
 }
 
+const sortLogItems = () => {
+  let dayLogsWork = []
+  if(window.localStorage.getItem("dayLogs")){
+    dayLogsWork = JSON.parse(window.localStorage.getItem("dayLogs"));
+    dayLogsWork.sort((a, b) => (a.date > b.date) ? 1 : -1)
+    window.localStorage.setItem("dayLogs", JSON.stringify(dayLogsWork))
+  }
+  else{console.log(`nie ma nic w logach`)}
+}
+sortLogItems()
 const isTodayDone = () =>{
-  if(JSON.parse(window.localStorage.getItem("listOfCheckTask"))){
+  if(JSON.parse(window.localStorage.getItem("dayLogs"))){
     let dayLogsWork = JSON.parse(window.localStorage.getItem("dayLogs")); 
     let lastElement = dayLogsWork[dayLogsWork.length - 1];  
     if(lastElement.isDone ==="true"){
@@ -98,6 +108,21 @@ const setGoalStatus = () =>{
   }
 } 
 
+
+const howManyInCycle = () =>{
+  if(JSON.parse(window.localStorage.getItem("dayLogs"))){
+    let dayLogsWork = JSON.parse(window.localStorage.getItem("dayLogs")); 
+    dayLogsWork.pop()
+    let i=0;
+    dayLogsWork.forEach((item)=>{
+        if(item.isDone==="true"){
+         i++;
+        }
+        else{i=0;}
+    })
+    return i
+  }
+}
 /////////////////////////////////////////////// Start App ////////////////////////////////////////
 //////////////////////////////////////// ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -199,15 +224,7 @@ const startChallenge = () => {
  ////////////////////////////////////////////////////////////////////
  ////             Main Functions
 
- const sortLogItems = () => {
-  let dayLogsWork = []
-  if(window.localStorage.getItem("dayLogs")){
-    dayLogsWork = JSON.parse(window.localStorage.getItem("dayLogs"));
-    dayLogsWork.sort((a, b) => (a.date > b.date) ? 1 : -1)
-    window.localStorage.setItem("dayLogs", JSON.stringify(dayLogsWork))
-  }
-  else{console.log(`nie ma nic w logach`)}
-}
+
 
 
 
@@ -327,6 +344,7 @@ const showProgresIcons = () =>{
   if(JSON.parse(window.localStorage.getItem("dayLogs"))){
     let dayLogsWork = JSON.parse(window.localStorage.getItem("dayLogs"));
     dayLogsWork.pop()
+    dayLogsWork.reverse()
     return dayLogsWork.map((item, num)=>{
       return <span key={num}>{item.isDone ==="false" ? <ClearIcon  /> : < DoneIcon />}</span>
   
@@ -351,13 +369,14 @@ const showProgresIcons = () =>{
             <Grid item xs={12} sm={6}>
               <Paper className={classes.paper}>
                 {active ? <h3>Zostało {daysLeft} dni</h3> : ``}
+                <p>Zrobiłeś {howManyInCycle()} dni z rzędu.</p>
               </Paper> 
               <Paper className={classes.paper} >
                 <PrograsWrapper>{dayDone === false ? <ClearIcon  /> : < DoneIcon />}{showProgresIcons()}</PrograsWrapper>               
               </Paper>                
             </Grid>
           </Grid>
-          <Grid container spacing={6}>
+          <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
               <Paper className={classes.paper}>
                 <h3>Co muszę robić codziennie?</h3>

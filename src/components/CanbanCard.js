@@ -7,7 +7,6 @@ import Grid from "@material-ui/core/Grid";
 
 const Card = styled.div`
     width:100%;
-    margin:5px;
 `
 const useStyles = makeStyles(theme => ({
   root: {

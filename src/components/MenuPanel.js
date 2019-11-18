@@ -15,15 +15,25 @@ import LayersClearIcon from '@material-ui/icons/LayersClear';
 import styled from "styled-components";
 import { height } from '@material-ui/system';
 import ResetDataModal from './ResetDataModal'
+import MenuIcon from '@material-ui/icons/Menu';
+
+
 const MenuEventLisinerRight = styled.div`
 @media only screen and (min-width: 600px) {
 position:absolute;
 right:0;
 top:0;
-width:200px;
+width:100px;
 height:100%;}
 `
+const MobileMenuIcon = styled.div`
+@media only screen and (max-width: 599px) {
+  position:fixed;
+  bottom:30px;
+  left:30px;
+  z-index:999;
 
+}`
 
 
 
@@ -33,7 +43,7 @@ const MenuEventLisinerLeft = styled.div`
 position:absolute;
 left:0;
 top:0;
-width:200px;
+width:100px;
 height:100%;}
 `
 
@@ -164,10 +174,11 @@ export default function MenuPanel() {
       </Drawer>
     
     </div>
+      
       <MenuEventLisinerRight onClick={toggleDrawer('right', true)}/>
       <MenuEventLisinerLeft onClick={toggleDrawer('left', true)}/>
       <ResetDataModal clearData={doReset} open={openModal} handleClose={handleClose}/>
-
+      <MobileMenuIcon><span>< MenuIcon onClick={toggleDrawer('right', true)} /></span></MobileMenuIcon>
       </>
   );
 }
