@@ -32,8 +32,10 @@ const MobileMenuIcon = styled.div`
   bottom:30px;
   left:30px;
   z-index:999;
-
-}`
+  display:block;
+}
+display:none;
+`
 
 
 
