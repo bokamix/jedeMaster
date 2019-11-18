@@ -12,10 +12,9 @@ import DoneIcon from '@material-ui/icons/Done';
 import ClearIcon from '@material-ui/icons/Clear';
 import moment from "moment";
 import Container from "@material-ui/core/Container";
-import MenuPanel from "./MenuPanel";
-import LogsContainer from "../app/logs/components/LogsContainer"
-import LogsForm from "../app/logs/components/LogsForm"
-import CanbanCard from "./CanbanCard"
+// import LogsContainer from "../app/logs/components/LogsContainer"
+// import LogsForm from "../app/logs/components/LogsForm"
+// import CanbanCard from "./CanbanCard"
 
 const MainWrapper = styled.div`
   margin: 0 auto;
@@ -49,7 +48,6 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     textAlign: "center",
     color: "#ffffffc4",
-
     background: '#202334'
   }
 }));
@@ -74,6 +72,17 @@ const resetChecklist = () =>{
     }
 }
 
+const isTodayDone = () =>{
+  if(JSON.parse(window.localStorage.getItem("listOfCheckTask"))){
+    let dayLogsWork = JSON.parse(window.localStorage.getItem("dayLogs")); 
+    let lastElement = dayLogsWork[dayLogsWork.length - 1];  
+    if(lastElement.isDone ==="true"){
+      return true
+    }else return false
+    }
+}
+
+
 const getCheckActivity =()=>{
   if(lastLogIsToday()){
   }
@@ -97,6 +106,7 @@ const setGoalStatus = () =>{
 export default function ContentWrapper() {
   const classes = useStyles();
   const [active, setActive] = React.useState(setGoalStatus());
+  const [dayDone, setdayDone] = React.useState(isTodayDone())
 
   // window.localStorage.clear();
  
@@ -195,7 +205,6 @@ const startChallenge = () => {
     dayLogsWork = JSON.parse(window.localStorage.getItem("dayLogs"));
     dayLogsWork.sort((a, b) => (a.date > b.date) ? 1 : -1)
     window.localStorage.setItem("dayLogs", JSON.stringify(dayLogsWork))
-    console.log(`przesortowano`)
   }
   else{console.log(`nie ma nic w logach`)}
 }
@@ -304,18 +313,20 @@ const checkItemDone = () => {
         console.log("niektóre są false") 
         elementToChange.isDone = "false"
         window.localStorage.setItem("dayLogs", JSON.stringify(dayLogsWork))
+        setdayDone(false)
       }
       else {
         let elementToChange = dayLogsWork[dayLogsWork.length - 1]
         elementToChange.isDone = "true"
         window.localStorage.setItem("dayLogs", JSON.stringify(dayLogsWork))
+        setdayDone(true)
       }      
 }
 
 const showProgresIcons = () =>{
   if(JSON.parse(window.localStorage.getItem("dayLogs"))){
-
     let dayLogsWork = JSON.parse(window.localStorage.getItem("dayLogs"));
+    dayLogsWork.pop()
     return dayLogsWork.map((item, num)=>{
       return <span key={num}>{item.isDone ==="false" ? <ClearIcon  /> : < DoneIcon />}</span>
   
@@ -324,13 +335,10 @@ const showProgresIcons = () =>{
 }
 
 
-// list.sort((a, b) => (a.color > b.color) ? 1 : -1)
-  ////////////////////////////////////
+
   return (
-    <MainWrapper>   
-      {/* <button onClick={()=>isLastLogToday()}>Is Last like today</button>
-      <button onClick={()=>sortLogItems()}>sort</button> */}     
-            <MainTitle>JedeStym</MainTitle>
+    <MainWrapper>    
+     <MainTitle>JedeStym</MainTitle>    
       <div className={classes.root}>
         <Container>
           <Grid container spacing={3}>
@@ -345,8 +353,7 @@ const showProgresIcons = () =>{
                 {active ? <h3>Zostało {daysLeft} dni</h3> : ``}
               </Paper> 
               <Paper className={classes.paper} >
-                <PrograsWrapper>{showProgresIcons()}</PrograsWrapper>
-               
+                <PrograsWrapper>{dayDone === false ? <ClearIcon  /> : < DoneIcon />}{showProgresIcons()}</PrograsWrapper>               
               </Paper>                
             </Grid>
           </Grid>
@@ -358,8 +365,7 @@ const showProgresIcons = () =>{
               </Paper>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <Paper className={classes.paper}>
-                <h3>Dlaczego chcesz to zrobić?</h3>
+              <Paper className={classes.paper}>              
                 <ListOfResons />
               </Paper>
             </Grid>    
@@ -379,7 +385,7 @@ const showProgresIcons = () =>{
             </StartButton>
           ) : (
               ``
-            )}   <MenuPanel />
+            )}   
         </Container>
       </div>
 

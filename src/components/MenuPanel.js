@@ -14,19 +14,27 @@ import GolfCourseIcon from '@material-ui/icons/GolfCourse';
 import LayersClearIcon from '@material-ui/icons/LayersClear';
 import styled from "styled-components";
 import { height } from '@material-ui/system';
+import ResetDataModal from './ResetDataModal'
 const MenuEventLisinerRight = styled.div`
+@media only screen and (min-width: 600px) {
 position:absolute;
 right:0;
 top:0;
 width:200px;
-height:100%;
+height:100%;}
 `
+
+
+
+
 const MenuEventLisinerLeft = styled.div`
+
+@media only screen and (min-width: 600px) {
 position:absolute;
 left:0;
 top:0;
 width:200px;
-height:100%;
+height:100%;}
 `
 
 
@@ -50,11 +58,18 @@ const useStyles = makeStyles({
 export default function MenuPanel() {
   const classes = useStyles();
   const [state, setState] = React.useState({
-    top: false,
+        top: false,
     left: false,
     bottom: false,
     right: false,
   });
+  const [openModal, setOpen] = React.useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+
 
   const toggleDrawer = (side, open) => event => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -65,10 +80,13 @@ export default function MenuPanel() {
   };
 
   const resetAllDataInLocalStorage = () =>{
-    window.localStorage.clear();
-  
+    setOpen(true);
   }
   
+  const doReset = () =>{
+    window.localStorage.clear();
+    setOpen(false);
+  }
 
   const sideList = side => (
     <div
@@ -88,8 +106,7 @@ export default function MenuPanel() {
         ))}
       </List>
       <Divider />
-      <List>
-       
+      <List>       
         <ListItem button>
             <ListItemIcon><GolfCourseIcon/></ListItemIcon>
             <ListItemText primary="Wyzwanie" />
@@ -149,6 +166,8 @@ export default function MenuPanel() {
     </div>
       <MenuEventLisinerRight onClick={toggleDrawer('right', true)}/>
       <MenuEventLisinerLeft onClick={toggleDrawer('left', true)}/>
+      <ResetDataModal clearData={doReset} open={openModal} handleClose={handleClose}/>
+
       </>
   );
 }

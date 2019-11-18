@@ -7,7 +7,13 @@ import ListItemText from "@material-ui/core/ListItemText";
 import StarIcon from "@material-ui/icons/Star";
 import EditTextInput from "./EditTextInput";
 import EditIcon from '@material-ui/icons/Edit';
+import styled from "styled-components";
 
+const TitleWrapper = styled.div`
+display:flex;
+align-items:center;
+justify-content:space-around;
+`
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -64,7 +70,7 @@ export default function ListOfResons() {
   };
 
   const listItems = listOfResonsArray.map((item, num) => (
-    <ListItem button key={`Item${num}`} onDoubleClick={() => handleOpen()} >
+    <ListItem button key={`Item${num}`} >
       {open ? (
         <EditTextInput inputValue={item} saveChanges={handleClose} itemNumber={num}/>
       ) : (
@@ -73,7 +79,6 @@ export default function ListOfResons() {
             <StarIcon />
           </ListItemIcon>
           <ListItemText primary={item} />
-          <EditIcon onClick={() => handleOpen()}/>
         </>
       )}
     </ListItem>
@@ -81,6 +86,7 @@ export default function ListOfResons() {
 
   return (
     <>
+      <TitleWrapper><h3>Dlaczego chcesz to zrobić?</h3><span><EditIcon onClick={() => handleOpen()}/></span></TitleWrapper>
       <List component="nav" className={classes.root} aria-label="contacts">
         {listItems}
       </List>

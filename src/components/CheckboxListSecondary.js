@@ -87,10 +87,11 @@ export default function CheckboxListSecondary({ CheckItems, checkItemDone }) {
 
   return (
     <List dense className={classes.root}>
+      <span><EditIcon onClick={handleOpen}/></span>
       {listOfCheckTask.map((element, value) => {
         const labelId = `checkbox-list-secondary-label-${value}`;
         return (
-          <ListItem key={value} button onDoubleClick={handleOpen} >
+          <ListItem key={value} button >
             {open ? (
               <EditTextInput
                 inputValue={element.item}
@@ -98,8 +99,7 @@ export default function CheckboxListSecondary({ CheckItems, checkItemDone }) {
                 itemNumber={value}
               />
             ) : (
-              <>
-              <EditIcon onClick={handleOpen}/>
+              <>              
                 <ListItemText id={labelId} primary={`${element.item}`} />
                 <ListItemSecondaryAction>
                   <Checkbox
