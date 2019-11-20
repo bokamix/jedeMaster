@@ -6,7 +6,7 @@ const LogsContainer = ({logs, getAllLogs}) => {
   useEffect(() => { getAllLogs() }, [])
 
   return <ul>
-    {logs.list.map(log => <li>{log}</li>)}
+    {logs.list.map(log => console.log(log))}
   </ul>
 }
 

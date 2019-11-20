@@ -12,7 +12,7 @@ import DoneIcon from '@material-ui/icons/Done';
 import ClearIcon from '@material-ui/icons/Clear';
 import moment from "moment";
 import Container from "@material-ui/core/Container";
-// import LogsContainer from "../app/logs/components/LogsContainer"
+import LogsContainer from "../app/logs/components/LogsContainer"
 // import LogsForm from "../app/logs/components/LogsForm"
 // import CanbanCard from "./CanbanCard"
 
@@ -188,6 +188,11 @@ const startChallenge = () => {
         },
         {
           item: "Nie jadłem słodyczy",
+          done: "false",
+          lastActivity: "2019-11-05T10:26:09.491Z"
+        },
+        {
+          item: "Uczę się 15 min angielskiego",
           done: "false",
           lastActivity: "2019-11-05T10:26:09.491Z"
         }
@@ -407,7 +412,7 @@ const showProgresIcons = () =>{
             )}   
         </Container>
       </div>
-
+          < LogsContainer/>
      
 
     </MainWrapper>

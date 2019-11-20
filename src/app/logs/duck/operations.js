@@ -1,16 +1,18 @@
 import actions from './actions'
 
-const fetchLogs = async () => {
-  const response = await fetch('http://localhost:3000/movies', { method: 'GET' })
-  const json = await response.json()
-
-  return json
+const fetchLogs = () => {
+  if(window.localStorage.getItem("dayLogs")){
+    let dayLogs = JSON.parse(window.localStorage.getItem("dayLogs"));
+    return dayLogs
+  }
+  else return []
+  
 }
 
 export const getAllLogs = () =>
-  async (dispatch) => {
-    const logs = await fetchLogs()
-
-    logs.map(log => dispatch(actions.add(log.title)))
+   (dispatch) => {
+    const logs =  fetchLogs()
+    logs.map(log => dispatch(actions.add(log)))
   }
+
 

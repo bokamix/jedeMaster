@@ -40,7 +40,7 @@ export default function ListOfResons() {
   ///////////////// Local Storage
   let listOfResonsArray
   if(!window.localStorage.getItem('listOfResonsArray')){    
-    listOfResonsArray = ["A", "B", "C"];
+    listOfResonsArray = ["A", "B", "C", "D", "E", "F"];
     window.localStorage.setItem('listOfResonsArray', JSON.stringify(listOfResonsArray));
   }
    else{

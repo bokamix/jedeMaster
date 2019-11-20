@@ -2,7 +2,7 @@ import types from './types'
 
 
 const INITIAL_STATE = {
-  listName: 'Favourite',
+  listName: 'Logs',
   list: []
 }
 
