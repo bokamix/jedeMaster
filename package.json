@@ -1,44 +1,48 @@
 {
-  "name": "jedemore",
-  "version": "0.1.0",
+  "name": "gatsby-starter-default",
   "private": true,
+  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "version": "0.1.0",
+  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
-    "@material-ui/core": "^4.6.0",
+    "@material-ui/core": "^4.7.0",
     "@material-ui/icons": "^4.5.1",
+    "gatsby": "^2.17.11",
+    "gatsby-image": "^2.2.31",
+    "gatsby-plugin-manifest": "^2.2.29",
+    "gatsby-plugin-offline": "^3.0.22",
+    "gatsby-plugin-react-helmet": "^3.1.14",
+    "gatsby-plugin-sharp": "^2.2.37",
+    "gatsby-source-filesystem": "^2.1.36",
+    "gatsby-transformer-sharp": "^2.3.3",
     "moment": "^2.24.0",
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2",
-    "react-redux": "^7.1.3",
-    "react-scripts": "3.2.0",
-    "react-swipeable-views": "^0.13.3",
-    "react-window": "^1.8.5",
-    "redux": "^4.0.4",
-    "redux-devtools-extension": "^2.13.8",
-    "redux-thunk": "^2.3.0",
-    "styled-components": "^4.4.0"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "prop-types": "^15.7.2",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
+    "react-helmet": "^5.2.1",
+    "styled-components": "^4.4.1"
   },
   "devDependencies": {
-    "redux-devtools": "^3.5.0"
+    "prettier": "^1.19.1"
+  },
+  "keywords": [
+    "gatsby"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
+    "start": "npm run develop",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
+  },
+  "bugs": {
+    "url": "https://github.com/gatsbyjs/gatsby/issues"
   }
 }
