@@ -96,7 +96,7 @@ export default function MenuPanel() {
   }
   
   const doReset = () =>{
-    window.localStorage.clear();
+    localStorage.clear();
     setOpen(false);
   }
 

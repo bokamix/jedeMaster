@@ -1,19 +1,19 @@
 import React from "react";
 import EditTextInput from "./EditTextInput";
 import EditIcon from '@material-ui/icons/Edit';
-
+import { loadState, saveState } from '../localStorage'
 export default function GoalForm() {
   let goalItem
-  if(!window.localStorage.getItem('goalItem')){    
+  if(!loadState('goalItem')){    
     goalItem = 	{goal:"Wyjście z przegrywu",date:"05-11-2019"};
-    window.localStorage.setItem('goalItem', JSON.stringify(goalItem));
+    saveState('goalItem',goalItem);
   }
    else{
-    goalItem = JSON.parse(window.localStorage.getItem('goalItem'));
+    goalItem = loadState('goalItem');
    }
 
   const syncFunction = () =>{
-    window.localStorage.setItem('goalItem', JSON.stringify(goalItem));
+    saveState('goalItem',goalItem);
   }
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {

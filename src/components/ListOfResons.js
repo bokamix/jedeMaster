@@ -8,6 +8,7 @@ import StarIcon from "@material-ui/icons/Star";
 import EditTextInput from "./EditTextInput";
 import EditIcon from '@material-ui/icons/Edit';
 import styled from "styled-components";
+import { loadState, saveState } from '../localStorage'
 
 const TitleWrapper = styled.div`
 display:flex;
@@ -39,12 +40,12 @@ export default function ListOfResons() {
 
   ///////////////// Local Storage
   let listOfResonsArray
-  if(!window.localStorage.getItem('listOfResonsArray')){    
+  if(!loadState('listOfResonsArray')){    
     listOfResonsArray = ["A", "B", "C", "D", "E", "F"];
-    window.localStorage.setItem('listOfResonsArray', JSON.stringify(listOfResonsArray));
+    saveState('listOfResonsArray',listOfResonsArray);
   }
    else{
-    listOfResonsArray = JSON.parse(window.localStorage.getItem('listOfResonsArray'));
+    listOfResonsArray = loadState('listOfResonsArray');
    }
   ///////////////// Local Storage Day
 
@@ -54,10 +55,9 @@ export default function ListOfResons() {
   ///////////////// Local Storage
 
   const syncFunction = () =>{
-    window.localStorage.setItem('listOfResonsArray', JSON.stringify(listOfResonsArray));
+    saveState('listOfResonsArray',listOfResonsArray);
   }
   
-
   const handleOpen = () => {
     setOpen(true);
   };

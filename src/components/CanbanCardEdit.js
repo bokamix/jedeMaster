@@ -5,15 +5,15 @@ import TextField from '@material-ui/core/TextField';
 const useStyles = makeStyles(theme => ({
  
  root:{
-    color:'white',   
+    color:'black',   
   },
   textField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1), 
-    color:'white',    
+    color:'black',    
   },
   label:{
-    color:'white',    
+    color:'black',    
   },
   container:{
     '&$focusVisible': {
@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-export default function EditTextInput({inputValue, saveChanges, itemNumber}) {
+export default function CanbanCardEdit({inputValue, handleClose, itemNumber}) {
   const classes = useStyles();
   const [value, setValue] = React.useState(`${inputValue}`);
   const handleChange = event => {
@@ -35,9 +35,9 @@ export default function EditTextInput({inputValue, saveChanges, itemNumber}) {
         <TextField
           id={`${itemNumber}`}
           label="Type something"
-          label="Primary"
+          label="Type Somthings"
           multiline
-          onBlur={saveChanges}
+          onBlur={handleClose}
           rowsMax="4"
           value={value}
           onChange={handleChange}

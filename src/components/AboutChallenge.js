@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import styled from "styled-components";
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import CanbanCard from "./CanbanCard"
+// import CanbanCard from "./CanbanCard"
 
 const MainWrapper = styled.div`
 width:70%;

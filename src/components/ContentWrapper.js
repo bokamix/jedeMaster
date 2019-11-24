@@ -12,7 +12,8 @@ import DoneIcon from '@material-ui/icons/Done';
 import ClearIcon from '@material-ui/icons/Clear';
 import moment from "moment";
 import Container from "@material-ui/core/Container";
-import LogsContainer from "../app/logs/components/LogsContainer"
+import { loadState, saveState } from '../localStorage'
+// import LogsContainer from "../app/logs/components/LogsContainer"
 // import LogsForm from "../app/logs/components/LogsForm"
 // import CanbanCard from "./CanbanCard"
 
@@ -53,8 +54,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const lastLogIsToday = () =>{
-  if(JSON.parse(window.localStorage.getItem("dayLogs"))){
-    let listOfCheckTaskWork = JSON.parse(window.localStorage.getItem("dayLogs"));
+  if(loadState("dayLogs")){
+    let listOfCheckTaskWork = loadState("dayLogs");
     let today = moment().toISOString();
     let lastElement = listOfCheckTaskWork[listOfCheckTaskWork.length - 1]; 
     let isSame = moment(lastElement.date).isSame(moment(today), 'day') 
@@ -63,40 +64,40 @@ const lastLogIsToday = () =>{
 }
 
 const resetChecklist = () =>{
-  if(JSON.parse(window.localStorage.getItem("listOfCheckTask"))){
-    let listOfCheckTaskWork = JSON.parse(window.localStorage.getItem("listOfCheckTask"));
+  if(loadState("listOfCheckTask")){
+    let listOfCheckTaskWork = loadState("listOfCheckTask");
     listOfCheckTaskWork.forEach((item)=>{
       item.done = "false"   
     })
-    window.localStorage.setItem("listOfCheckTask",JSON.stringify(listOfCheckTaskWork));
+    saveState("listOfCheckTask",listOfCheckTaskWork);
     }
 }
 const addLog = (day, logValue) =>{
   let dayLogsWork = []
-  if(window.localStorage.getItem("dayLogs")){
-    dayLogsWork = JSON.parse(window.localStorage.getItem("dayLogs"));
+  if(loadState("dayLogs")){
+    dayLogsWork = loadState("dayLogs");
   }
   let dayToAdd = {
     date: day,
     isDone: `${logValue}`
   }
   dayLogsWork.push(dayToAdd)
-  window.localStorage.setItem("dayLogs", JSON.stringify(dayLogsWork))
+  saveState("dayLogs", dayLogsWork)
   sortLogItems()
 }
 const sortLogItems = () => {
   let dayLogsWork = []
-  if(window.localStorage.getItem("dayLogs")){
-    dayLogsWork = JSON.parse(window.localStorage.getItem("dayLogs"));
+  if(loadState("dayLogs")){
+    dayLogsWork = loadState("dayLogs");
     dayLogsWork.sort((a, b) => (a.date > b.date) ? 1 : -1)
-    window.localStorage.setItem("dayLogs", JSON.stringify(dayLogsWork))
+    saveState("dayLogs",dayLogsWork)
   }
   else{console.log(`nie ma nic w logach`)}
 }
 sortLogItems()
 const isTodayDone = () =>{
-  if(JSON.parse(window.localStorage.getItem("dayLogs"))){
-    let dayLogsWork = JSON.parse(window.localStorage.getItem("dayLogs")); 
+  if(loadState("dayLogs")){
+    let dayLogsWork = loadState("dayLogs"); 
     let lastElement = dayLogsWork[dayLogsWork.length - 1];  
     if(lastElement.isDone ==="true"){
       return true
@@ -113,8 +114,8 @@ const getCheckActivity =()=>{
 getCheckActivity()
 
 const setGoalStatus = () =>{
-  if(window.localStorage.getItem("goalItem")){
-   let goalInfo = JSON.parse(window.localStorage.getItem("goalItem"));    
+  if(loadState("goalItem")){
+   let goalInfo = loadState("goalItem");    
    let goalStatus = goalInfo.isActive
     return goalStatus
   }
@@ -122,8 +123,8 @@ const setGoalStatus = () =>{
 
 
 const howManyInCycle = () =>{
-  if(JSON.parse(window.localStorage.getItem("dayLogs"))){
-    let dayLogsWork = JSON.parse(window.localStorage.getItem("dayLogs")); 
+  if(loadState("dayLogs")){
+    let dayLogsWork = loadState("dayLogs"); 
     dayLogsWork.pop()
     let i=0;
     dayLogsWork.forEach((item)=>{
@@ -140,9 +141,9 @@ const isLastLogToday =()=>{
   console.log(`isLastLogToday`)
   sortLogItems();
   let dayLogsWork = []
-  if(window.localStorage.getItem("dayLogs")){
+  if(loadState("dayLogs")){
 
-   dayLogsWork = JSON.parse(window.localStorage.getItem("dayLogs"));
+   dayLogsWork = loadState("dayLogs");
     let lastElement = dayLogsWork[dayLogsWork.length - 1];
     let todayDate = moment().toISOString()
     let isTodayValue = moment(lastElement.date).isSame(moment(todayDate), 'day')    
@@ -192,20 +193,20 @@ export default function ContentWrapper() {
   const [dayDone, setdayDone] = React.useState(isTodayDone())
   const [logList, setLogList] = React.useState()
 
-  // window.localStorage.clear();
+  // localStorage.clear();
  
   let goalItem;
 const getGoal = () =>{   
-  if (!window.localStorage.getItem("goalItem")) {
+  if (!loadState("goalItem")) {
     goalItem = {
       goal: "Podstawowe nawyki",
       isActive: false,
       startDate: "2019-11-05T10:26:09.491Z",
       endDate: "2020-01-04T10:26:09.491Z"
     };
-    window.localStorage.setItem("goalItem", JSON.stringify(goalItem));
+    saveState("goalItem", goalItem);
   } else {
-    goalItem = JSON.parse(window.localStorage.getItem("goalItem"));    
+    goalItem = loadState("goalItem");    
   }
 }
 getGoal()
@@ -218,7 +219,7 @@ const startChallenge = () => {
   goalItem.endDate = endDate.toISOString();
   goalItem.isActive = true;
   setActive(true)
-  window.localStorage.setItem("goalItem", JSON.stringify(goalItem));
+  saveState("goalItem", goalItem);
 };
 
 
@@ -226,7 +227,7 @@ const startChallenge = () => {
   let newChecked = [];
   let listOfCheckTask;
   const getListOfCheck =()=>{ 
-    if (!window.localStorage.getItem("listOfCheckTask")) {
+    if (!loadState("listOfCheckTask")) {
       listOfCheckTask = [
         {
           item: "Pościeliłem rano łóżko",
@@ -254,14 +255,10 @@ const startChallenge = () => {
           lastActivity: "2019-11-05T10:26:09.491Z"
         }
       ];
-      window.localStorage.setItem(
-        "listOfCheckTask",
-        JSON.stringify(listOfCheckTask)
-      );
+      saveState("listOfCheckTask",listOfCheckTask);
     } else {
-      listOfCheckTask = JSON.parse(
-        window.localStorage.getItem("listOfCheckTask")
-      );
+      listOfCheckTask =  loadState("listOfCheckTask");
+  
       ///Add Check Element From Local Storage
       listOfCheckTask.forEach((element, number) => {
         
@@ -295,8 +292,8 @@ const startChallenge = () => {
 
 const getItemFromLog = (day) =>{
   let dayLogsWork = []
-  if(window.localStorage.getItem("dayLogs")){
-    dayLogsWork = JSON.parse(window.localStorage.getItem("dayLogs"));
+  if(loadState("dayLogs")){
+    dayLogsWork = loadState("dayLogs");
     let result = dayLogsWork.find(({date}) => date === day);
       if(result){
         console.log(result, "getItemDFromLog remove")
@@ -311,14 +308,14 @@ const getItemFromLog = (day) =>{
 
 const removeItemFromLog = (day) =>{
   let dayLogsWork = []
-  if(window.localStorage.getItem("dayLogs")){
+  if(loadState("dayLogs")){
 
-    dayLogsWork = JSON.parse(window.localStorage.getItem("dayLogs"));
+    dayLogsWork = loadState("dayLogs");
     dayLogsWork.forEach((item)=>{
       console.log(item.date)
     })    
     dayLogsWork.splice(dayLogsWork.findIndex(item => item.date === `${day}`), 1)
-    window.localStorage.setItem("dayLogs", JSON.stringify(dayLogsWork))
+    saveState("dayLogs",dayLogsWork)
 
   }
   else{console.log(`nie ma nic w logach`)}
@@ -330,27 +327,27 @@ const removeItemFromLog = (day) =>{
 /// Funkcja która sprawdza czy isnieje log i pobiera go jeśli nie to zwraca wartość
 
 const checkItemDone = () => {
-  listOfCheckTask = JSON.parse(window.localStorage.getItem("listOfCheckTask"));
-  let dayLogsWork = JSON.parse(window.localStorage.getItem("dayLogs"));
+  listOfCheckTask = loadState("listOfCheckTask");
+  let dayLogsWork = loadState("dayLogs");
     let result = listOfCheckTask.find(({done}) => done === "false");
       if(result){       
         let elementToChange = dayLogsWork[dayLogsWork.length - 1]
         console.log("niektóre są false") 
         elementToChange.isDone = "false"
-        window.localStorage.setItem("dayLogs", JSON.stringify(dayLogsWork))
+        saveState("dayLogs",dayLogsWork)
         setdayDone(false)
       }
       else {
         let elementToChange = dayLogsWork[dayLogsWork.length - 1]
         elementToChange.isDone = "true"
-        window.localStorage.setItem("dayLogs", JSON.stringify(dayLogsWork))
+        saveState("dayLogs", dayLogsWork)
         setdayDone(true)
       }      
 }
 
 const showProgresIcons = () =>{
-  if(JSON.parse(window.localStorage.getItem("dayLogs"))){
-    let dayLogsWork = JSON.parse(window.localStorage.getItem("dayLogs"));
+  if(loadState("dayLogs")){
+    let dayLogsWork = loadState("dayLogs");
     dayLogsWork.pop()
     dayLogsWork.reverse()
     return dayLogsWork.map((item, num)=>{
@@ -415,7 +412,7 @@ const showProgresIcons = () =>{
             )}   
         </Container>
       </div>
-          < LogsContainer/>
+          {/* < LogsContainer/> */}
      
 
     </MainWrapper>

@@ -8,6 +8,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import EditTextInput from "./EditTextInput";
 import moment from "moment";
 import EditIcon from '@material-ui/icons/Edit';
+import { loadState, saveState } from '../localStorage'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -23,7 +24,7 @@ export default function CheckboxListSecondary({ CheckItems, checkItemDone }) {
   const [checked, setChecked] = React.useState(CheckItems);
   const [open, setOpen] = React.useState(false);
   let listOfCheckTask;
-  if (!window.localStorage.getItem("listOfCheckTask")) {
+  if (!loadState("listOfCheckTask")) {
     listOfCheckTask = [
       { item: "Pościeliłem rano łóżko", done: "false", lastActivity:"2019-11-05T10:26:09.491Z", },
       { item: "Zrobiłem ćwiczenia", done: "false", lastActivity:"2019-11-05T10:26:09.491Z", },
@@ -31,20 +32,13 @@ export default function CheckboxListSecondary({ CheckItems, checkItemDone }) {
       { item: "Nie jadłem słodyczy", done: "false", lastActivity:"2019-11-05T10:26:09.491Z", }
       
     ];
-    window.localStorage.setItem(
-      "listOfCheckTask",
-      JSON.stringify(listOfCheckTask)
-    );
+    saveState( "listOfCheckTask",  listOfCheckTask );
   } else {
-    listOfCheckTask = JSON.parse(
-      window.localStorage.getItem("listOfCheckTask")
-    );
+    listOfCheckTask = loadState("listOfCheckTask");
+ 
   }
   const syncFunction = () => {
-    window.localStorage.setItem(
-      "listOfCheckTask",
-      JSON.stringify(listOfCheckTask)
-    );
+    saveState(  "listOfCheckTask", listOfCheckTask);
   };
 
 
@@ -75,10 +69,7 @@ export default function CheckboxListSecondary({ CheckItems, checkItemDone }) {
     } else {
       listOfCheckTask[value].done = "false";     
     }
-    window.localStorage.setItem(
-      "listOfCheckTask",
-      JSON.stringify(listOfCheckTask)
-    );
+    saveState( "listOfCheckTask",listOfCheckTask);
 
     setChecked(newChecked);
     checkItemDone()
