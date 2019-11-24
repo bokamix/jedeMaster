@@ -16,7 +16,7 @@ import styled from "styled-components";
 import { height } from '@material-ui/system';
 import ResetDataModal from './ResetDataModal'
 import MenuIcon from '@material-ui/icons/Menu';
-
+import { Link } from "gatsby"
 
 const MenuEventLisinerRight = styled.div`
 @media only screen and (min-width: 600px) {
@@ -121,7 +121,11 @@ export default function MenuPanel() {
       <List>       
         <ListItem button>
             <ListItemIcon><GolfCourseIcon/></ListItemIcon>
-            <ListItemText primary="Wyzwanie" />
+           <Link to="/"  activeClassName="active__menu__item" ><ListItemText primary="Wyzwanie" /></Link>
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon><GolfCourseIcon/></ListItemIcon>
+           <Link to="/challenges"   activeClassName="active__menu__item" ><ListItemText primary="Challenges" /></Link>
           </ListItem>
           <ListItem button onClick={resetAllDataInLocalStorage}>
             <ListItemIcon><LayersClearIcon/></ListItemIcon>

@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import styled from "styled-components";
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-// import CanbanCard from "./CanbanCard"
+import CanbanCard from "./CanbanCard"
 
 const MainWrapper = styled.div`
 width:70%;
@@ -28,13 +28,11 @@ export default function AboutChallenge() {
   function FormRow() {
     return (
       <React.Fragment>
-        <Grid item xs={4}>
+     
+        <Grid item xs={6}>
           <Paper className={classes.paper}><CanbanCard/></Paper>
         </Grid>
-        <Grid item xs={4}>
-          <Paper className={classes.paper}><CanbanCard/></Paper>
-        </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={6}>
           <Paper className={classes.paper}><CanbanCard/></Paper>
         </Grid>
       </React.Fragment>

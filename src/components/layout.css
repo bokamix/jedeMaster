@@ -640,3 +640,13 @@ span{
   cursor: pointer;
 }
 
+.active__menu__item{
+  text-decoration: none;
+  color:white;
+  border-bottom: 1px #39bbb3 solid;
+}
+a{
+  color:#ffffffc4;
+  text-decoration: none;
+
+}
