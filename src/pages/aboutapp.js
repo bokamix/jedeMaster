@@ -94,7 +94,7 @@ export default function AboutApp({setHandle}) {
             <Typography variant="h5" align="center" color="textSecondary" paragraph>
               Sprawdzona metoda na rozwijanie nawyków i dotrzymywanie postanowień. Skorzystaj z systemu zaprojektowanego
               dla Twojego osobistego sukcesu. Polecany przez najlepszych specjalistów.
-            </Typography>
+            </Typography >
           
           </Container>
         </div>
