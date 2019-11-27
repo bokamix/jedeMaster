@@ -5,7 +5,7 @@ import Image from "../components/image"
 import SEO from "../components/seo"
 import MenuPanel from "../components/MenuPanel";
 import ContentWrapper from "../components/ContentWrapper"
-import NewUserPage from "../components/NewUserPage"
+
 // import AboutChallenge from "../components/AboutChallenge"
 import { loadState } from '../localStorage'
 

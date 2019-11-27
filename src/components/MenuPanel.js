@@ -127,6 +127,10 @@ export default function MenuPanel() {
             <ListItemIcon><GolfCourseIcon/></ListItemIcon>
            <Link to="/challenges"   activeClassName="active__menu__item" ><ListItemText primary="Challenges" /></Link>
           </ListItem>
+          <ListItem button>
+            <ListItemIcon><GolfCourseIcon/></ListItemIcon>
+           <Link to="/aboutapp"   activeClassName="active__menu__item" ><ListItemText primary="O aplikacji" /></Link>
+          </ListItem>        
           <ListItem button onClick={resetAllDataInLocalStorage}>
             <ListItemIcon><LayersClearIcon/></ListItemIcon>
             <ListItemText primary="Resetuj wszystkie dane" />
