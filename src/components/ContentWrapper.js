@@ -279,7 +279,7 @@ const startChallenge = () => {
 
 
   let endDay = goalItem.endDate;
-  let daysLeft = -(moment().diff(endDay, "days") - 1);
+  let daysLeft = -(moment().diff(endDay, "days") );
  ////////////////////////////////////////////////////////////////////
  ////             Main Functions
 

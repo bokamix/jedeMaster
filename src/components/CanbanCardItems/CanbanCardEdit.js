@@ -5,15 +5,15 @@ import TextField from '@material-ui/core/TextField';
 const useStyles = makeStyles(theme => ({
  
  root:{
-    color:'black',   
+    color:'white',   
   },
   textField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1), 
-    color:'black',    
+    color:'white',    
   },
   label:{
-    color:'black',    
+    color:'white',    
   },
   container:{
     '&$focusVisible': {
@@ -34,8 +34,7 @@ export default function CanbanCardEdit({inputValue, handleClose, itemNumber}) {
     <form className={classes.container} noValidate autoComplete="off">    
         <TextField
           id={`${itemNumber}`}
-          label="Type something"
-          label="Type Somthings"
+          label="Primary"
           multiline
           onBlur={handleClose}
           rowsMax="4"

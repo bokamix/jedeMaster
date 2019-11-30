@@ -644,6 +644,7 @@ span{
   text-decoration: none;
   color:white;
   border-bottom: 1px #39bbb3 solid;
+  display:block;
 }
 a{
   color:#ffffffc4;

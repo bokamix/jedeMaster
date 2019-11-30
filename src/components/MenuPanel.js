@@ -33,6 +33,8 @@ const MobileMenuIcon = styled.div`
   left:30px;
   z-index:999;
   display:block;
+  background:#39bbb3;
+  padding:5px 10px;
 }
 display:none;
 `
@@ -119,18 +121,23 @@ export default function MenuPanel() {
       </List>
       <Divider />
       <List>       
-        <ListItem button>
+      <Link to="/"  activeClassName="active__menu__item" ><ListItem button>
             <ListItemIcon><GolfCourseIcon/></ListItemIcon>
-           <Link to="/"  activeClassName="active__menu__item" ><ListItemText primary="Wyzwanie" /></Link>
-          </ListItem>
-          <ListItem button>
+          <ListItemText primary="Wyzwanie" />
+          </ListItem></Link>
+          {/* <Link to="/notes"   activeClassName="active__menu__item" > <ListItem button>
             <ListItemIcon><GolfCourseIcon/></ListItemIcon>
-           <Link to="/challenges"   activeClassName="active__menu__item" ><ListItemText primary="Challenges" /></Link>
-          </ListItem>
-          <ListItem button>
+       <ListItemText primary="Notes" />
+          </ListItem></Link> */}
+          <Link to="/challenges"   activeClassName="active__menu__item" > <ListItem button>
             <ListItemIcon><GolfCourseIcon/></ListItemIcon>
-           <Link to="/aboutapp"   activeClassName="active__menu__item" ><ListItemText primary="O aplikacji" /></Link>
-          </ListItem>        
+       <ListItemText primary="Chalanges Info" />
+          </ListItem></Link>
+          
+          <Link to="/aboutapp"   activeClassName="active__menu__item" >  <ListItem button>
+            <ListItemIcon><GolfCourseIcon/></ListItemIcon>
+          <ListItemText primary="O aplikacji" />
+          </ListItem> </Link>       
           <ListItem button onClick={resetAllDataInLocalStorage}>
             <ListItemIcon><LayersClearIcon/></ListItemIcon>
             <ListItemText primary="Resetuj wszystkie dane" />
