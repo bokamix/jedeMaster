@@ -4,6 +4,7 @@ import "./App.css";
 import MenuPanel from "./components/MenuPanel";
 import ContentWrapper from "./components/ContentWrapper"
 import NewUserPage from "./components/NewUserPage"
+import AboutChallenge from "./components/AboutChallenge"
 
 const isDataExist = () =>{
   if(JSON.parse(window.localStorage.getItem("goalItem"))){
@@ -23,7 +24,12 @@ const App =()=> {
   return (
       <>    
      
-      {firstTime ? <> <MenuPanel /><ContentWrapper /></> : <NewUserPage setHandle={setHandle} />}
+      {firstTime ? 
+      <> <MenuPanel /><ContentWrapper />
+      </> :
+       <NewUserPage setHandle={setHandle} />      
+    //  <><MenuPanel /><AboutChallenge /> </>
+       }
 
       </>
     );

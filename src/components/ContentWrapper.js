@@ -71,7 +71,19 @@ const resetChecklist = () =>{
     window.localStorage.setItem("listOfCheckTask",JSON.stringify(listOfCheckTaskWork));
     }
 }
-
+const addLog = (day, logValue) =>{
+  let dayLogsWork = []
+  if(window.localStorage.getItem("dayLogs")){
+    dayLogsWork = JSON.parse(window.localStorage.getItem("dayLogs"));
+  }
+  let dayToAdd = {
+    date: day,
+    isDone: `${logValue}`
+  }
+  dayLogsWork.push(dayToAdd)
+  window.localStorage.setItem("dayLogs", JSON.stringify(dayLogsWork))
+  sortLogItems()
+}
 const sortLogItems = () => {
   let dayLogsWork = []
   if(window.localStorage.getItem("dayLogs")){
@@ -123,6 +135,52 @@ const howManyInCycle = () =>{
     return i
   }
 }
+
+const isLastLogToday =()=>{
+  console.log(`isLastLogToday`)
+  sortLogItems();
+  let dayLogsWork = []
+  if(window.localStorage.getItem("dayLogs")){
+
+   dayLogsWork = JSON.parse(window.localStorage.getItem("dayLogs"));
+    let lastElement = dayLogsWork[dayLogsWork.length - 1];
+    let todayDate = moment().toISOString()
+    let isTodayValue = moment(lastElement.date).isSame(moment(todayDate), 'day')    
+
+    let todayA = moment(todayDate)
+    let lastElementW = moment(lastElement.date)
+    let diffValue = todayA.diff(lastElementW, "day")    
+    if(diffValue > 1)
+    {
+      let i;
+          for (i = 1; i < diffValue; i++) {
+           let dayToAddd = moment().subtract(i, 'days').toISOString()           
+           addLog(dayToAddd, "false")
+        }
+
+
+    }
+    else if (diffValue === 1){
+   resetChecklist() 
+    
+    
+    }
+
+    if(!isTodayValue){
+      addLog(moment().toISOString(),"false")
+      console.log(`dodanie dzisiaj`)
+    } 
+     
+  }
+  else{
+    console.log(`nie ma nic w logach dodaje dzisiaj`)
+    addLog(moment().toISOString(),"false")
+  }  
+}
+
+isLastLogToday()
+
+
 /////////////////////////////////////////////// Start App ////////////////////////////////////////
 //////////////////////////////////////// ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -132,6 +190,7 @@ export default function ContentWrapper() {
   const classes = useStyles();
   const [active, setActive] = React.useState(setGoalStatus());
   const [dayDone, setdayDone] = React.useState(isTodayDone())
+  const [logList, setLogList] = React.useState()
 
   // window.localStorage.clear();
  
@@ -162,9 +221,7 @@ const startChallenge = () => {
   window.localStorage.setItem("goalItem", JSON.stringify(goalItem));
 };
 
-  useEffect(() => {     
-    isLastLogToday()
-});
+
 
   let newChecked = [];
   let listOfCheckTask;
@@ -232,20 +289,6 @@ const startChallenge = () => {
 
 
 
-
-const addLog = (day, logValue) =>{
-  let dayLogsWork = []
-  if(window.localStorage.getItem("dayLogs")){
-    dayLogsWork = JSON.parse(window.localStorage.getItem("dayLogs"));
-  }
-  let dayToAdd = {
-    date: day,
-    isDone: `${logValue}`
-  }
-  dayLogsWork.push(dayToAdd)
-  window.localStorage.setItem("dayLogs", JSON.stringify(dayLogsWork))
-  sortLogItems()
-}
 // addLog(moment().toISOString(),"false")
 
 
@@ -282,47 +325,7 @@ const removeItemFromLog = (day) =>{
 }
 
 
-const isLastLogToday =()=>{
-  console.log(`isLastLogToday`)
-  sortLogItems();
-  let dayLogsWork = []
-  if(window.localStorage.getItem("dayLogs")){
 
-   dayLogsWork = JSON.parse(window.localStorage.getItem("dayLogs"));
-    let lastElement = dayLogsWork[dayLogsWork.length - 1];
-    let todayDate = moment().toISOString()
-    let isTodayValue = moment(lastElement.date).isSame(moment(todayDate), 'day')    
-
-    let todayA = moment(todayDate)
-    let lastElementW = moment(lastElement.date)
-    let diffValue = todayA.diff(lastElementW, "day")    
-    if(diffValue > 1)
-    {
-      let i;
-          for (i = 1; i < diffValue; i++) {
-           let dayToAddd = moment().subtract(i, 'days').toISOString()           
-           addLog(dayToAddd, "false")
-        }
-
-
-    }
-    else if (diffValue === 1){
-   resetChecklist() 
-    
-    
-    }
-
-    if(!isTodayValue){
-      addLog(moment().toISOString(),"false")
-      console.log(`dodanie dzisiaj`)
-    } 
-     
-  }
-  else{
-    console.log(`nie ma nic w logach dodaje dzisiaj`)
-    addLog(moment().toISOString(),"false")
-  }  
-}
 
 /// Funkcja która sprawdza czy isnieje log i pobiera go jeśli nie to zwraca wartość
 

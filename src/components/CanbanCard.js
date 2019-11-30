@@ -3,11 +3,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-
-
+import CanbanCardEdit from "./CanbanCardItems/CanbanCardEdit"
 const Card = styled.div`
-    width:100%;
-`
+  width: 100%;
+`;
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
@@ -15,28 +14,44 @@ const useStyles = makeStyles(theme => ({
   paper: {
     padding: theme.spacing(2),
     textAlign: "center",
-    color: "white"
+    color: "black"
   }
 }));
 
-
-
-
 export default function CanbanCard() {
   const classes = useStyles();
-  const [active, setActive] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
+  const [inputValue, setInputValue] = React.useState("treść");
+  const handleClose = e => {
+    setOpen(false);
+    let ItemId = e.target.id.replace("InputNumber", "");
+    let z  = e.target.value;
+    setInputValue(z)
+  };
+  const EditCard = e => {
+    setOpen(true);
+  };
 
 
-const EditCard =(e)=>{
-    console.log('wywołąnie')
-}
 
+  // const handleClose = e => {
 
+  //   syncFunction();
+  // };
 
-  return ( 
-              <Paper className={classes.paper}>
-                <Card onClick={EditCard}> <h3>Aniołki</h3></Card>
-                <Card onClick={EditCard}> <h3>Diabełki</h3></Card>
-              </Paper>         
+  return (
+    <Paper className={classes.paper}>
+      {!open ? (
+        <>         
+          <Card onClick={EditCard}>           
+            {inputValue}
+          </Card>
+        </>
+      ) : (
+        <>
+         <CanbanCardEdit handleClose={handleClose}/>
+        </>
+      )}      
+    </Paper>
   );
 }
