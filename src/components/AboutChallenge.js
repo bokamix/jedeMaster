@@ -28,20 +28,20 @@ const Papper = styled.div`
 export default function AboutChallenge() {
   const [logItems, setlogItems] = React.useState(loadState("dayLogs"))
 
-  // const logItemsMap = () => {
-  //   if(loadState("dayLogs")){logItems.map((item, num) => {
-  //     return (
-  //       <div key={num}>
-  //         <p>{item.date}</p>
-  //         <p>{item.isDone}</p>
-  //       </div>
-  //     )
-  //   })}
-  // }
+  const logItemsMap = () => {
+   if(logItems){return  logItems.map((item, num) => {
+      return (
+      <div key={num}>
+          <p>{item.date}</p>
+          <p>{item.isDone}</p>
+      </div>
+      )      
+    })}
+  }
 
   return (
     <MainWrapper>
-      <Papper></Papper>
+      <Papper>{logItemsMap()}</Papper>
     </MainWrapper>
   )
 }
