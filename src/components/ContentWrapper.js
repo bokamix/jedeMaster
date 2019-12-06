@@ -92,7 +92,6 @@ const sortLogItems = () => {
     dayLogsWork.sort((a, b) => (a.date > b.date) ? 1 : -1)
     saveState("dayLogs",dayLogsWork)
   }
-  else{console.log(`nie ma nic w logach`)}
 }
 sortLogItems()
 const isTodayDone = () =>{
@@ -138,7 +137,6 @@ const howManyInCycle = () =>{
 }
 
 const isLastLogToday =()=>{
-  console.log(`isLastLogToday`)
   sortLogItems();
   let dayLogsWork = []
   if(loadState("dayLogs")){
@@ -169,12 +167,10 @@ const isLastLogToday =()=>{
 
     if(!isTodayValue){
       addLog(moment().toISOString(),"false")
-      console.log(`dodanie dzisiaj`)
     } 
      
   }
   else{
-    console.log(`nie ma nic w logach dodaje dzisiaj`)
     addLog(moment().toISOString(),"false")
   }  
 }
@@ -296,14 +292,11 @@ const getItemFromLog = (day) =>{
     dayLogsWork = loadState("dayLogs");
     let result = dayLogsWork.find(({date}) => date === day);
       if(result){
-        console.log(result, "getItemDFromLog remove")
       }
       else{
-        console.log(result, "nie znaleziono tego obiektu")
       }
     
   }
-  else{console.log(`nie ma nic w logach`)}
 }
 
 const removeItemFromLog = (day) =>{
@@ -312,13 +305,11 @@ const removeItemFromLog = (day) =>{
 
     dayLogsWork = loadState("dayLogs");
     dayLogsWork.forEach((item)=>{
-      console.log(item.date)
     })    
     dayLogsWork.splice(dayLogsWork.findIndex(item => item.date === `${day}`), 1)
     saveState("dayLogs",dayLogsWork)
 
   }
-  else{console.log(`nie ma nic w logach`)}
 }
 
 
@@ -332,7 +323,6 @@ const checkItemDone = () => {
     let result = listOfCheckTask.find(({done}) => done === "false");
       if(result){       
         let elementToChange = dayLogsWork[dayLogsWork.length - 1]
-        console.log("niektóre są false") 
         elementToChange.isDone = "false"
         saveState("dayLogs",dayLogsWork)
         setdayDone(false)

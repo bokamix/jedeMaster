@@ -26,7 +26,6 @@ export default function CanbanCard({data}) {
   const [inputValue, setInputValue] = React.useState(data.subtitle);
   const [titleValue, setTitleValue] = React.useState(data.title)
 
-console.log(data)
   const handleClose = e => {
     setOpen(false);
     let ItemId = e.target.id.replace("InputNumber", "");
@@ -53,7 +52,6 @@ console.log(data)
 
   //   syncFunction();
   // };
-console.log(data.date)
   return (
     <><Paper className={classes.paper}>  
     {!openTitle ? (

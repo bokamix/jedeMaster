@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { loadState } from "../localStorage"
+import LogItemComponent from "./LogsComponents/LogItemComponent"
 
 const MainWrapper = styled.div`
   width: 70%;
@@ -27,21 +28,25 @@ const Papper = styled.div`
 
 export default function AboutChallenge() {
   const [logItems, setlogItems] = React.useState(loadState("dayLogs"))
+  const [edit, setEdit] = React.useState(false)
+  const EditLog =()=>{
+    setEdit(true)
+  }
+  const saveChanges =(e)=>{
+    setEdit(false)
+  }
 
   const logItemsMap = () => {
-   if(logItems){return  logItems.map((item, num) => {
+   if(logItems){return logItems.map((item, num) => {
       return (
-      <div key={num}>
-          <p>{item.date}</p>
-          <p>{item.isDone}</p>
-      </div>
+        <LogItemComponent key={num} item={item} num={num}/>
       )      
     })}
   }
 
   return (
     <MainWrapper>
-      <Papper>{logItemsMap()}</Papper>
+      <Papper>{ logItemsMap()}</Papper>
     </MainWrapper>
   )
 }

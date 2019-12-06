@@ -15,7 +15,6 @@ export const saveState = (item, itemToAdd) => {
   try {
     localStorage.setItem(`${item}`, JSON.stringify(itemToAdd))
   } catch (err) {
-    console.log("error LocalStorage")
   }
 }; 
 
