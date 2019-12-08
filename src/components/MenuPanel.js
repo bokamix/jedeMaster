@@ -17,7 +17,7 @@ import { height } from '@material-ui/system';
 import ResetDataModal from './ResetDataModal'
 import MenuIcon from '@material-ui/icons/Menu';
 import { Link } from "gatsby"
-
+import CustomLinkWrapper from "./CustomLinks/CustomLinkWrapper"
 const MenuEventLisinerRight = styled.div`
 @media only screen and (min-width: 600px) {
 position:absolute;
@@ -191,7 +191,7 @@ export default function MenuPanel() {
       </Drawer>
     
     </div>
-      
+      <CustomLinkWrapper/>
       <MenuEventLisinerRight onClick={toggleDrawer('right', true)}/>
       <MenuEventLisinerLeft onClick={toggleDrawer('left', true)}/>
       <ResetDataModal clearData={doReset} open={openModal} handleClose={handleClose}/>
