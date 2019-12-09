@@ -53,17 +53,17 @@ export default function ChallengesLogs() {
         goal: "Kotki",
         isActive: false,
         startDate: "2019-11-05T10:26:09.491Z",
-        endDate: "2019-12-08T10:26:09.491Z",
+        endDate: "2019-12-04T10:26:09.491Z",
         challengeId: 15,
   }
   saveState("goalItem", logToAdd)
 
 }
   getAllChallenges()
-
+  makeChallengeUnactive()
   return (
     <div>{console.log(challengesLogs)}
-      <button onClick={ChangeElement}></button>
+      {/* <button onClick={ChangeElement}></button> */}
     </div>
   );
 }  
