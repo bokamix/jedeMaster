@@ -13,6 +13,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import moment from "moment";
 import Container from "@material-ui/core/Container";
 import { loadState, saveState } from '../localStorage'
+import ChallengeLogs from './Challengs/ChallengeLogs'
 // import LogsContainer from "../app/logs/components/LogsContainer"
 // import LogsForm from "../app/logs/components/LogsForm"
 // import CanbanCard from "./CanbanCard"
@@ -53,28 +54,28 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const lastLogIsToday = () =>{
-  if(loadState("dayLogs")){
+const lastLogIsToday = () => {
+  if (loadState("dayLogs")) {
     let listOfCheckTaskWork = loadState("dayLogs");
     let today = moment().toISOString();
-    let lastElement = listOfCheckTaskWork[listOfCheckTaskWork.length - 1]; 
-    let isSame = moment(lastElement.date).isSame(moment(today), 'day') 
+    let lastElement = listOfCheckTaskWork[listOfCheckTaskWork.length - 1];
+    let isSame = moment(lastElement.date).isSame(moment(today), 'day')
     return isSame
-  } 
+  }
 }
 
-const resetChecklist = () =>{
-  if(loadState("listOfCheckTask")){
+const resetChecklist = () => {
+  if (loadState("listOfCheckTask")) {
     let listOfCheckTaskWork = loadState("listOfCheckTask");
-    listOfCheckTaskWork.forEach((item)=>{
-      item.done = "false"   
+    listOfCheckTaskWork.forEach((item) => {
+      item.done = "false"
     })
-    saveState("listOfCheckTask",listOfCheckTaskWork);
-    }
+    saveState("listOfCheckTask", listOfCheckTaskWork);
+  }
 }
-const addLog = (day, logValue) =>{
+const addLog = (day, logValue) => {
   let dayLogsWork = []
-  if(loadState("dayLogs")){
+  if (loadState("dayLogs")) {
     dayLogsWork = loadState("dayLogs");
   }
   let dayToAdd = {
@@ -87,92 +88,91 @@ const addLog = (day, logValue) =>{
 }
 const sortLogItems = () => {
   let dayLogsWork = []
-  if(loadState("dayLogs")){
+  if (loadState("dayLogs")) {
     dayLogsWork = loadState("dayLogs");
     dayLogsWork.sort((a, b) => (a.date > b.date) ? 1 : -1)
-    saveState("dayLogs",dayLogsWork)
+    saveState("dayLogs", dayLogsWork)
   }
 }
 sortLogItems()
-const isTodayDone = () =>{
-  if(loadState("dayLogs")){
-    let dayLogsWork = loadState("dayLogs"); 
-    let lastElement = dayLogsWork[dayLogsWork.length - 1];  
-    if(lastElement.isDone ==="true"){
+const isTodayDone = () => {
+  if (loadState("dayLogs")) {
+    let dayLogsWork = loadState("dayLogs");
+    let lastElement = dayLogsWork[dayLogsWork.length - 1];
+    if (lastElement.isDone === "true") {
       return true
-    }else return false
-    }
+    } else return false
+  }
 }
 
 
-const getCheckActivity =()=>{
-  if(lastLogIsToday()){
+const getCheckActivity = () => {
+  if (lastLogIsToday()) {
   }
-  else{resetChecklist()}
+  else { resetChecklist() }
 }
 getCheckActivity()
 
-const setGoalStatus = () =>{
-  if(loadState("goalItem")){
-   let goalInfo = loadState("goalItem");    
-   let goalStatus = goalInfo.isActive
+const setGoalStatus = () => {
+  if (loadState("goalItem")) {
+    let goalInfo = loadState("goalItem");
+    let goalStatus = goalInfo.isActive
     return goalStatus
   }
-} 
+}
 
 
-const howManyInCycle = () =>{
-  if(loadState("dayLogs")){
-    let dayLogsWork = loadState("dayLogs"); 
+const howManyInCycle = () => {
+  if (loadState("dayLogs")) {
+    let dayLogsWork = loadState("dayLogs");
     dayLogsWork.pop()
-    let i=0;
-    dayLogsWork.forEach((item)=>{
-        if(item.isDone==="true"){
-         i++;
-        }
-        else{i=0;}
+    let i = 0;
+    dayLogsWork.forEach((item) => {
+      if (item.isDone === "true") {
+        i++;
+      }
+      else { i = 0; }
     })
     return i
   }
 }
 
-const isLastLogToday =()=>{
+const isLastLogToday = () => {
   sortLogItems();
   let dayLogsWork = []
-  if(loadState("dayLogs")){
+  if (loadState("dayLogs")) {
 
-   dayLogsWork = loadState("dayLogs");
+    dayLogsWork = loadState("dayLogs");
     let lastElement = dayLogsWork[dayLogsWork.length - 1];
     let todayDate = moment().toISOString()
-    let isTodayValue = moment(lastElement.date).isSame(moment(todayDate), 'day')    
+    let isTodayValue = moment(lastElement.date).isSame(moment(todayDate), 'day')
 
     let todayA = moment(todayDate)
     let lastElementW = moment(lastElement.date)
-    let diffValue = todayA.diff(lastElementW, "day")    
-    if(diffValue > 1)
-    {
+    let diffValue = todayA.diff(lastElementW, "day")
+    if (diffValue > 1) {
       let i;
-          for (i = 1; i < diffValue; i++) {
-           let dayToAddd = moment().subtract(i, 'days').toISOString()           
-           addLog(dayToAddd, "false")
-        }
+      for (i = 1; i < diffValue; i++) {
+        let dayToAddd = moment().subtract(i, 'days').toISOString()
+        addLog(dayToAddd, "false")
+      }
 
 
     }
-    else if (diffValue === 1){
-   resetChecklist() 
-    
-    
+    else if (diffValue === 1) {
+      resetChecklist()
+
+
     }
 
-    if(!isTodayValue){
-      addLog(moment().toISOString(),"false")
-    } 
-     
+    if (!isTodayValue) {
+      addLog(moment().toISOString(), "false")
+    }
+
   }
-  else{
-    addLog(moment().toISOString(),"false")
-  }  
+  else {
+    addLog(moment().toISOString(), "false")
+  }
 }
 
 isLastLogToday()
@@ -190,39 +190,38 @@ export default function ContentWrapper() {
   const [logList, setLogList] = React.useState()
 
   // localStorage.clear();
- 
+
   let goalItem;
-const getGoal = () =>{   
-  if (!loadState("goalItem")) {
-    goalItem = {
-      goal: "Podstawowe nawyki",
-      isActive: false,
-      startDate: "2019-11-05T10:26:09.491Z",
-      endDate: "2020-01-04T10:26:09.491Z"
-    };
-    saveState("goalItem", goalItem);
-  } else {
-    goalItem = loadState("goalItem");    
+  const getGoal = () => {
+    if (!loadState("goalItem")) {
+      goalItem = {
+        goal: "Podstawowe nawyki",
+        isActive: false,
+        startDate: "2019-11-05T10:26:09.491Z",
+        endDate: "2019-12-08T10:26:09.491Z",
+        challengeId: 15,
+      };
+      saveState("goalItem", goalItem);
+    } else {
+      goalItem = loadState("goalItem");
+    }
   }
-}
-getGoal()
+  getGoal()
 
-const startChallenge = () => {
-  let startDate = moment();
-  let endDate = moment();
-  endDate.add(14, "days");
-  goalItem.startDate = startDate.toISOString();
-  goalItem.endDate = endDate.toISOString();
-  goalItem.isActive = true;
-  setActive(true)
-  saveState("goalItem", goalItem);
-};
-
-
+  const startChallenge = () => {
+    let startDate = moment();
+    let endDate = moment();
+    endDate.add(14, "days");
+    goalItem.startDate = startDate.toISOString();
+    goalItem.endDate = endDate.toISOString();
+    goalItem.isActive = true;
+    setActive(true)
+    saveState("goalItem", goalItem);
+  };
 
   let newChecked = [];
   let listOfCheckTask;
-  const getListOfCheck =()=>{ 
+  const getListOfCheck = () => {
     if (!loadState("listOfCheckTask")) {
       listOfCheckTask = [
         {
@@ -251,107 +250,79 @@ const startChallenge = () => {
           lastActivity: "2019-11-05T10:26:09.491Z"
         }
       ];
-      saveState("listOfCheckTask",listOfCheckTask);
+      saveState("listOfCheckTask", listOfCheckTask);
     } else {
-      listOfCheckTask =  loadState("listOfCheckTask");
-  
-      ///Add Check Element From Local Storage
+      listOfCheckTask = loadState("listOfCheckTask");
       listOfCheckTask.forEach((element, number) => {
-        
+
         if (element.done === "true") {
           newChecked.push(number);
-        }})
+        }
+      })
     }
-  
+
   }
   getListOfCheck()
-  
-//// Init Last Active Day
-
-
-
-//////////////
-//////// Init day logs
-
 
   let endDay = goalItem.endDate;
-  let daysLeft = -(moment().diff(endDay, "days") );
- ////////////////////////////////////////////////////////////////////
- ////             Main Functions
+  let daysLeft = -(moment().diff(endDay, "days"));
 
-
-
-
-// addLog(moment().toISOString(),"false")
-
-
-
-const getItemFromLog = (day) =>{
-  let dayLogsWork = []
-  if(loadState("dayLogs")){
-    dayLogsWork = loadState("dayLogs");
-    let result = dayLogsWork.find(({date}) => date === day);
-      if(result){
+  const getItemFromLog = (day) => {
+    let dayLogsWork = []
+    if (loadState("dayLogs")) {
+      dayLogsWork = loadState("dayLogs");
+      let result = dayLogsWork.find(({ date }) => date === day);
+      if (result) {
       }
-      else{
-      }
-    
+    }
   }
-}
 
-const removeItemFromLog = (day) =>{
-  let dayLogsWork = []
-  if(loadState("dayLogs")){
-
-    dayLogsWork = loadState("dayLogs");
-    dayLogsWork.forEach((item)=>{
-    })    
-    dayLogsWork.splice(dayLogsWork.findIndex(item => item.date === `${day}`), 1)
-    saveState("dayLogs",dayLogsWork)
-
+  const removeItemFromLog = (day) => {
+    let dayLogsWork = []
+    if (loadState("dayLogs")) {
+      dayLogsWork = loadState("dayLogs");
+      dayLogsWork.forEach((item) => {
+      })
+      dayLogsWork.splice(dayLogsWork.findIndex(item => item.date === `${day}`), 1)
+      saveState("dayLogs", dayLogsWork)
+    }
   }
-}
 
-
-
-
-/// Funkcja która sprawdza czy isnieje log i pobiera go jeśli nie to zwraca wartość
-
-const checkItemDone = () => {
-  listOfCheckTask = loadState("listOfCheckTask");
-  let dayLogsWork = loadState("dayLogs");
-    let result = listOfCheckTask.find(({done}) => done === "false");
-      if(result){       
-        let elementToChange = dayLogsWork[dayLogsWork.length - 1]
-        elementToChange.isDone = "false"
-        saveState("dayLogs",dayLogsWork)
-        setdayDone(false)
-      }
-      else {
-        let elementToChange = dayLogsWork[dayLogsWork.length - 1]
-        elementToChange.isDone = "true"
-        saveState("dayLogs", dayLogsWork)
-        setdayDone(true)
-      }      
-}
-
-const showProgresIcons = () =>{
-  if(loadState("dayLogs")){
+  const checkItemDone = () => {
+    listOfCheckTask = loadState("listOfCheckTask");
     let dayLogsWork = loadState("dayLogs");
-    dayLogsWork.pop()
-    dayLogsWork.reverse()
-    return dayLogsWork.map((item, num)=>{
-      return <span key={num}>{item.isDone ==="false" ? <ClearIcon  /> : < DoneIcon />}</span>
-  
-  })
+    let result = listOfCheckTask.find(({ done }) => done === "false");
+    if (result) {
+      let elementToChange = dayLogsWork[dayLogsWork.length - 1]
+      elementToChange.isDone = "false"
+      saveState("dayLogs", dayLogsWork)
+      setdayDone(false)
+    }
+    else {
+      let elementToChange = dayLogsWork[dayLogsWork.length - 1]
+      elementToChange.isDone = "true"
+      saveState("dayLogs", dayLogsWork)
+      setdayDone(true)
+    }
   }
-}
+
+  const showProgresIcons = () => {
+    if (loadState("dayLogs")) {
+      let dayLogsWork = loadState("dayLogs");
+      dayLogsWork.pop()
+      dayLogsWork.reverse()
+      return dayLogsWork.map((item, num) => {
+        return <span key={num}>{item.isDone === "false" ? <ClearIcon /> : < DoneIcon />}</span>
+
+      })
+    }
+  }
 
 
 
   return (
-    <MainWrapper>    
-     <MainTitle>JedeStym</MainTitle>    
+    <MainWrapper>
+      <MainTitle>JedeStym</MainTitle>
       <div className={classes.root}>
         <Container>
           <Grid container spacing={3}>
@@ -365,10 +336,10 @@ const showProgresIcons = () =>{
               <Paper className={classes.paper}>
                 {active ? <h3>Zostało {daysLeft} dni</h3> : ``}
                 <p>Zrobiłeś {howManyInCycle()} dni z rzędu.</p>
-              </Paper> 
+              </Paper>
               <Paper className={classes.paper} >
-                <PrograsWrapper>{dayDone === false ? <ClearIcon  /> : < DoneIcon />}{showProgresIcons()}</PrograsWrapper>               
-              </Paper>                
+                <PrograsWrapper>{dayDone === false ? <ClearIcon /> : < DoneIcon />}{showProgresIcons()}</PrograsWrapper>
+              </Paper>
             </Grid>
           </Grid>
           <Grid container spacing={3}>
@@ -379,10 +350,10 @@ const showProgresIcons = () =>{
               </Paper>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <Paper className={classes.paper}>              
+              <Paper className={classes.paper}>
                 <ListOfResons />
               </Paper>
-            </Grid>    
+            </Grid>
           </Grid>
           {/* <CanbanCard /> */}
           {!active ? (
@@ -399,11 +370,11 @@ const showProgresIcons = () =>{
             </StartButton>
           ) : (
               ``
-            )}   
+            )}
         </Container>
       </div>
-          {/* < LogsContainer/> */}
-     
+      {/* < LogsContainer/> */}
+      <ChallengeLogs />
 
     </MainWrapper>
   );
