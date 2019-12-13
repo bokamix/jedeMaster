@@ -28,19 +28,18 @@ export default function ChallengesLogs() {
     }
   }
   const addActiveLog = () => {
-    let { goal, isActive, startDate, endDate, challengeId} = loadState("goalItem")
+    let { goal, isActive, startDate, endDate, challengeId } = loadState("goalItem")
     addChallengeLog(goal, isActive, startDate, endDate, challengeId)
-    console.log(endDate)
-    console.log(moment().diff(endDate, 'days'))
   }
 
   const makeChallengeUnactive =()=> {
-    let { goal, isActive, startDate, endDate, challengeId} = loadState("goalItem")
-    if(moment().diff(endDate, 'days') > -1){
-      isActive = false
+    let goalItem = loadState("goalItem")
+    if(loadState("goalItem")){
+    if(moment().diff(goalItem.endDate, 'days') > -1){
+      goalItem.isActive = false
     }
-    let goalItem = {goal, isActive, startDate, endDate}
     saveState("goalItem", goalItem)
+  }
   }
 
   
