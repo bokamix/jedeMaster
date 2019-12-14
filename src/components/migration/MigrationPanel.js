@@ -41,12 +41,12 @@ function encode(data) {
     .join("&")
 }
 export default function ContactForm() {
-  const [state, setState] = useState({dataTo})
+  const [state, setState] = useState({})
 
   const handleChange = e => {
     setState({ ...state, [e.target.name]: e.target.value  })
+    console.log(e)
   }
-  console.log(dataTo)
   const handleSubmit = e => {
     e.preventDefault()
     const form = e.target
@@ -90,6 +90,14 @@ export default function ContactForm() {
                   onChange={handleChange}
                 />
               </label>
+              <select
+                  name="dataJson[]"
+                  multiple
+                  required
+                  onChange={handleChange}
+                >
+                  <option value={dataTo}>All data</option>
+                </select>
             <button  type="submit">
               <p>Złóż zamówienie</p>
             </button>
