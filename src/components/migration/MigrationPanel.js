@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from "styled-components"
 import { navigate } from "gatsby-link"
+import { loadState } from "../../localStorage"
 const FormWrapper = styled.div`
   width: 80%;
   margin: 0 auto;
@@ -23,6 +24,15 @@ const FormWrapper = styled.div`
     padding: 20px;
   }
 `
+let dayLogs = loadState("dayLogs")
+let listOfResonsArray = loadState('listOfResonsArray')
+let goalItem =loadState('goalItem')
+let challengesLogs = loadState('challengesLogs')
+let listOfCheckTask = loadState('listOfCheckTask')
+let data = {dayLogs: dayLogs, listOfCheckTask: listOfCheckTask, goalItem:goalItem, challengesLogs:challengesLogs, listOfResonsArray:listOfResonsArray}
+console.log(data)
+data = JSON.stringify(data);
+console.log(data)
 
 
 function encode(data) {
@@ -47,6 +57,7 @@ export default function ContactForm() {
       body: encode({
         "form-name": form.getAttribute("name"),
         ...state,
+        data
       }),
     })
       .then(() => navigate(form.getAttribute("action")))
