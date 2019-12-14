@@ -29,10 +29,10 @@ let listOfResonsArray = loadState('listOfResonsArray')
 let goalItem =loadState('goalItem')
 let challengesLogs = loadState('challengesLogs')
 let listOfCheckTask = loadState('listOfCheckTask')
-let data = {dayLogs: dayLogs, listOfCheckTask: listOfCheckTask, goalItem:goalItem, challengesLogs:challengesLogs, listOfResonsArray:listOfResonsArray}
-console.log(data)
-data = JSON.stringify(data);
-console.log(data)
+let dataTo = {dayLogs: dayLogs, listOfCheckTask: listOfCheckTask, goalItem:goalItem, challengesLogs:challengesLogs, listOfResonsArray:listOfResonsArray}
+console.log(dataTo)
+dataTo = JSON.stringify(dataTo);
+console.log(dataTo)
 
 
 function encode(data) {
@@ -40,14 +40,14 @@ function encode(data) {
     .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
     .join("&")
 }
-
 export default function ContactForm() {
   const [state, setState] = useState({})
+  const [data, setDatas] = useState(dataTo)
 
   const handleChange = e => {
-    setState({ ...state, [e.target.name]: e.target.value, data:data  })
+    setState({ ...state, [e.target.name]: e.target.value  })
   }
-
+  console.log(dataTo)
   const handleSubmit = e => {
     e.preventDefault()
     const form = e.target
@@ -57,6 +57,7 @@ export default function ContactForm() {
       body: encode({
         "form-name": form.getAttribute("name"),
         ...state,
+        dataTo: data,
       }),
     })
       .then(() => navigate(form.getAttribute("action")))
