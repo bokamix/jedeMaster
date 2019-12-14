@@ -14,10 +14,11 @@ import moment from "moment";
 import Container from "@material-ui/core/Container";
 import { loadState, saveState } from '../localStorage'
 import ChallengeLogs from './Challengs/ChallengeLogs'
+import { getDaysLeft, changeDay } from "./DateManipulation"
 // import LogsContainer from "../app/logs/components/LogsContainer"
 // import LogsForm from "../app/logs/components/LogsForm"
 // import CanbanCard from "./CanbanCard"
-
+let toDayIs = loadState("toDayIs")
 const MainWrapper = styled.div`
   margin: 0 auto;
   margin-top: 100px;
@@ -57,7 +58,7 @@ const useStyles = makeStyles(theme => ({
 const lastLogIsToday = () => {
   if (loadState("dayLogs")) {
     let listOfCheckTaskWork = loadState("dayLogs");
-    let today = moment().toISOString();
+    let today = toDayIs
     let lastElement = listOfCheckTaskWork[listOfCheckTaskWork.length - 1];
     let isSame = moment(lastElement.date).isSame(moment(today), 'day')
     return isSame
@@ -144,7 +145,7 @@ const isLastLogToday = () => {
 
     dayLogsWork = loadState("dayLogs");
     let lastElement = dayLogsWork[dayLogsWork.length - 1];
-    let todayDate = moment().toISOString()
+    let todayDate = toDayIs
     let isTodayValue = moment(lastElement.date).isSame(moment(todayDate), 'day')
 
     let todayA = moment(todayDate)
@@ -153,7 +154,7 @@ const isLastLogToday = () => {
     if (diffValue > 1) {
       let i;
       for (i = 1; i < diffValue; i++) {
-        let dayToAddd = moment().subtract(i, 'days').toISOString()
+        let dayToAddd = moment(toDayIs).subtract(i, 'days')
         addLog(dayToAddd, "false")
       }
 
@@ -166,18 +167,16 @@ const isLastLogToday = () => {
     }
 
     if (!isTodayValue) {
-      addLog(moment().toISOString(), "false")
+      addLog(toDayIs, "false")
     }
 
   }
   else {
-    addLog(moment().toISOString(), "false")
+    addLog(toDayIs, "false")
   }
 }
 
 isLastLogToday()
-
-
 /////////////////////////////////////////////// Start App ////////////////////////////////////////
 //////////////////////////////////////// ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -199,7 +198,7 @@ export default function ContentWrapper() {
         isActive: false,
         startDate: "2019-11-05T10:26:09.491Z",
         endDate: "2019-12-08T10:26:09.491Z",
-        challengeId: 15,
+        challengeId: 1,
       };
       saveState("goalItem", goalItem);
     } else {
@@ -209,13 +208,13 @@ export default function ContentWrapper() {
   getGoal()
 
   const startChallenge = () => {
-    let startDate = moment();
-    let endDate = moment();
-    endDate.add(14, "days");
-    goalItem.startDate = startDate.toISOString();
-    goalItem.endDate = endDate.toISOString();
+    let startDate = toDayIs;
+    let endDate = changeDay(14)
+    goalItem.startDate = startDate
+    goalItem.endDate = endDate
     goalItem.isActive = true;
     setActive(true)
+    goalItem.challengeId =  goalItem.challengeId + 1
     saveState("goalItem", goalItem);
   };
 
@@ -264,8 +263,6 @@ export default function ContentWrapper() {
   }
   getListOfCheck()
 
-  let endDay = goalItem.endDate;
-  let daysLeft = -(moment().diff(endDay, "days"));
 
   const getItemFromLog = (day) => {
     let dayLogsWork = []
@@ -323,6 +320,8 @@ export default function ContentWrapper() {
   return (
     <MainWrapper>
       <MainTitle>JedeStym</MainTitle>
+      <button onClick={()=>changeDay(1, true)}>Day+</button>
+      <button onClick={()=>changeDay(-1, true)}>Day-</button>
       <div className={classes.root}>
         <Container>
           <Grid container spacing={3}>
@@ -334,7 +333,7 @@ export default function ContentWrapper() {
             </Grid>
             <Grid item xs={12} sm={6}>
               <Paper className={classes.paper}>
-                {active ? <h3>Zostało {daysLeft} dni</h3> : ``}
+                {active ? <h3>Zostało {getDaysLeft()} dni</h3> : ``}
                 <p>Zrobiłeś {howManyInCycle()} dni z rzędu.</p>
               </Paper>
               <Paper className={classes.paper} >

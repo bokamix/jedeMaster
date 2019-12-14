@@ -28,13 +28,14 @@ const Papper = styled.div`
 
 export default function AboutChallenge() {
   const [logItems, setlogItems] = React.useState(loadState("dayLogs"))
+  
   const [edit, setEdit] = React.useState(false)
-  const EditLog =()=>{
-    setEdit(true)
-  }
-  const saveChanges =(e)=>{
-    setEdit(false)
-  }
+  // const EditLog =()=>{
+  //   setEdit(true)
+  // }
+  // const saveChanges =(e)=>{
+  //   setEdit(false)
+  // }
 
   const logItemsMap = () => {
    if(logItems){return logItems.map((item, num) => {
@@ -44,9 +45,25 @@ export default function AboutChallenge() {
     })}
   }
 
+  const mapChalanges =()=>{
+    if(loadState("challengesLogs")){
+      let challengesLogs = loadState("challengesLogs")
+      return challengesLogs.map((item, number)=>{
+       return(
+        <div key={number}>
+          <p>{item.goal}</p>
+          <p>{item.endDate}</p>
+          <p>{item.startDate}</p>
+        </div>
+       ) 
+      })
+    }
+  }
+
   return (
     <MainWrapper>
-      <Papper>{ logItemsMap()}</Papper>
+      <Papper>{mapChalanges()}</Papper>
+      <Papper>{logItemsMap()}</Papper>
     </MainWrapper>
   )
 }

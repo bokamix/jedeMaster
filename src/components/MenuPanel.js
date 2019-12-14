@@ -134,7 +134,7 @@ export default function MenuPanel() {
        <ListItemText primary="Chalanges Info" />
           </ListItem></Link>
           
-          <Link to="/aboutapp"   activeClassName="active__menu__item" >  <ListItem button>
+          <Link to="/about-app"   activeClassName="active__menu__item" >  <ListItem button>
             <ListItemIcon><GolfCourseIcon/></ListItemIcon>
           <ListItemText primary="O aplikacji" />
           </ListItem> </Link>       

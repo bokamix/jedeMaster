@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { loadState, saveState, remove, removeState } from '../../localStorage'
 import moment from "moment";
+let toDayIs = loadState("toDayIs")
 
 export default function ChallengesLogs() {
   useEffect(() => {
@@ -35,7 +36,7 @@ export default function ChallengesLogs() {
   const makeChallengeUnactive =()=> {
     let goalItem = loadState("goalItem")
     if(loadState("goalItem")){
-    if(moment().diff(goalItem.endDate, 'days') > -1){
+    if(moment(toDayIs).diff(goalItem.endDate, 'days') > -1){
       goalItem.isActive = false
     }
     saveState("goalItem", goalItem)
@@ -43,21 +44,10 @@ export default function ChallengesLogs() {
   }
 
   
-  addChallengeLog("Ćwiczenia Kegla", false,"2019-01-01T10:26:09.491Z","2019-01-20T10:26:09.491Z", 1 )
-  addChallengeLog("Ćwiczenia Mostki", false,"2019-02-01T10:26:09.491Z","2019-02-20T10:26:09.491Z", 2 )
-  addChallengeLog("Ćwiczenia Moqdsdstki", false,"2019-03-01T10:26:09.491Z","2019-03-20T10:26:09.491Z", 3 )
+  // addChallengeLog("Ćwiczenia Kegla", false,"2019-01-01T10:26:09.491Z","2019-01-20T10:26:09.491Z", 1 )
+  
 
- const ChangeElement =()=>{
-  let logToAdd = {
-        goal: "Kotki",
-        isActive: false,
-        startDate: "2019-11-05T10:26:09.491Z",
-        endDate: "2019-12-04T10:26:09.491Z",
-        challengeId: 15,
-  }
-  saveState("goalItem", logToAdd)
 
-}
   getAllChallenges()
   makeChallengeUnactive()
   return (
