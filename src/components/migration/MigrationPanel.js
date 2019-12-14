@@ -45,7 +45,7 @@ export default function ContactForm() {
   const [state, setState] = useState({})
 
   const handleChange = e => {
-    setState({ ...state, [e.target.name]: e.target.value })
+    setState({ ...state, [e.target.name]: e.target.value, data:data  })
   }
 
   const handleSubmit = e => {
@@ -57,7 +57,6 @@ export default function ContactForm() {
       body: encode({
         "form-name": form.getAttribute("name"),
         ...state,
-        data:data
       }),
     })
       .then(() => navigate(form.getAttribute("action")))
