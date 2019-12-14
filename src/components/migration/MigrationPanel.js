@@ -57,7 +57,7 @@ export default function ContactForm() {
       body: encode({
         "form-name": form.getAttribute("name"),
         ...state,
-        data
+        data:data
       }),
     })
       .then(() => navigate(form.getAttribute("action")))
