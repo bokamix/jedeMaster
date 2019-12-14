@@ -41,8 +41,7 @@ function encode(data) {
     .join("&")
 }
 export default function ContactForm() {
-  const [state, setState] = useState({})
-  const [data, setDatas] = useState(dataTo)
+  const [state, setState] = useState({dataTo})
 
   const handleChange = e => {
     setState({ ...state, [e.target.name]: e.target.value  })
@@ -57,7 +56,6 @@ export default function ContactForm() {
       body: encode({
         "form-name": form.getAttribute("name"),
         ...state,
-        dataTo: data,
       }),
     })
       .then(() => navigate(form.getAttribute("action")))
