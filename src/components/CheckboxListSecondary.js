@@ -1,5 +1,4 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
@@ -10,17 +9,8 @@ import moment from "moment";
 import EditIcon from '@material-ui/icons/Edit';
 import { loadState, saveState } from '../localStorage'
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    width: "100%",
-    maxWidth: 360,
-    backgroundColor: '#202334'
-   
-  }
-}));
 
 export default function CheckboxListSecondary({ CheckItems, checkItemDone }) {
-  const classes = useStyles();
   const [checked, setChecked] = React.useState(CheckItems);
   const [open, setOpen] = React.useState(false);
   let listOfCheckTask;
@@ -77,7 +67,7 @@ export default function CheckboxListSecondary({ CheckItems, checkItemDone }) {
 
 
   return (
-    <List dense className={classes.root}>
+    <List dense >
       <span><EditIcon onClick={handleOpen}/></span>
       {listOfCheckTask.map((element, value) => {
         const labelId = `checkbox-list-secondary-label-${value}`;

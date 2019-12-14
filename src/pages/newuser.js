@@ -14,12 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import JedeLogo from '../../logoJede.png'
-import styled from "styled-components";
 
-const LogoItem = styled.img`
-width:50px;
-margin-right:30px;
-`
 
 
 
@@ -83,7 +78,7 @@ export default function NewUserPage({setHandle}) {
       <CssBaseline />
       <AppBar position="relative">
         <Toolbar>
-          <LogoItem src={JedeLogo} />
+          <img src={JedeLogo} />
           <Typography variant="h6" color="inherit" noWrap>
             JedeSteam 
           </Typography>

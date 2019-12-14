@@ -1,6 +1,7 @@
 import React from "react"
 import DateManipulation from "../components/DateManipulation"
 import LocalStorageManipulation from "../components/LocalStorageManipulation"
+import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import MenuPanel from "../components/MenuPanel";

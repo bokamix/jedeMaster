@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
-import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import CheckboxListSecondary from "../components/CheckboxListSecondary";
 import ListOfResons from "../components/ListOfResons";
@@ -26,6 +24,11 @@ const MainWrapper = styled.div`
     width: 800px;
   }
 `;
+const Paper = styled.div`
+ background: #202334;
+ padding:30px;
+ border-radius: 20px;
+`
 
 const StartButton = styled.div`
   display: flex;
@@ -43,17 +46,8 @@ flex-wrap: wrap;
 justify-content:center;
 `
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-    color: "#ffffffc4",
-    background: '#202334'
-  }
-}));
+
+
 
 const lastLogIsToday = () => {
   if (loadState("dayLogs")) {
@@ -183,7 +177,6 @@ isLastLogToday()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export default function ContentWrapper() {
-  const classes = useStyles();
   const [active, setActive] = React.useState(setGoalStatus());
   const [dayDone, setdayDone] = React.useState(isTodayDone())
   const [logList, setLogList] = React.useState()
@@ -322,34 +315,34 @@ export default function ContentWrapper() {
       <MainTitle>JedeStym</MainTitle>
       <button onClick={()=>changeDay(1, true)}>Day+</button>
       <button onClick={()=>changeDay(-1, true)}>Day-</button>
-      <div className={classes.root}>
+      <div >
         <Container>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
-              <Paper className={classes.paper}>
+              <Paper >
                 <h3>Twój cel</h3>
                 <GoalForm />
               </Paper>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <Paper className={classes.paper}>
+              <Paper >
                 {active ? <h3>Zostało {getDaysLeft()} dni</h3> : ``}
                 <p>Zrobiłeś {howManyInCycle()} dni z rzędu.</p>
               </Paper>
-              <Paper className={classes.paper} >
+              <Paper  >
                 <PrograsWrapper>{dayDone === false ? <ClearIcon /> : < DoneIcon />}{showProgresIcons()}</PrograsWrapper>
               </Paper>
             </Grid>
           </Grid>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
-              <Paper className={classes.paper}>
+              <Paper >
                 <h3>Co muszę robić codziennie?</h3>
                 <CheckboxListSecondary CheckItems={newChecked} checkItemDone={checkItemDone} />
               </Paper>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <Paper className={classes.paper}>
+              <Paper>
                 <ListOfResons />
               </Paper>
             </Grid>
@@ -361,9 +354,9 @@ export default function ContentWrapper() {
                 onClick={startChallenge}
                 variant="extended"
                 aria-label="like"
-                className={classes.fab}
+               
               >
-                <NavigationIcon className={classes.extendedIcon} />
+                <NavigationIcon />
                 Rozpocznij 90 dniowe wyzwanie
               </Fab>
             </StartButton>
