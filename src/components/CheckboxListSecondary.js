@@ -51,7 +51,6 @@ export default function CheckboxListSecondary({ CheckItems, checkItemDone }) {
     } else {
       newChecked.splice(currentIndex, 1);
     }
-    //  =  currentIndex .... -1 zaznaczanie, 0 odznaczanie
 
     if (currentIndex === -1) {
       listOfCheckTask[value].done = "true";
@@ -60,7 +59,10 @@ export default function CheckboxListSecondary({ CheckItems, checkItemDone }) {
       listOfCheckTask[value].done = "false";     
     }
     saveState( "listOfCheckTask",listOfCheckTask);
-
+    let dayLogs = loadState("dayLogs");
+   
+    dayLogs[dayLogs.length-1].doneStatus = listOfCheckTask
+    saveState( "dayLogs",dayLogs);
     setChecked(newChecked);
     checkItemDone()
   };
