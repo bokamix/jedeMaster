@@ -1,18 +1,17 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import Grid from "@material-ui/core/Grid";
+import { loadState, saveState } from '../localStorage'
 import CheckboxListSecondary from "../components/CheckboxListSecondary";
 import ListOfResons from "../components/ListOfResons";
-import NavigationIcon from "@material-ui/icons/Navigation";
-import Fab from "@material-ui/core/Fab";
 import GoalForm from "./GoalForm";
+import NavigationIcon from "@material-ui/icons/Navigation";
 import DoneIcon from '@material-ui/icons/Done';
 import ClearIcon from '@material-ui/icons/Clear';
 import moment from "moment";
-import Container from "@material-ui/core/Container";
-import { loadState, saveState } from '../localStorage'
 import ChallengeLogs from './Challengs/ChallengeLogs'
 import { getDaysLeft, changeDay } from "./DateManipulation"
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 // import LogsContainer from "../app/logs/components/LogsContainer"
 // import LogsForm from "../app/logs/components/LogsForm"
 // import CanbanCard from "./CanbanCard"
@@ -27,12 +26,17 @@ const MainWrapper = styled.div`
 const Paper = styled.div`
  background: #202334;
  padding:30px;
+ margin: 20px;
  border-radius: 20px;
+ width: 300px;
 `
 
 const StartButton = styled.div`
   display: flex;
   justify-content: flex-end;
+  width:200px;
+  border-radius:30px;
+  padding:5px 10px;
   margin-bottom: 50px;
   margin-top: 40px;
 `;
@@ -46,8 +50,18 @@ flex-wrap: wrap;
 justify-content:center;
 `
 
-
-
+const Container = styled.div`
+  margin:20px;
+  display:flex;
+  flex-wrap:wrap;
+`
+const CircleWrapper = styled.div`
+  @media only screen and (min-width: 900px) {
+    width:250px;
+  }
+  width:100px;
+  margin:0 auto;
+`
 
 const lastLogIsToday = () => {
   if (loadState("dayLogs")) {
@@ -171,6 +185,13 @@ const isLastLogToday = () => {
 }
 
 isLastLogToday()
+const loadProgress =()=>{
+  if(loadState("progress")){
+    return loadState("progress")
+  }else{
+    return 0
+  }
+}
 /////////////////////////////////////////////// Start App ////////////////////////////////////////
 //////////////////////////////////////// ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -180,7 +201,25 @@ export default function ContentWrapper() {
   const [active, setActive] = React.useState(setGoalStatus());
   const [dayDone, setdayDone] = React.useState(isTodayDone())
   const [logList, setLogList] = React.useState()
+  const [progress, setProgress] = React.useState(loadProgress())
+  const percentage = progress;
+  const makeProgress = () =>{
+    if(progress === 100){
+    }else{
+      setProgress(progress + 20)
+      let x = progress + 20
+      saveState("progress", x)
+    }
+  }
+  const makeRegress=()=>{
+    if(progress === 0){
+    }else{
+      setProgress(progress - 20)
+      let x = progress - 20
+      saveState("progress", x)
 
+    }
+  }
   // localStorage.clear();
 
   let goalItem;
@@ -313,52 +352,35 @@ export default function ContentWrapper() {
   return (
     <MainWrapper>
       <MainTitle>JedeStym</MainTitle>
-      <button onClick={()=>changeDay(1, true)}>Day+</button>
-      <button onClick={()=>changeDay(-1, true)}>Day-</button>
+      {/* <button onClick={()=>changeDay(1, true)}>Day+</button>
+      <button onClick={()=>changeDay(-1, true)}>Day-</button> */}
       <div >
         <Container>
-          <Grid container spacing={3}>
-            <Grid item xs={12} sm={6}>
               <Paper >
                 <h3>Twój cel</h3>
                 <GoalForm />
               </Paper>
-            </Grid>
-            <Grid item xs={12} sm={6}>
               <Paper >
+              
                 {active ? <h3>Zostało {getDaysLeft()} dni</h3> : ``}
                 <p>Zrobiłeś {howManyInCycle()} dni z rzędu.</p>
-              </Paper>
-              <Paper  >
                 <PrograsWrapper>{dayDone === false ? <ClearIcon /> : < DoneIcon />}{showProgresIcons()}</PrograsWrapper>
               </Paper>
-            </Grid>
-          </Grid>
-          <Grid container spacing={3}>
-            <Grid item xs={12} sm={6}>
+              <Paper  >
+                <CircleWrapper><CircularProgressbar  value={percentage} text={`${percentage}%`} /></CircleWrapper>
+              </Paper>
               <Paper >
                 <h3>Co muszę robić codziennie?</h3>
-                <CheckboxListSecondary CheckItems={newChecked} checkItemDone={checkItemDone} />
+                <CheckboxListSecondary makeRegress={makeRegress} makeProgress={makeProgress} CheckItems={newChecked} checkItemDone={checkItemDone} />
               </Paper>
-            </Grid>
-            <Grid item xs={12} sm={6}>
               <Paper>
                 <ListOfResons />
               </Paper>
-            </Grid>
-          </Grid>
           {/* <CanbanCard /> */}
           {!active ? (
-            <StartButton>
-              <Fab
-                onClick={startChallenge}
-                variant="extended"
-                aria-label="like"
-               
-              >
+              <StartButton  onClick={startChallenge} >
                 <NavigationIcon />
                 Rozpocznij 90 dniowe wyzwanie
-              </Fab>
             </StartButton>
           ) : (
               ``
@@ -367,7 +389,6 @@ export default function ContentWrapper() {
       </div>
       {/* < LogsContainer/> */}
       <ChallengeLogs />
-
     </MainWrapper>
   );
 }

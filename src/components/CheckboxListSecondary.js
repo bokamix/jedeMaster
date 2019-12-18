@@ -3,14 +3,19 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
-import Checkbox from "@material-ui/core/Checkbox";
 import EditTextInput from "./EditTextInput";
+import styled from "styled-components";
 import moment from "moment";
 import EditIcon from '@material-ui/icons/Edit';
 import { loadState, saveState } from '../localStorage'
+import { CircularProgressbar } from 'react-circular-progressbar';
+
+const InputeSucces = styled.input`
+  
+`
 
 
-export default function CheckboxListSecondary({ CheckItems, checkItemDone }) {
+export default function CheckboxListSecondary({ CheckItems, checkItemDone, makeProgress, makeRegress }) {
   const [checked, setChecked] = React.useState(CheckItems);
   const [open, setOpen] = React.useState(false);
   let listOfCheckTask;
@@ -55,8 +60,11 @@ export default function CheckboxListSecondary({ CheckItems, checkItemDone }) {
     if (currentIndex === -1) {
       listOfCheckTask[value].done = "true";
       listOfCheckTask[value].lastActivity = moment() 
+      makeProgress()
     } else {
-      listOfCheckTask[value].done = "false";     
+      listOfCheckTask[value].done = "false";  
+      makeRegress()
+
     }
     saveState( "listOfCheckTask",listOfCheckTask);
     let dayLogs = loadState("dayLogs");
@@ -85,12 +93,17 @@ export default function CheckboxListSecondary({ CheckItems, checkItemDone }) {
               <>              
                 <ListItemText id={labelId} primary={`${element.item}`} />
                 <ListItemSecondaryAction>
-                  <Checkbox
-                    edge="end"
-                    onChange={handleToggle(value)}
-                    checked={checked.indexOf(value) !== -1}
-                    inputProps={{ "aria-labelledby": labelId }}
-                  />
+                  
+                  <label class="container">
+                    <input
+                     onChange={handleToggle(value)}
+                     checked={checked.indexOf(value) !== -1}
+                     type="checkbox" 
+                     name="unput"
+                    />
+                    <span class="checkmark"></span>
+                  </label>
+                
                 </ListItemSecondaryAction>
               </>
             )}
