@@ -32,7 +32,7 @@ export default function CanbanCardEdit({inputValue, handleClose, itemNumber}) {
 
   return (
     <form className={classes.container} noValidate autoComplete="off">    
-        <TextField
+        <textfield
           id={`${itemNumber}`}
           label="Primary"
           multiline

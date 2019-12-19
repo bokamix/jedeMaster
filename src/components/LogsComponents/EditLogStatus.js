@@ -18,14 +18,10 @@ export default function GroupedSelect({inputValue, saveChanges}) {
   const classes = useStyles();
   return (
     <div>
-      <FormControl onChange={saveChanges} color="secondary" className={classes.formControl}>
-        <InputLabel htmlFor="grouped-native-select">Grouping</InputLabel>
-        <Select native defaultValue={inputValue} >
+        <Select native defaultValue={inputValue} onChange={saveChanges}>
             <option value={true}>true</option>
             <option value={false}>false</option>
         </Select>
-      </FormControl>
-      
     </div>
   );
 }
