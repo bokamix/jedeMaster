@@ -1,6 +1,5 @@
 import React from "react";
 import EditTextInput from "./EditTextInput";
-import EditIcon from '@material-ui/icons/Edit';
 import { loadState, saveState } from '../localStorage'
 export default function GoalForm() {
   let goalItem
@@ -30,7 +29,7 @@ export default function GoalForm() {
      
 
       {open  ? <EditTextInput inputValue={goalItem.goal} saveChanges={handleClose} /> : <>
-      <h2>{goalItem.goal}</h2><span><EditIcon onClick={handleOpen}/></span>
+      <h2>{goalItem.goal}</h2><span><p onClick={handleOpen}>Edit</p></span>
       </> }
 
 

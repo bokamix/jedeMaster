@@ -4,14 +4,15 @@ import { loadState, saveState } from '../localStorage'
 import CheckboxListSecondary from "../components/CheckboxListSecondary";
 import ListOfResons from "../components/ListOfResons";
 import GoalForm from "./GoalForm";
-import NavigationIcon from "@material-ui/icons/Navigation";
-import DoneIcon from '@material-ui/icons/Done';
-import ClearIcon from '@material-ui/icons/Clear';
 import moment from "moment";
 import ChallengeLogs from './Challengs/ChallengeLogs'
 import { getDaysLeft, changeDay } from "./DateManipulation"
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import DoneIcon from "../images/check_circle-24px.svg"
+import UnDoneIcon from "../images/remove_circle-24px.svg"
+import CheckboxWrapper from "./Checkbox/CheckboxesWrapper"
+
 // import LogsContainer from "../app/logs/components/LogsContainer"
 // import LogsForm from "../app/logs/components/LogsForm"
 // import CanbanCard from "./CanbanCard"
@@ -30,6 +31,9 @@ const Paper = styled.div`
  border-radius: 20px;
  width: 95%;
  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+ display: flex;
+ flex-wrap: wrap;
+ align-items: center;
 `
 
 const StartButton = styled.div`
@@ -63,7 +67,11 @@ const CircleWrapper = styled.div`
   width:100px;
   margin:0 auto;
 `
-
+const Icons = styled.img`
+  width: 40px;
+  height:40px;
+  padding:5px;
+`
 const lastLogIsToday = () => {
   if (loadState("dayLogs")) {
     let listOfCheckTaskWork = loadState("dayLogs");
@@ -78,7 +86,7 @@ const resetChecklist = () => {
   if (loadState("listOfCheckTask")) {
     let listOfCheckTaskWork = loadState("listOfCheckTask");
     listOfCheckTaskWork.forEach((item) => {
-      item.done = "false"
+      item.done = false
     })
     saveState("listOfCheckTask", listOfCheckTaskWork);
   }
@@ -90,7 +98,7 @@ const addLog = (day, logValue) => {
   }
   let dayToAdd = {
     date: day,
-    isDone: `${logValue}`
+    isDone: logValue
   }
   dayLogsWork.push(dayToAdd)
   saveState("dayLogs", dayLogsWork)
@@ -109,7 +117,7 @@ const isTodayDone = () => {
   if (loadState("dayLogs")) {
     let dayLogsWork = loadState("dayLogs");
     let lastElement = dayLogsWork[dayLogsWork.length - 1];
-    if (lastElement.isDone === "true") {
+    if (lastElement.isDone == true) {
       return true
     } else return false
   }
@@ -138,7 +146,7 @@ const howManyInCycle = () => {
     dayLogsWork.pop()
     let i = 0;
     dayLogsWork.forEach((item) => {
-      if (item.isDone === "true") {
+      if (item.isDone == true) {
         i++;
       }
       else { i = 0; }
@@ -164,32 +172,33 @@ const isLastLogToday = () => {
       let i;
       for (i = 1; i < diffValue; i++) {
         let dayToAddd = moment(toDayIs).subtract(i, 'days')
-        addLog(dayToAddd, "false")
+        addLog(dayToAddd, false)
       }
 
 
     }
     else if (diffValue === 1) {
       resetChecklist()
+      saveState("progress", 0)
 
 
     }
 
     if (!isTodayValue) {
-      addLog(toDayIs, "false")
+      addLog(toDayIs, false)
     }
 
   }
   else {
-    addLog(toDayIs, "false")
+    addLog(toDayIs, false)
   }
 }
 
 isLastLogToday()
-const loadProgress =()=>{
-  if(loadState("progress")){
+const loadProgress = () => {
+  if (loadState("progress")) {
     return loadState("progress")
-  }else{
+  } else {
     return 0
   }
 }
@@ -204,17 +213,17 @@ export default function ContentWrapper() {
   const [logList, setLogList] = React.useState()
   const [progress, setProgress] = React.useState(loadProgress())
   const percentage = progress;
-  const makeProgress = () =>{
-    if(progress === 100){
-    }else{
+  const makeProgress = () => {
+    if (progress === 100) {
+    } else {
       setProgress(progress + 20)
       let x = progress + 20
       saveState("progress", x)
     }
   }
-  const makeRegress=()=>{
-    if(progress === 0){
-    }else{
+  const makeRegress = () => {
+    if (progress === 0) {
+    } else {
       setProgress(progress - 20)
       let x = progress - 20
       saveState("progress", x)
@@ -247,7 +256,7 @@ export default function ContentWrapper() {
     goalItem.endDate = endDate
     goalItem.isActive = true;
     setActive(true)
-    goalItem.challengeId =  goalItem.challengeId + 1
+    goalItem.challengeId = goalItem.challengeId + 1
     saveState("goalItem", goalItem);
   };
 
@@ -258,27 +267,27 @@ export default function ContentWrapper() {
       listOfCheckTask = [
         {
           item: "Pościeliłem rano łóżko",
-          done: "false",
+          done: false,
           lastActivity: "2019-11-05T10:26:09.491Z"
         },
         {
           item: "Zrobiłem ćwiczenia",
-          done: "false",
+          done: false,
           lastActivity: "2019-11-05T10:26:09.491Z"
         },
         {
           item: "Nie piłem alkoholu",
-          done: "false",
+          done: false,
           lastActivity: "2019-11-05T10:26:09.491Z"
         },
         {
           item: "Nie jadłem słodyczy",
-          done: "false",
+          done: false,
           lastActivity: "2019-11-05T10:26:09.491Z"
         },
         {
           item: "Uczę się 15 min angielskiego",
-          done: "false",
+          done: false,
           lastActivity: "2019-11-05T10:26:09.491Z"
         }
       ];
@@ -287,7 +296,7 @@ export default function ContentWrapper() {
       listOfCheckTask = loadState("listOfCheckTask");
       listOfCheckTask.forEach((element, number) => {
 
-        if (element.done === "true") {
+        if (element.done == true) {
           newChecked.push(number);
         }
       })
@@ -313,7 +322,7 @@ export default function ContentWrapper() {
       dayLogsWork = loadState("dayLogs");
       dayLogsWork.forEach((item) => {
       })
-      dayLogsWork.splice(dayLogsWork.findIndex(item => item.date === `${day}`), 1)
+      dayLogsWork.splice(dayLogsWork.findIndex(item => item.date == `${day}`), 1)
       saveState("dayLogs", dayLogsWork)
     }
   }
@@ -321,16 +330,16 @@ export default function ContentWrapper() {
   const checkItemDone = () => {
     listOfCheckTask = loadState("listOfCheckTask");
     let dayLogsWork = loadState("dayLogs");
-    let result = listOfCheckTask.find(({ done }) => done === "false");
+    let result = listOfCheckTask.find(({ done }) => done == false );
     if (result) {
       let elementToChange = dayLogsWork[dayLogsWork.length - 1]
-      elementToChange.isDone = "false"
+      elementToChange.isDone = false
       saveState("dayLogs", dayLogsWork)
       setdayDone(false)
     }
     else {
       let elementToChange = dayLogsWork[dayLogsWork.length - 1]
-      elementToChange.isDone = "true"
+      elementToChange.isDone = true
       saveState("dayLogs", dayLogsWork)
       setdayDone(true)
     }
@@ -342,7 +351,7 @@ export default function ContentWrapper() {
       dayLogsWork.pop()
       dayLogsWork.reverse()
       return dayLogsWork.map((item, num) => {
-        return <span key={num}>{item.isDone === "false" ? <ClearIcon /> : < DoneIcon />}</span>
+        return <span key={num}>{item.isDone == false ? <Icons src={UnDoneIcon} /> : <Icons src={DoneIcon} />}</span>
 
       })
     }
@@ -353,35 +362,36 @@ export default function ContentWrapper() {
   return (
     <MainWrapper>
       <MainTitle>JedeStym</MainTitle>
-      {/* <button onClick={()=>changeDay(1, true)}>Day+</button>
-      <button onClick={()=>changeDay(-1, true)}>Day-</button> */}
+      <button onClick={()=>changeDay(1, true)}>Day+</button>
+      <button onClick={()=>changeDay(-1, true)}>Day-</button>
       <div >
         <Container>
-              <Paper >
-                <h3>Twój cel</h3>
-                <GoalForm />
-              </Paper>
-              <Paper >
-              
-                {active ? <h3>Zostało {getDaysLeft()} dni</h3> : ``}
-                <p>Zrobiłeś {howManyInCycle()} dni z rzędu.</p>
-                <PrograsWrapper>{dayDone === false ? <ClearIcon /> : < DoneIcon />}{showProgresIcons()}</PrograsWrapper>
-              </Paper>
-              <Paper  >
-                <CircleWrapper><CircularProgressbar  value={percentage} text={`${percentage}%`} /></CircleWrapper>
-              </Paper>
-              <Paper >
-                <h3>Co muszę robić codziennie?</h3>
-                <CheckboxListSecondary makeRegress={makeRegress} makeProgress={makeProgress} CheckItems={newChecked} checkItemDone={checkItemDone} />
-              </Paper>
-              <Paper>
-                <ListOfResons />
-              </Paper>
+          <Paper >
+            <h3>Twój cel</h3>
+            <GoalForm />
+          </Paper>
+          <Paper >
+
+            {active ? <h3>Zostało {getDaysLeft()} dni</h3> : ``}
+            <p>Zrobiłeś {howManyInCycle()} dni z rzędu.</p>
+            <PrograsWrapper>{dayDone == false ? <Icons src={UnDoneIcon} /> : <Icons src={DoneIcon} />}{showProgresIcons()}</PrograsWrapper>
+          </Paper>
+          <Paper>
+            <CircleWrapper>
+              <CircularProgressbar value={percentage} text={`${percentage}%`} />
+            </CircleWrapper>
+            <div>
+              <h3>Co muszę robić codziennie?</h3>
+              <CheckboxWrapper makeRegress={makeRegress} makeProgress={makeProgress} checkItemDone={checkItemDone}/>
+            </div>
+          </Paper>
+          <Paper>
+            <ListOfResons />
+          </Paper>
           {/* <CanbanCard /> */}
           {!active ? (
-              <StartButton  onClick={startChallenge} >
-                <NavigationIcon />
-                Rozpocznij 90 dniowe wyzwanie
+            <StartButton onClick={startChallenge} >
+              Rozpocznij 90 dniowe wyzwanie
             </StartButton>
           ) : (
               ``

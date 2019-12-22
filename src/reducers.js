@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import actorsReducer  from './app/actors/duck'
-import logsReducer  from './app/logs/duck'
+import actorsReducer  from './reduxApp/actors/duck'
+import logsReducer  from './reduxApp/logs/duck'
 
 const rootReducer = combineReducers({
   actors: actorsReducer,

@@ -1,17 +1,16 @@
 import React from "react";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import ListItemText from "@material-ui/core/ListItemText";
 import EditTextInput from "./EditTextInput";
 import styled from "styled-components";
 import moment from "moment";
-import EditIcon from '@material-ui/icons/Edit';
 import { loadState, saveState } from '../localStorage'
-import { CircularProgressbar } from 'react-circular-progressbar';
 
-const InputeSucces = styled.input`
-  
+const Label = styled.div`
+  display:flex;
+  align-items: baseline;
+  input{
+    margin-right:10px;
+  }
+ 
 `
 
 
@@ -77,12 +76,12 @@ export default function CheckboxListSecondary({ CheckItems, checkItemDone, makeP
 
 
   return (
-    <List dense >
-      <span><EditIcon onClick={handleOpen}/></span>
+    <div>
+      <span><p onClick={handleOpen}>edit</p></span>
       {listOfCheckTask.map((element, value) => {
         const labelId = `checkbox-list-secondary-label-${value}`;
         return (
-          <ListItem key={value} button >
+          <div key={value} button >
             {open ? (
               <EditTextInput
                 inputValue={element.item}
@@ -91,25 +90,24 @@ export default function CheckboxListSecondary({ CheckItems, checkItemDone, makeP
               />
             ) : (
               <>              
-                <ListItemText id={labelId} primary={`${element.item}`} />
-                <ListItemSecondaryAction>
+                <div>
                   
-                  <label class="container">
+                  <Label>
                     <input
                      onChange={handleToggle(value)}
                      checked={checked.indexOf(value) !== -1}
                      type="checkbox" 
                      name="unput"
                     />
-                    <span class="checkmark"></span>
-                  </label>
+                    <label><p>{element.item}</p></label>
+                  </Label>
                 
-                </ListItemSecondaryAction>
+                </div>
               </>
             )}
-          </ListItem>
+          </div>
         );
       })}
-    </List>
+    </div>
   );
 }

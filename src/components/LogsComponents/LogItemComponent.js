@@ -3,7 +3,9 @@ import styled from "styled-components"
 import EditLogStatus from "./EditLogStatus"
 import { loadState, saveState } from "../../localStorage"
 
-
+const Wrapper = styled.div`
+  width:90%;
+`
 export default function LogItemComponent({item, num}) {
   const [edit, setEdit] = React.useState(false)
   const [value, setValue] = React.useState(item.isDone)
@@ -21,9 +23,9 @@ export default function LogItemComponent({item, num}) {
   }
 
   return (
-    <div onClick={EditLog}>
+    <Wrapper>
         <p>{item.date}</p>
-        {!edit ? <p>{value}</p> : <EditLogStatus inputValue={value} saveChanges={saveChanges} />}
-    </div>
+        {!edit ? <p onClick={EditLog}>{value}</p> : <EditLogStatus inputValue={value} saveChanges={saveChanges} />}
+    </Wrapper>
   )
 }

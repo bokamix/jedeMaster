@@ -10,20 +10,17 @@ const MainWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
 `
-const Papper = styled.div`
-  margin: 30px;
-  width: 100%;
 
-  border-radius: 30px;
-  padding: 30px;
-  div {
-    display: flex;
-    margin: 20px;
-    width: 100%;
-    p {
-      margin: 10px;
-    }
-  }
+const Paper = styled.div`
+ background: #202334;
+ padding:30px;
+ margin: 20px;
+ border-radius: 20px;
+ width: 95%;
+ box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+ display: flex;
+ flex-wrap: wrap;
+ align-items: center;
 `
 
 export default function AboutChallenge() {
@@ -51,7 +48,7 @@ export default function AboutChallenge() {
       return challengesLogs.map((item, number)=>{
        return(
         <div key={number}>
-          <p>{item.goal}</p>
+          <h2>{item.goal}</h2>
           <p>{item.endDate}</p>
           <p>{item.startDate}</p>
         </div>
@@ -62,8 +59,8 @@ export default function AboutChallenge() {
 
   return (
     <MainWrapper>
-      <Papper>{mapChalanges()}</Papper>
-      <Papper>{logItemsMap()}</Papper>
+      <Paper>{mapChalanges()}</Paper>
+      <Paper>{logItemsMap()}</Paper>
     </MainWrapper>
   )
 }
