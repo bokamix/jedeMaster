@@ -26,6 +26,15 @@ export default function LogItemComponent({item, num}) {
     <Wrapper>
         <p>{item.date}</p>
         {!edit ? <p onClick={EditLog}>{value}</p> : <EditLogStatus inputValue={value} saveChanges={saveChanges} />}
+        {item.details ? <><h2>Działania</h2>
+        {item.details.map((element, number)=>{
+          return(<div key={number}>
+              <p>{element.item}</p>
+              <p>{`${element.done}`}</p>
+          </div>)
+        })}
+        
+        </> : null}
     </Wrapper>
   )
 }

@@ -30,9 +30,7 @@ let goalItem =loadState('goalItem')
 let challengesLogs = loadState('challengesLogs')
 let listOfCheckTask = loadState('listOfCheckTask')
 let dataTo = {dayLogs: dayLogs, listOfCheckTask: listOfCheckTask, goalItem:goalItem, challengesLogs:challengesLogs, listOfResonsArray:listOfResonsArray}
-console.log(dataTo)
 dataTo = JSON.stringify(dataTo);
-console.log(dataTo)
 
 
 function encode(data) {
@@ -45,7 +43,6 @@ export default function ContactForm() {
 
   const handleChange = e => {
     setState({ ...state, [e.target.name]: e.target.value  })
-    console.log(e)
   }
   const handleSubmit = e => {
     e.preventDefault()

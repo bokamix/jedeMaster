@@ -1,6 +1,8 @@
 import { loadState, saveState, removeState } from '../localStorage'
 import moment from "moment";
 
+
+
   let toDayIs
 const letTodayIs =()=>{
 if(loadState("toDayIs")){
@@ -9,6 +11,24 @@ if(loadState("toDayIs")){
   toDayIs = moment()
 }}
 letTodayIs()
+
+
+let goalItem;
+const getGoal = () => {
+  if (!loadState("goalItem")) {
+    goalItem = {
+      goal: "Podstawowe nawyki",
+      isActive: false,
+      startDate: "2019-11-05T10:26:09.491Z",
+      endDate: "2019-12-08T10:26:09.491Z",
+      challengeId: 1,
+    };
+    saveState("goalItem", goalItem);
+  } else {
+    goalItem = loadState("goalItem");
+  }
+}
+getGoal()
 
 
 saveState("toDayIs", toDayIs)
@@ -36,9 +56,16 @@ export const changeDay =(numberOfDay, saveToStorage)=>{
     }
 }
 
-export const getDaysLeft =()=>{
+export const getDaysLeft =()=>{/// validation
     let goalItem = loadState("goalItem")
-    let endDay = goalItem.endDate;
-    let daysLeft = -(moment(toDayIs).diff(endDay, "days"));
-    return daysLeft
+    if(goalItem){
+      let endDay = goalItem.endDate;
+      let daysLeft = -(moment(toDayIs).diff(endDay, "days"));
+      if(daysLeft < 0){
+        return 0
+      }else{
+        return daysLeft
+      }
+    }
+   
 }

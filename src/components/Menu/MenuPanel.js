@@ -48,7 +48,7 @@ export default function MenuPanel() {
     <Wrapper>
       <Link to="/"><MenuItem>Home</MenuItem></Link>
       <Link to="/challenges"><MenuItem>Challenges</MenuItem></Link>
-      <Link button onClick={resetAllDataInLocalStorage}><MenuItem>Zresetuj dane</MenuItem></Link>
+      <a  onClick={resetAllDataInLocalStorage}><MenuItem>Zresetuj dane</MenuItem></a>
     </Wrapper>
     </>
   );

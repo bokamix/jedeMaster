@@ -17,6 +17,7 @@ const Label = styled.div`
 export default function CheckboxListSecondary({ CheckItems, checkItemDone, makeProgress, makeRegress }) {
   const [checked, setChecked] = React.useState(CheckItems);
   const [open, setOpen] = React.useState(false);
+
   let listOfCheckTask;
   if (!loadState("listOfCheckTask")) {
     listOfCheckTask = [
@@ -81,7 +82,7 @@ export default function CheckboxListSecondary({ CheckItems, checkItemDone, makeP
       {listOfCheckTask.map((element, value) => {
         const labelId = `checkbox-list-secondary-label-${value}`;
         return (
-          <div key={value} button >
+          <div key={value}  >
             {open ? (
               <EditTextInput
                 inputValue={element.item}

@@ -45,7 +45,7 @@ export default function ListOfResons() {
   };
 
   const listItems = listOfResonsArray.map((item, num) => (
-    <ul button key={`Item${num}`} >
+    <ul  key={`Item${num}`} >
       {open ? (
         <EditTextInput inputValue={item} saveChanges={handleClose} itemNumber={num}/>
       ) : (

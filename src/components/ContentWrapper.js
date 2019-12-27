@@ -7,7 +7,7 @@ import GoalForm from "./GoalForm";
 import moment from "moment";
 import ChallengeLogs from './Challengs/ChallengeLogs'
 import { getDaysLeft, changeDay } from "./DateManipulation"
-import { CircularProgressbar } from 'react-circular-progressbar';
+import { CircularProgressbarWithChildren, CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import DoneIcon from "../images/check_circle-24px.svg"
 import UnDoneIcon from "../images/remove_circle-24px.svg"
@@ -62,10 +62,14 @@ const Container = styled.div`
 `
 const CircleWrapper = styled.div`
   @media only screen and (min-width: 900px) {
-    width:250px;
+    width:290px;
   }
-  width:100px;
+  width:300px;
   margin:0 auto;
+  h2{
+    font-size:50px;
+    margin-top:15px;
+  }
 `
 const Icons = styled.img`
   width: 40px;
@@ -170,6 +174,7 @@ const isLastLogToday = () => {
     let diffValue = todayA.diff(lastElementW, "day")
     if (diffValue > 1) {
       let i;
+      saveState("progress", 0)
       for (i = 1; i < diffValue; i++) {
         let dayToAddd = moment(toDayIs).subtract(i, 'days')
         addLog(dayToAddd, false)
@@ -212,6 +217,7 @@ export default function ContentWrapper() {
   const [dayDone, setdayDone] = React.useState(isTodayDone())
   const [logList, setLogList] = React.useState()
   const [progress, setProgress] = React.useState(loadProgress())
+  const [dayLeft, setDayLeft] = React.useState(getDaysLeft())
   const percentage = progress;
   const makeProgress = () => {
     if (progress === 100) {
@@ -219,6 +225,9 @@ export default function ContentWrapper() {
       setProgress(progress + 20)
       let x = progress + 20
       saveState("progress", x)
+      if(x === 100){
+        console.log('wygrane')
+      }
     }
   }
   const makeRegress = () => {
@@ -305,7 +314,6 @@ export default function ContentWrapper() {
   }
   getListOfCheck()
 
-
   const getItemFromLog = (day) => {
     let dayLogsWork = []
     if (loadState("dayLogs")) {
@@ -350,18 +358,19 @@ export default function ContentWrapper() {
       let dayLogsWork = loadState("dayLogs");
       dayLogsWork.pop()
       dayLogsWork.reverse()
+      if(dayLogsWork.length<7){
       return dayLogsWork.map((item, num) => {
         return <span key={num}>{item.isDone == false ? <Icons src={UnDoneIcon} /> : <Icons src={DoneIcon} />}</span>
-
-      })
+      })}else{
+          let firstWeek = dayLogsWork.slice(0, 6)
+          return firstWeek.map((item, num) => {
+            return <span key={num}>{item.isDone == false ? <Icons src={UnDoneIcon} /> : <Icons src={DoneIcon} />}</span>
+          })
+       }
+      }
     }
-  }
-
-
-
   return (
     <MainWrapper>
-      <MainTitle>JedeStym</MainTitle>
       <button onClick={()=>changeDay(1, true)}>Day+</button>
       <button onClick={()=>changeDay(-1, true)}>Day-</button>
       <div >
@@ -371,14 +380,37 @@ export default function ContentWrapper() {
             <GoalForm />
           </Paper>
           <Paper >
-
             {active ? <h3>Zostało {getDaysLeft()} dni</h3> : ``}
             <p>Zrobiłeś {howManyInCycle()} dni z rzędu.</p>
             <PrograsWrapper>{dayDone == false ? <Icons src={UnDoneIcon} /> : <Icons src={DoneIcon} />}{showProgresIcons()}</PrograsWrapper>
           </Paper>
           <Paper>
             <CircleWrapper>
-              <CircularProgressbar value={percentage} text={`${percentage}%`} />
+              <CircularProgressbarWithChildren 
+                value={percentage} 
+                circleRatio={0.75}
+                  styles={buildStyles({
+                  rotation: 1 / 2 + 1 / 8,
+                  strokeLinecap: "butt",
+                  trailColor: "#eee"
+                })} >
+                <div style={{ width: "80%" }}>
+                  <CircularProgressbarWithChildren
+                    value={ 14 - dayLeft }
+                    maxValue={14}
+                    circleRatio={0.75}
+                    strokeWidth={2}
+                    styles={buildStyles({
+                      trailColor: "transparent",
+                      rotation: 1 / 2 + 1 / 8,
+                      pathColor: "green",
+                    })}
+                  >
+                    <h2>{ progress }%</h2>
+                    <p>{ dayLeft } day left</p>
+                  </CircularProgressbarWithChildren>  
+                </div>
+              </CircularProgressbarWithChildren>
             </CircleWrapper>
             <div>
               <h3>Co muszę robić codziennie?</h3>
