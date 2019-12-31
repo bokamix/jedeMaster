@@ -40,10 +40,12 @@ const StartButton = styled.div`
   display: flex;
   justify-content: flex-end;
   width:200px;
-  border-radius:30px;
+  border-radius:20px;
   padding:5px 10px;
-  margin-bottom: 50px;
-  margin-top: 40px;
+  margin: 0 auto;
+  margin-bottom: 70px;
+  background: #202334;
+  padding: 10px 35px;
 `;
 const MainTitle = styled.h2`
   text-align: center;
@@ -64,7 +66,7 @@ const CircleWrapper = styled.div`
   @media only screen and (min-width: 900px) {
     width:290px;
   }
-  width:300px;
+  width:180px;
   margin:0 auto;
   h2{
     font-size:50px;
@@ -371,20 +373,11 @@ export default function ContentWrapper() {
     }
   return (
     <MainWrapper>
-      <button onClick={()=>changeDay(1, true)}>Day+</button>
-      <button onClick={()=>changeDay(-1, true)}>Day-</button>
+      {/* <button onClick={()=>changeDay(1, true)}>Day+</button>
+      <button onClick={()=>changeDay(-1, true)}>Day-</button> */}
       <div >
         <Container>
-          <Paper >
-            <h3>Twój cel</h3>
-            <GoalForm />
-          </Paper>
-          <Paper >
-            {active ? <h3>Zostało {getDaysLeft()} dni</h3> : ``}
-            <p>Zrobiłeś {howManyInCycle()} dni z rzędu.</p>
-            <PrograsWrapper>{dayDone == false ? <Icons src={UnDoneIcon} /> : <Icons src={DoneIcon} />}{showProgresIcons()}</PrograsWrapper>
-          </Paper>
-          <Paper>
+        <Paper>
             <CircleWrapper>
               <CircularProgressbarWithChildren 
                 value={percentage} 
@@ -416,6 +409,15 @@ export default function ContentWrapper() {
               <h3>Co muszę robić codziennie?</h3>
               <CheckboxWrapper makeRegress={makeRegress} makeProgress={makeProgress} checkItemDone={checkItemDone}/>
             </div>
+          </Paper>
+          <Paper >
+            <h3>Twój cel</h3>
+            <GoalForm />
+          </Paper>
+          <Paper >
+            {active ? <h3>Zostało {getDaysLeft()} dni</h3> : ``}
+            <p>Zrobiłeś {howManyInCycle()} dni z rzędu.</p>
+            <PrograsWrapper>{dayDone == false ? <Icons src={UnDoneIcon} /> : <Icons src={DoneIcon} />}{showProgresIcons()}</PrograsWrapper>
           </Paper>
           <Paper>
             <ListOfResons />
