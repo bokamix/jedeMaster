@@ -26,8 +26,6 @@ export default function GoalForm() {
 
   return (
     <>
-     
-
       {open  ? <EditTextInput inputValue={goalItem.goal} saveChanges={handleClose} /> : <>
       <h2>{goalItem.goal}</h2><span><p onClick={handleOpen}>Edit</p></span>
       </> }

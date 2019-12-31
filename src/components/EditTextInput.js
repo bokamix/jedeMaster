@@ -10,7 +10,6 @@ export default function EditTextInput({inputValue, saveChanges, itemNumber}) {
   return (
         <input
           id={`${itemNumber}`}
-          multiline
           onBlur={saveChanges}
           value={value}
           onChange={handleChange}

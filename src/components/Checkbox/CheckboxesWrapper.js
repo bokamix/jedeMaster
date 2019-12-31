@@ -2,16 +2,24 @@ import React from "react";
 import styled from "styled-components";
 import Checkbox from "./Checkbox"
 import { loadState } from "../../localStorage"
+import EditModal from "../EditModal/EditModal"
 const Wrapper = styled.div`
-   
+   position: relative;
 `
-
-
+let data
+if(loadState("listOfCheckTask")){
+  data = loadState("listOfCheckTask")
+}
 
 export default function CheckboxesWrapper({makeRegress, makeProgress, checkItemDone}) {
   const [open, setOpen] = React.useState(false);
     
-
+const closeModal =()=>{
+  setOpen(false)
+}
+const openModal =()=>{
+  setOpen(true)
+}
 const generateInputs =()=>{
     if(loadState("listOfCheckTask")){
         let listCheck = loadState("listOfCheckTask")
@@ -24,7 +32,9 @@ const generateInputs =()=>{
 }
   return (
     <>
-     <Wrapper >
+     <Wrapper>
+       <button onClick={openModal}>Edit</button>
+       {open ? <EditModal data={data} closeModal={closeModal} /> : null}
          {generateInputs()}
      </Wrapper>
     </>

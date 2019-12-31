@@ -56,7 +56,7 @@ export const changeDay =(numberOfDay, saveToStorage)=>{
     }
 }
 
-export const getDaysLeft =()=>{/// validation
+export const getDaysLeft =()=>{
     let goalItem = loadState("goalItem")
     if(goalItem){
       let endDay = goalItem.endDate;
