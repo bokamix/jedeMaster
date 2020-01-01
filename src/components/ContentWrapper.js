@@ -69,7 +69,7 @@ const CircleWrapper = styled.div`
   width:180px;
   margin:0 auto;
   h2{
-    font-size:50px;
+    font-size:40px;
     margin-top:15px;
   }
 `
@@ -385,7 +385,8 @@ export default function ContentWrapper() {
                   styles={buildStyles({
                   rotation: 1 / 2 + 1 / 8,
                   strokeLinecap: "butt",
-                  trailColor: "#eee"
+                  pathColor:"#65f5ff80",
+                  trailColor: "#242f3e"
                 })} >
                 <div style={{ width: "80%" }}>
                   <CircularProgressbarWithChildren
