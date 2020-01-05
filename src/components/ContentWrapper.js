@@ -411,7 +411,7 @@ export default function ContentWrapper() {
               <CheckboxWrapper makeRegress={makeRegress} makeProgress={makeProgress} checkItemDone={checkItemDone}/>
             </div>
           </Paper>
-          <Paper >
+          <Paper>
             <h3>Twój cel</h3>
             <GoalForm />
           </Paper>

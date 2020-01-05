@@ -9,6 +9,7 @@ const MainWrapper = styled.div`
   margin-top: 100px;
   display: flex;
   flex-wrap: wrap;
+  margin-bottom: 100px;
 `
 
 const Paper = styled.div`
@@ -34,7 +35,9 @@ export default function AboutChallenge() {
   // }
 
   const logItemsMap = () => {
-   if(logItems){return logItems.map((item, num) => {
+   if(logItems){
+     logItems.reverse()
+     return logItems.map((item, num) => {
       return (
         <LogItemComponent key={num} item={item} num={num}/>
       )      
@@ -44,6 +47,7 @@ export default function AboutChallenge() {
   const mapChalanges =()=>{
     if(loadState("challengesLogs")){
       let challengesLogs = loadState("challengesLogs")
+      console.log("challenge", challengesLogs)
       return challengesLogs.map((item, number)=>{
        return(
         <div key={number}>
