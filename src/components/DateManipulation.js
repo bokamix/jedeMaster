@@ -1,15 +1,21 @@
 import { loadState, saveState, removeState } from '../localStorage'
 import moment from "moment";
 
-
+let adminMod = false
 
   let toDayIs
 const letTodayIs =()=>{
-if(loadState("toDayIs")){
-  toDayIs = loadState("toDayIs")
-}else{
-  toDayIs = moment()
-}}
+  if(adminMod){
+    if(loadState("toDayIs")){
+      toDayIs = loadState("toDayIs")
+    }else{
+      toDayIs = moment()
+    }
+  }else{
+    toDayIs = moment()
+  }
+
+}
 letTodayIs()
 
 
@@ -29,8 +35,6 @@ const getGoal = () => {
   }
 }
 getGoal()
-
-
 saveState("toDayIs", toDayIs)
 
 let isDeveloper = loadState("isDeveloper")
