@@ -19,15 +19,14 @@ import CheckboxWrapper from "./Checkbox/CheckboxesWrapper"
 let toDayIs = loadState("toDayIs")
 const MainWrapper = styled.div`
   margin: 0 auto;
-  margin-top: 100px;
   @media only screen and (min-width: 900px) {
     width: 800px;
   }
 `;
 const Paper = styled.div`
  background: #202334;
- padding:30px;
- margin: 20px;
+ padding: 20px;
+ margin: 10px;
  border-radius: 20px;
  width: 95%;
  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -382,6 +381,7 @@ export default function ContentWrapper() {
               <CircularProgressbarWithChildren 
                 value={percentage} 
                 circleRatio={0.75}
+                strokeWidth={4}
                   styles={buildStyles({
                   rotation: 1 / 2 + 1 / 8,
                   strokeLinecap: "butt",
@@ -411,14 +411,14 @@ export default function ContentWrapper() {
               <CheckboxWrapper makeRegress={makeRegress} makeProgress={makeProgress} checkItemDone={checkItemDone}/>
             </div>
           </Paper>
-          <Paper>
-            <h3>Twój cel</h3>
-            <GoalForm />
-          </Paper>
           <Paper >
             {active ? <h3>Zostało {getDaysLeft()} dni</h3> : ``}
             <p>Zrobiłeś {howManyInCycle()} dni z rzędu.</p>
             <PrograsWrapper>{dayDone == false ? <Icons src={UnDoneIcon} /> : <Icons src={DoneIcon} />}{showProgresIcons()}</PrograsWrapper>
+          </Paper>
+          <Paper>
+            <h3>Twój cel</h3>
+            <GoalForm />
           </Paper>
           <Paper>
             <ListOfResons />

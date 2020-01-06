@@ -6,6 +6,7 @@ import NoDoneIcon from "../../images/remove_circle-24px.svg"
 
 const CheckboxWrapper = styled.div`
   cursor: pointer;
+  margin-bottom:5px;
   p{
     margin:6px;
     padding:0;
@@ -18,15 +19,20 @@ const CheckboxWrapper = styled.div`
 const NoSucces = styled.div`
   margin:6px;
   display:flex;
+  border: 1px dashed #171926;
+  border-radius:10px;
   align-items: center;
   &:hover{
-    background: red; 
+    background: #151b3c; 
   }
 `
 const Succes = styled.div`
   margin: 6px;
   display:flex;
   align-items: center ;
+  background:#185d5a;
+  border: 1px dashed #46929e;
+  border-radius:10px;
 `
 
 export default function Checkbox({label, checkStatus, index, makeProgress, makeRegress, checkItemDone}) {
@@ -52,7 +58,7 @@ export default function Checkbox({label, checkStatus, index, makeProgress, makeR
                   makeRegress()
               }
               checkItemDone()
-            }, 100);
+            }, 50);
     }
 
   return (

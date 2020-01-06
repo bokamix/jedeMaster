@@ -4,7 +4,6 @@ import Checkbox from "./Checkbox"
 import { loadState } from "../../localStorage"
 import EditModal from "../EditModal/EditModal"
 const Wrapper = styled.div`
-   position: relative;
 `
 let data
 if(loadState("listOfCheckTask")){
@@ -34,9 +33,9 @@ const generateInputs =()=>{
     <>
      <Wrapper>
        <button onClick={openModal}>Edit</button>
-       {open ? <EditModal data={data} closeModal={closeModal} /> : null}
          {generateInputs()}
      </Wrapper>
+     {open ? <EditModal data={data} closeModal={closeModal} /> : null}
     </>
   );
 }
