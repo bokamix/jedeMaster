@@ -54,6 +54,7 @@ const PrograsWrapper = styled.div`
 display:flex;
 flex-wrap: wrap;
 justify-content:center;
+width:100%;
 `
 
 const Container = styled.div`
@@ -377,6 +378,8 @@ export default function ContentWrapper() {
       <div >
         <Container>
         <Paper>
+        <GoalForm />
+        <PrograsWrapper>{dayDone == false ? <Icons src={UnDoneIcon} /> : <Icons src={DoneIcon} />}{showProgresIcons()}</PrograsWrapper>
             <CircleWrapper>
               <CircularProgressbarWithChildren 
                 value={percentage} 
@@ -402,6 +405,7 @@ export default function ContentWrapper() {
                   >
                     <h2>{ progress }%</h2>
                     <p>{ dayLeft } day left</p>
+                    <p>Seria {howManyInCycle()}</p>
                   </CircularProgressbarWithChildren>  
                 </div>
               </CircularProgressbarWithChildren>
@@ -410,15 +414,6 @@ export default function ContentWrapper() {
               <h3>Co muszę robić codziennie?</h3>
               <CheckboxWrapper makeRegress={makeRegress} makeProgress={makeProgress} checkItemDone={checkItemDone}/>
             </div>
-          </Paper>
-          <Paper >
-            {active ? <h3>Zostało {getDaysLeft()} dni</h3> : ``}
-            <p>Zrobiłeś {howManyInCycle()} dni z rzędu.</p>
-            <PrograsWrapper>{dayDone == false ? <Icons src={UnDoneIcon} /> : <Icons src={DoneIcon} />}{showProgresIcons()}</PrograsWrapper>
-          </Paper>
-          <Paper>
-            <h3>Twój cel</h3>
-            <GoalForm />
           </Paper>
           <Paper>
             <ListOfResons />
