@@ -25,6 +25,7 @@ return(
        <MenuPanel /><ContentWrapper />
        </>} */}
        <MenuPanel /><ContentWrapper />
+
   </Layout>
   )
 }

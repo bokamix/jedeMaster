@@ -12,7 +12,7 @@ import 'react-circular-progressbar/dist/styles.css';
 import DoneIcon from "../images/check_circle-24px.svg"
 import UnDoneIcon from "../images/remove_circle-24px.svg"
 import CheckboxWrapper from "./Checkbox/CheckboxesWrapper"
-
+import {saveToFirebase} from "./firebase"
 // import LogsContainer from "../app/logs/components/LogsContainer"
 // import LogsForm from "../app/logs/components/LogsForm"
 // import CanbanCard from "./CanbanCard"
@@ -272,49 +272,7 @@ export default function ContentWrapper() {
   };
 
   let newChecked = [];
-  let listOfCheckTask;
-  const getListOfCheck = () => {
-    if (!loadState("listOfCheckTask")) {
-      listOfCheckTask = [
-        {
-          item: "Pościeliłem rano łóżko",
-          done: false,
-          lastActivity: "2019-11-05T10:26:09.491Z"
-        },
-        {
-          item: "Zrobiłem ćwiczenia",
-          done: false,
-          lastActivity: "2019-11-05T10:26:09.491Z"
-        },
-        {
-          item: "Nie piłem alkoholu",
-          done: false,
-          lastActivity: "2019-11-05T10:26:09.491Z"
-        },
-        {
-          item: "Nie jadłem słodyczy",
-          done: false,
-          lastActivity: "2019-11-05T10:26:09.491Z"
-        },
-        {
-          item: "Uczę się 15 min angielskiego",
-          done: false,
-          lastActivity: "2019-11-05T10:26:09.491Z"
-        }
-      ];
-      saveState("listOfCheckTask", listOfCheckTask);
-    } else {
-      listOfCheckTask = loadState("listOfCheckTask");
-      listOfCheckTask.forEach((element, number) => {
-
-        if (element.done == true) {
-          newChecked.push(number);
-        }
-      })
-    }
-
-  }
-  getListOfCheck()
+  
 
   const getItemFromLog = (day) => {
     let dayLogsWork = []
@@ -337,6 +295,7 @@ export default function ContentWrapper() {
     }
   }
 
+  let listOfCheckTask = []
   const checkItemDone = () => {
     listOfCheckTask = loadState("listOfCheckTask");
     let dayLogsWork = loadState("dayLogs");
@@ -371,6 +330,18 @@ export default function ContentWrapper() {
        }
       }
     }
+
+
+    const saveFire =()=>{
+      var pause_menu = {
+        pause_button : { someProperty : "prop1", someOther : "prop2" },
+        resume_button : { resumeProp : "prop", resumeProp2 : false },
+        quit_button : false,
+        darek: { dipa: "fdgfdg", dyspozydja: {doa:"sada"}}
+    };
+      saveToFirebase(pause_menu)
+
+    }
   return (
     <MainWrapper>
       {/* <button onClick={()=>changeDay(1, true)}>Day+</button>
@@ -378,6 +349,7 @@ export default function ContentWrapper() {
       <div >
         <Container>
         <Paper>
+          <button onClick={saveFire}>Zapisz</button>
         <GoalForm />
         <PrograsWrapper>{dayDone == false ? <Icons src={UnDoneIcon} /> : <Icons src={DoneIcon} />}{showProgresIcons()}</PrograsWrapper>
             <CircleWrapper>
