@@ -12,7 +12,6 @@ import 'react-circular-progressbar/dist/styles.css';
 import DoneIcon from "../images/check_circle-24px.svg"
 import UnDoneIcon from "../images/remove_circle-24px.svg"
 import CheckboxWrapper from "./Checkbox/CheckboxesWrapper"
-import {saveToFirebase} from "./firebase"
 // import LogsContainer from "../app/logs/components/LogsContainer"
 // import LogsForm from "../app/logs/components/LogsForm"
 // import CanbanCard from "./CanbanCard"
@@ -332,16 +331,6 @@ export default function ContentWrapper() {
     }
 
 
-    const saveFire =()=>{
-      var pause_menu = {
-        pause_button : { someProperty : "prop1", someOther : "prop2" },
-        resume_button : { resumeProp : "prop", resumeProp2 : false },
-        quit_button : false,
-        darek: { dipa: "fdgfdg", dyspozydja: {doa:"sada"}}
-    };
-      saveToFirebase(pause_menu)
-
-    }
   return (
     <MainWrapper>
       {/* <button onClick={()=>changeDay(1, true)}>Day+</button>
@@ -349,7 +338,6 @@ export default function ContentWrapper() {
       <div >
         <Container>
         <Paper>
-          <button onClick={saveFire}>Zapisz</button>
         <GoalForm />
         <PrograsWrapper>{dayDone == false ? <Icons src={UnDoneIcon} /> : <Icons src={DoneIcon} />}{showProgresIcons()}</PrograsWrapper>
             <CircleWrapper>

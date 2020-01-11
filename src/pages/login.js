@@ -1,42 +1,52 @@
 import React, { Component } from "react"
 import { Link } from "gatsby"
-import "../components/firebase"
 import Layout from "../components/layout"
 import Image from "../components/image"
 import SEO from "../components/seo"
 import { loadState } from "../localStorage"
-
+import { getFirebase } from "../../firebase"
 function initNetlifyIdentity() {
   console.log("initNetlifyIdentity called.")
   const script = document.createElement("script");
 
   script.src = "https://identity.netlify.com/v1/netlify-identity-widget.js"
   script.async = true;
-
+  
   document.body.appendChild(script);
 }
-const netlifyIdentity = window.netlifyIdentity;
-function openNetlifyModal() {
-  
-
-  if(netlifyIdentity){
-    netlifyIdentity.open();
-
-  }
-  else
-    console.log('netlifyIdentity not defined')
-}
+let netlifyIdentity
 
 class NetlifyIdentity extends Component {
   componentDidMount() {
+    netlifyIdentity = window.netlifyIdentity;
     initNetlifyIdentity();
+    const lazyApp = import('firebase/app')
+    const lazyDatabase = import('firebase/database')
+  
+    Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
+      const database = getFirebase(firebase).database()
+      let data = {
+        dada: "duka blat",
+      }
+      database.ref().set(data);
+    })
   }
 
+  
+
   render() {
+    
     return(<div></div>)
   }
 }
 const IndexPage = () => {
+  function openNetlifyModal() {
+    if(netlifyIdentity){
+      netlifyIdentity.open();
+    }
+    else
+      console.log('netlifyIdentity not defined')
+  }
   return(
     <Layout>
       <NetlifyIdentity />
