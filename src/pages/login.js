@@ -26,6 +26,7 @@ function openNetlifyModal() {
 }
 
 //////
+let database
 const NetlifyIdentity = () => {
   useEffect(() => {
     initNetlifyIdentity();
@@ -35,21 +36,37 @@ const NetlifyIdentity = () => {
     const lazyApp = import('firebase/app')
     const lazyDatabase = import('firebase/database')
     Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
-      const database = getFirebase(firebase).database()
+      database = getFirebase(firebase).database()
       let data = {
         dada: "Repairt net duka blat",
       }
-      database.ref().set(data);
     })
   });
+let itemNumber=0
+const saveToFirebase =()=>{
+  itemNumber++
+  let data = {
+    dada: `${itemNumber}`,
+  }
+  let id= loadState('gotrue.user.id')
+  if(id){
+    database.ref(`${id}`).set(data);
+  }
+  console.log(itemNumber)
+}
 
   return(
     <Layout>
       <SEO title="Home" />
-      <h1>Hi people</h1>
+      <h1>Witaj w panelu logowania</h1>
       <h2 onClick={()=>openNetlifyModal()}>Login</h2>
-      <p>Welcome to your new Gatsby site.</p>
-      <p>Now go build something great.</p>{console.log("asdad" ,loadState('gotrue.user'))}
+      <button onClick={saveToFirebase}>Zapisz dane</button>
+      <p>
+        Mozesz stworzyć konto, dzięki czemu twoje dane będą przechowywane w chmurze Google.
+        Po zalogowaniu się na innym urządzeniu twoje dane się zsynchronizują. 
+        Mozesz tez trzymać dane lokalnie, przez co są one dostępne tylko na danym urządzaniu.
+
+      </p>{console.log(loadState('gotrue.user.id'))}
       <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
         <Image />
       </div>
