@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { loadState, saveState } from '../../localStorage'
 
-export default function DayLogAccordion() {
+export default function DayLogAccordion({setStart}) {
   const [open, setOpen] = React.useState(false);
 
   const installDefaultData =()=>{
@@ -60,8 +60,7 @@ export default function DayLogAccordion() {
     
       }
       getListOfCheck()
-
-    
+      setStart()
   }
 
 
@@ -79,7 +78,7 @@ export default function DayLogAccordion() {
             <li>4. Dieta</li>
             <li>5. Rozwój mózgu</li>
         </ul>
-        <button onCLick={installDefaultData}>Zacznij!</button>
+        <button onClick={installDefaultData}>Zacznij!</button>
     </div>
   );
 }

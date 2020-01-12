@@ -4,7 +4,6 @@ import { loadState, saveState } from '../localStorage'
 import CheckboxListSecondary from "../components/CheckboxListSecondary";
 import ListOfResons from "../components/ListOfResons";
 import GoalForm from "./GoalForm";
-import moment from "moment";
 import ChallengeLogs from './Challengs/ChallengeLogs'
 import { getDaysLeft, changeDay } from "./DateManipulation"
 import { CircularProgressbarWithChildren, CircularProgressbar, buildStyles } from 'react-circular-progressbar';
@@ -12,10 +11,12 @@ import 'react-circular-progressbar/dist/styles.css';
 import DoneIcon from "../images/check_circle-24px.svg"
 import UnDoneIcon from "../images/remove_circle-24px.svg"
 import CheckboxWrapper from "./Checkbox/CheckboxesWrapper"
+import {getGoal, isTodayDone, setGoalStatus,howManyInCycle, loadProgress } from "../components/InitialFunctions"
+let toDayIs = loadState("toDayIs")
+
 // import LogsContainer from "../app/logs/components/LogsContainer"
 // import LogsForm from "../app/logs/components/LogsForm"
 // import CanbanCard from "./CanbanCard"
-let toDayIs = loadState("toDayIs")
 const MainWrapper = styled.div`
   margin: 0 auto;
   @media only screen and (min-width: 900px) {
@@ -77,137 +78,8 @@ const Icons = styled.img`
   height:40px;
   padding:5px;
 `
-const lastLogIsToday = () => {
-  if (loadState("dayLogs")) {
-    let listOfCheckTaskWork = loadState("dayLogs");
-    let today = toDayIs
-    let lastElement = listOfCheckTaskWork[listOfCheckTaskWork.length - 1];
-    let isSame = moment(lastElement.date).isSame(moment(today), 'day')
-    return isSame
-  }
-}
 
-const resetChecklist = () => {
-  if (loadState("listOfCheckTask")) {
-    let listOfCheckTaskWork = loadState("listOfCheckTask");
-    listOfCheckTaskWork.forEach((item) => {
-      item.done = false
-    })
-    saveState("listOfCheckTask", listOfCheckTaskWork);
-  }
-}
-const addLog = (day, logValue) => {
-  let dayLogsWork = []
-  if (loadState("dayLogs")) {
-    dayLogsWork = loadState("dayLogs");
-  }
-  let dayToAdd = {
-    date: day,
-    isDone: logValue
-  }
-  dayLogsWork.push(dayToAdd)
-  saveState("dayLogs", dayLogsWork)
-  sortLogItems()
-}
-const sortLogItems = () => {
-  let dayLogsWork = []
-  if (loadState("dayLogs")) {
-    dayLogsWork = loadState("dayLogs");
-    dayLogsWork.sort((a, b) => (a.date > b.date) ? 1 : -1)
-    saveState("dayLogs", dayLogsWork)
-  }
-}
-sortLogItems()
-const isTodayDone = () => {
-  if (loadState("dayLogs")) {
-    let dayLogsWork = loadState("dayLogs");
-    let lastElement = dayLogsWork[dayLogsWork.length - 1];
-    if (lastElement.isDone == true) {
-      return true
-    } else return false
-  }
-}
-
-
-const getCheckActivity = () => {
-  if (lastLogIsToday()) {
-  }
-  else { resetChecklist() }
-}
-getCheckActivity()
-
-const setGoalStatus = () => {
-  if (loadState("goalItem")) {
-    let goalInfo = loadState("goalItem");
-    let goalStatus = goalInfo.isActive
-    return goalStatus
-  }
-}
-
-
-const howManyInCycle = () => {
-  if (loadState("dayLogs")) {
-    let dayLogsWork = loadState("dayLogs");
-    dayLogsWork.pop()
-    let i = 0;
-    dayLogsWork.forEach((item) => {
-      if (item.isDone == true) {
-        i++;
-      }
-      else { i = 0; }
-    })
-    return i
-  }
-}
-
-const isLastLogToday = () => {
-  sortLogItems();
-  let dayLogsWork = []
-  if (loadState("dayLogs")) {
-
-    dayLogsWork = loadState("dayLogs");
-    let lastElement = dayLogsWork[dayLogsWork.length - 1];
-    let todayDate = toDayIs
-    let isTodayValue = moment(lastElement.date).isSame(moment(todayDate), 'day')
-
-    let todayA = moment(todayDate)
-    let lastElementW = moment(lastElement.date)
-    let diffValue = todayA.diff(lastElementW, "day")
-    if (diffValue > 1) {
-      let i;
-      saveState("progress", 0)
-      for (i = 1; i < diffValue; i++) {
-        let dayToAddd = moment(toDayIs).subtract(i, 'days')
-        addLog(dayToAddd, false)
-      }
-
-
-    }
-    else if (diffValue === 1) {
-      resetChecklist()
-      saveState("progress", 0)
-
-
-    }
-
-    if (!isTodayValue) {
-      addLog(toDayIs, false)
-    }
-
-  }
-  else {
-    addLog(toDayIs, false)
-  }
-}
-
-isLastLogToday()
-const loadProgress = () => {
-  if (loadState("progress")) {
-    return loadState("progress")
-  } else {
-    return 0
-  }
-}
+///////// end style/ /////
 /////////////////////////////////////////////// Start App ////////////////////////////////////////
 //////////////////////////////////////// ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -219,7 +91,10 @@ export default function ContentWrapper() {
   const [logList, setLogList] = React.useState()
   const [progress, setProgress] = React.useState(loadProgress())
   const [dayLeft, setDayLeft] = React.useState(getDaysLeft())
-  const percentage = progress;
+  const percentage = progress; /// Progress bar
+  let goalItem = getGoal()
+  
+  ///Make progress get progress from
   const makeProgress = () => {
     if (progress === 100) {
     } else {
@@ -231,6 +106,8 @@ export default function ContentWrapper() {
       }
     }
   }
+
+  //// Make regres
   const makeRegress = () => {
     if (progress === 0) {
     } else {
@@ -240,25 +117,9 @@ export default function ContentWrapper() {
 
     }
   }
-  // localStorage.clear();
+  
 
-  let goalItem;
-  const getGoal = () => {
-    if (!loadState("goalItem")) {
-      goalItem = {
-        goal: "Podstawowe nawyki",
-        isActive: false,
-        startDate: "2019-11-05T10:26:09.491Z",
-        endDate: "2019-12-08T10:26:09.491Z",
-        challengeId: 1,
-      };
-      saveState("goalItem", goalItem);
-    } else {
-      goalItem = loadState("goalItem");
-    }
-  }
-  getGoal()
-
+///start chalange
   const startChallenge = () => {
     let startDate = toDayIs;
     let endDate = changeDay(14)
@@ -270,30 +131,8 @@ export default function ContentWrapper() {
     saveState("goalItem", goalItem);
   };
 
-  let newChecked = [];
   
-
-  const getItemFromLog = (day) => {
-    let dayLogsWork = []
-    if (loadState("dayLogs")) {
-      dayLogsWork = loadState("dayLogs");
-      let result = dayLogsWork.find(({ date }) => date === day);
-      if (result) {
-      }
-    }
-  }
-
-  const removeItemFromLog = (day) => {
-    let dayLogsWork = []
-    if (loadState("dayLogs")) {
-      dayLogsWork = loadState("dayLogs");
-      dayLogsWork.forEach((item) => {
-      })
-      dayLogsWork.splice(dayLogsWork.findIndex(item => item.date == `${day}`), 1)
-      saveState("dayLogs", dayLogsWork)
-    }
-  }
-
+//// Check Item is Done
   let listOfCheckTask = []
   const checkItemDone = () => {
     listOfCheckTask = loadState("listOfCheckTask");
@@ -313,6 +152,8 @@ export default function ContentWrapper() {
     }
   }
 
+
+  //// Show progress icon
   const showProgresIcons = () => {
     if (loadState("dayLogs")) {
       let dayLogsWork = loadState("dayLogs");
