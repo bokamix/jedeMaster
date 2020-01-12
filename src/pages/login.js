@@ -48,11 +48,12 @@ const saveToFirebase =()=>{
   let data = {
     dada: `${itemNumber}`,
   }
-  let id= loadState('gotrue.user.id')
+  let id = loadState('gotrue.user.id')
   if(id){
     database.ref(`${id}`).set(data);
   }
   console.log(itemNumber)
+  console.log(id)
 }
 
   return(
