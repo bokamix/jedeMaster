@@ -54,6 +54,7 @@ const saveToFirebase =()=>{
   }
   console.log(itemNumber)
   console.log(user.id)
+  console.log(user)
 }
 
   return(
