@@ -53,8 +53,15 @@ const saveToFirebase =()=>{
     database.ref(`${user.id}`).set(data);
   }
   console.log(itemNumber)
-  console.log(user.id)
+  // console.log(user.id)
   console.log(user)
+if(user){
+  database.ref().on('value', (snapshot) => {
+    const val = snapshot.val();
+    console.log(val);
+  })
+}
+  
 }
 
   return(
