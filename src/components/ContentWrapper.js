@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { saveToFirebase } from "../../firebase"
+import { loadFireState } from "../../firebase"
 import styled from "styled-components";
 import { loadState, saveState } from '../localStorage'
 import CheckboxListSecondary from "../components/CheckboxListSecondary";
@@ -180,7 +180,7 @@ export default function ContentWrapper() {
         <Container>
         <Paper>
         <GoalForm />
-        <button onClick={saveToFirebase}>asdasd</button>
+        <button onClick={loadFireState}>asdasd</button>
         <PrograsWrapper>{dayDone == false ? <Icons src={UnDoneIcon} /> : <Icons src={DoneIcon} />}{showProgresIcons()}</PrograsWrapper>
             <CircleWrapper>
               <CircularProgressbarWithChildren 

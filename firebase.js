@@ -23,27 +23,9 @@ export const getFirebase = firebase => {
 let database;
 Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
   database = getFirebase(firebase).database()
-  let data = {
-    dada: "Repairt net duka blat",
-  }
+  
 })
 let user = loadState('gotrue.user')
-export const saveToFirebase =()=>{
-  let data = {
-    challengesLogs:loadState("challengesLogs"),
-    dayLogs:loadState("dayLogs"),
-    goalItem:loadState("goalItem"),
-    listOfCheckTask:loadState("listOfCheckTask"),
-    listOfResonsArray:loadState("listOfResonsArray"),
-    progress:loadState("progress")
-  }
-
-  if(user){
-    database.ref(`${user.id}`).set(data);
-  }
-  console.log(user)
-
-}
 
 export const loadFireState =()=>{
   if(user){
@@ -54,6 +36,23 @@ export const loadFireState =()=>{
   }else{
     console.log("Zaloguj się")
   }
+}
 
+let data = {
+  challengesLogs:loadState("challengesLogs"),
+  dayLogs:loadState("dayLogs"),
+  goalItem:loadState("goalItem"),
+  listOfCheckTask:loadState("listOfCheckTask"),
+  listOfResonsArray:loadState("listOfResonsArray"),
+  progress:loadState("progress")
+}
+
+export const syncFireState =()=>{
+  if(user){
+    database.ref(`${user.id}`).set(data);
+    console.log("Zapis do bazy")
+  }else{
+    console.log("nie mogę wysłać danych")
+  }
 }
 
