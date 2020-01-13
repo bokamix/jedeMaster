@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { saveToFirebase } from "../../firebase"
 import styled from "styled-components";
 import { loadState, saveState } from '../localStorage'
 import CheckboxListSecondary from "../components/CheckboxListSecondary";
@@ -13,7 +14,6 @@ import UnDoneIcon from "../images/remove_circle-24px.svg"
 import CheckboxWrapper from "./Checkbox/CheckboxesWrapper"
 import {getGoal, isTodayDone, setGoalStatus,howManyInCycle, loadProgress } from "../components/InitialFunctions"
 let toDayIs = loadState("toDayIs")
-
 // import LogsContainer from "../app/logs/components/LogsContainer"
 // import LogsForm from "../app/logs/components/LogsForm"
 // import CanbanCard from "./CanbanCard"
@@ -180,6 +180,7 @@ export default function ContentWrapper() {
         <Container>
         <Paper>
         <GoalForm />
+        <button onClick={saveToFirebase}>asdasd</button>
         <PrograsWrapper>{dayDone == false ? <Icons src={UnDoneIcon} /> : <Icons src={DoneIcon} />}{showProgresIcons()}</PrograsWrapper>
             <CircleWrapper>
               <CircularProgressbarWithChildren 

@@ -28,7 +28,7 @@ function openNetlifyModal() {
 //////
 let database
 const NetlifyIdentity = () => {
-  useEffect(() => {
+    useEffect(() => {
     initNetlifyIdentity();
     console.log("iniet Net... End")
 
