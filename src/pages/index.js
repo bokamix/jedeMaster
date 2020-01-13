@@ -6,6 +6,7 @@ import ContentWrapper from "../components/ContentWrapper"
 // import AboutChallenge from "../components/AboutChallenge"
 import { loadState } from '../localStorage'
 import FirstTimeUser from "../components/FirstTimeOnApp/FirstTimeUser"
+import { loadFireState } from "../../firebase"
 const setHandle =()=>{
   if(loadState('listOfResonsArray')){
    return(false)
@@ -18,6 +19,7 @@ const IndexPage = () => {
   const setHandleFalse =()=>{
     setFirstTime(false)
   }
+  loadFireState()
 return(
   <Layout>
     <SEO title="Home" />
