@@ -27,18 +27,19 @@ Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
     dada: "Repairt net duka blat",
   }
 })
-let itemNumber=0
 export const saveToFirebase =()=>{
-  itemNumber++
   let data = {
-    dada: `${itemNumber}`,
+    challengesLogs:loadState("challengesLogs"),
+    dayLogs:loadState("dayLogs"),
+    goalItem:loadState("goalItem"),
+    listOfCheckTask:loadState("listOfCheckTask"),
+    listOfResonsArray:loadState("listOfResonsArray"),
+    progress:loadState("progress")
   }
   let user = loadState('gotrue.user')
   if(user){
     database.ref(`${user.id}`).set(data);
   }
-  console.log(itemNumber)
-  // console.log(user.id)
   console.log(user)
 if(user){
   database.ref().on('value', (snapshot) => {
