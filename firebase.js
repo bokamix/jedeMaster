@@ -36,22 +36,22 @@ Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
       database.ref(`${user.id}`).set(data);
       console.log("Zapis do bazy")
     }else{
-      console.log("nie mogę wysłać danych")
+      console.log("nie mogę wysłać danych, moze się zaloguj")
     }
   }, 3000);
+
+    if(user){
+      database.ref(user.id).on('value', (snapshot) => {
+        const val = snapshot.val();
+        console.log(val);
+      })
+    }else{
+      console.log("Zaloguj się")
+    }
 })
 let user = loadState('gotrue.user')
 
-export const loadFireState =()=>{
-  if(user){
-    database.ref(user.id).on('value', (snapshot) => {
-      const val = snapshot.val();
-      console.log(val);
-    })
-  }else{
-    console.log("Zaloguj się")
-  }
-}
+
 
 
 
