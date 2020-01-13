@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { loadState, saveState } from "../../localStorage";
 import DoneIcon from "../../images/done-24px.svg"
 import NoDoneIcon from "../../images/remove_circle-24px.svg"
-import { syncFireState } from "../../../firebase"
 
 const CheckboxWrapper = styled.div`
   cursor: pointer;
@@ -60,7 +59,6 @@ export default function Checkbox({label, checkStatus, index, makeProgress, makeR
               }
               checkItemDone()
             }, 50);
-            syncFireState()
     }
 
   return (

@@ -6,7 +6,6 @@ import SEO from "../components/seo"
 import { loadState } from "../localStorage"
 import { getFirebase } from "../../firebase"
 
-let netlifyIdentity
 
 function initNetlifyIdentity() {
   console.log("initNetlifyIdentity called.")
@@ -26,56 +25,24 @@ function openNetlifyModal() {
 }
 
 //////
-let database
 const NetlifyIdentity = () => {
     useEffect(() => {
     initNetlifyIdentity();
-    console.log("iniet Net... End")
+    console.log("iniet Net... End")})
 
 
-    const lazyApp = import('firebase/app')
-    const lazyDatabase = import('firebase/database')
-    Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
-      database = getFirebase(firebase).database()
-      let data = {
-        dada: "Repairt net duka blat",
-      }
-    })
-  });
-let itemNumber=0
-const saveToFirebase =()=>{
-  itemNumber++
-  let data = {
-    dada: `${itemNumber}`,
-  }
-  let user = loadState('gotrue.user')
-  if(user){
-    database.ref(`${user.id}`).set(data);
-  }
-  console.log(itemNumber)
-  // console.log(user.id)
-  console.log(user)
-if(user){
-  database.ref().on('value', (snapshot) => {
-    const val = snapshot.val();
-    console.log(val);
-  })
-}
-  
-}
+   
 
   return(
     <Layout>
       <SEO title="Home" />
       <h1>Witaj w panelu logowania</h1>
       <h2 onClick={()=>openNetlifyModal()}>Login</h2>
-      <button onClick={saveToFirebase}>Zapisz dane</button>
       <p>
         Mozesz stworzyć konto, dzięki czemu twoje dane będą przechowywane w chmurze Google.
         Po zalogowaniu się na innym urządzeniu twoje dane się zsynchronizują. 
         Mozesz tez trzymać dane lokalnie, przez co są one dostępne tylko na danym urządzaniu.
-
-      </p>{console.log(loadState('gotrue.user.id'))}
+      </p>
       <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
         <Image />
       </div>

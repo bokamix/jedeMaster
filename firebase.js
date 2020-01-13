@@ -23,7 +23,14 @@ export const getFirebase = firebase => {
 let database;
 Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
   database = getFirebase(firebase).database()
-  
+  setInterval(()=>{ 
+    if(user){
+      database.ref(`${user.id}`).set(data);
+      console.log("Zapis do bazy")
+    }else{
+      console.log("nie mogę wysłać danych")
+    }
+  }, 3000);
 })
 let user = loadState('gotrue.user')
 
@@ -47,12 +54,5 @@ let data = {
   progress:loadState("progress")
 }
 
-export const syncFireState =()=>{
-  if(user){
-    database.ref(`${user.id}`).set(data);
-    console.log("Zapis do bazy")
-  }else{
-    console.log("nie mogę wysłać danych")
-  }
-}
+
 
