@@ -42,7 +42,7 @@ export const saveToFirebase =()=>{
   }
   console.log(user)
 if(user){
-  database.ref().on('value', (snapshot) => {
+  database.ref(user.id).on('value', (snapshot) => {
     const val = snapshot.val();
     console.log(val);
   })
