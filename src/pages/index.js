@@ -7,6 +7,7 @@ import ContentWrapper from "../components/ContentWrapper"
 import { loadState } from '../localStorage'
 import FirstTimeUser from "../components/FirstTimeOnApp/FirstTimeUser"
 import  "../../firebase"
+import { saveToFire, loadFromFire } from "../../firebase"
 
 
 
@@ -45,9 +46,18 @@ const IndexPage = () => {
   const setHandleFalse =()=>{
     setFirstTime(false)
   }
+  setInterval(()=>{ 
+    loadFromFire() 
+    setFirstTime(firstTime)
+  }, 3000);
+
+
+
 return(
   <Layout>
     <SEO title="Home" />
+    <button onClick={()=>saveToFire()}>Save</button>
+    <button onClick={()=>{loadFromFire()}}>Load</button>
        {firstTime ? <FirstTimeUser setStart={setHandleFalse} /> : <>
       <MenuPanel /><ContentWrapper />
        </>}

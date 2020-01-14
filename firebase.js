@@ -3,6 +3,7 @@ import { useState } from "react"
 const lazyApp = import('firebase/app')
 const lazyDatabase = import('firebase/database')
 let user = loadState('gotrue.user')
+user = {id: "357c7b9a-e719-4309-bf93-8b1b9eafb2e7"}
 
 let config = {
   apiKey: process.env.GATSBY__FIREBASE_API_KEY,
@@ -23,45 +24,45 @@ export const getFirebase = firebase => {
   return firebase
 }
 let database;
-Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
-  database = getFirebase(firebase).database()
-  if(user){
-    database.ref(user.id).on('value', (snapshot) => {
-      const val = snapshot.val();
-      saveState("challengesLogs", val.challengesLogs)
-      saveState("dayLogs", val.dayLogs)
-      saveState("goalItem", val.goalItem)
-      saveState("listOfCheckTask", val.listOfCheckTask)
-      saveState("listOfResonsArray", val.listOfResonsArray)
-      saveState("progress", val.progress)
-    })
-    console.log("wczytanie bezy")
-  }else{
-    console.log("Zaloguj się")
-  }
-  setInterval(()=>{ 
-      let data = {
-        challengesLogs:loadState("challengesLogs"),
-        dayLogs:loadState("dayLogs"),
-        goalItem:loadState("goalItem"),
-        listOfCheckTask:loadState("listOfCheckTask"),
-        listOfResonsArray:loadState("listOfResonsArray"),
-        progress:loadState("progress")
-      }
-      if(user){
-        database.ref(`${user.id}`).set(data);
-        console.log("Zapis do bazy")
-      }else{
-        console.log("nie mogę wysłać danych, moze się zaloguj")
-      }
-  }, 3000);
-
-    
-})
 
 
+export const loadFromFire =()=>{
+  Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
+    database = getFirebase(firebase).database()
+    if(user){
+      database.ref(user.id).on('value', (snapshot) => {
+        const val = snapshot.val();
+        saveState("challengesLogs", val.challengesLogs)
+        saveState("dayLogs", val.dayLogs)
+        saveState("goalItem", val.goalItem)
+        saveState("listOfCheckTask", val.listOfCheckTask)
+        saveState("listOfResonsArray", val.listOfResonsArray)
+        saveState("progress", val.progress)
+      })
+      console.log("wczytanie bezy")
+    }else{
+      console.log("Zaloguj się")
+    }
+  })
+}
 
-
-
-
+export const saveToFire =()=>{
+  Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
+    database = getFirebase(firebase).database()
+    let data = {
+      challengesLogs:loadState("challengesLogs"),
+      dayLogs:loadState("dayLogs"),
+      goalItem:loadState("goalItem"),
+      listOfCheckTask:loadState("listOfCheckTask"),
+      listOfResonsArray:loadState("listOfResonsArray"),
+      progress:loadState("progress")
+    }
+    if(user){
+      database.ref(`${user.id}`).set(data);
+      console.log("Zapis do bazy")
+    }else{
+      console.log("nie mogę wysłać danych, moze się zaloguj")
+    }
+  })
+}
 

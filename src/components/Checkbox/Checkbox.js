@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { loadState, saveState } from "../../localStorage";
 import DoneIcon from "../../images/done-24px.svg"
 import NoDoneIcon from "../../images/remove_circle-24px.svg"
+import { saveToFire, loadFromFire } from "../../../firebase"
 
 const CheckboxWrapper = styled.div`
   cursor: pointer;
@@ -41,6 +42,7 @@ export default function Checkbox({label, checkStatus, index, makeProgress, makeR
     const onCheck =(e)=>{
             // let clickedElement = e.target
             // clickedElement.style.cssText = "color: blue; border: 1px solid black"; 
+            saveToFire()
             setTimeout(() => {
               setCheck(!check)
               data[index].done = !check
@@ -59,6 +61,9 @@ export default function Checkbox({label, checkStatus, index, makeProgress, makeR
               }
               checkItemDone()
             }, 50);
+            setTimeout(() => {
+              saveToFire()
+            }, 1000);
     }
 
   return (
