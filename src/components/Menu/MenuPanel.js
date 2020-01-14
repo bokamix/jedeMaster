@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from "gatsby"
 import styled from "styled-components";
+import { openNetlifyModal } from "../../pages/index"
 
 const Wrapper = styled.div`
   position:fixed;
@@ -11,7 +12,11 @@ const Wrapper = styled.div`
   background: #202334;
   z-index: 999;
   display:flex;
+  justify-content: space-evenly;
   box-shadow: 0 4px 8px 0 rgba(101, 245, 255, 0.2), 0 6px 20px 0 rgba(101, 245, 255, 0.5);
+  div{
+    font-size: 20px;
+  }
 `
 const Modal = styled.div`
   position:absolute;
@@ -31,9 +36,6 @@ export default function MenuPanel() {
     setOpen(false);
   };
 
-  const resetAllDataInLocalStorage = () =>{
-    setOpen(true);
-  }
   const resetData =()=>{
     localStorage.clear();
     setOpen(false);
@@ -48,7 +50,7 @@ export default function MenuPanel() {
     <Wrapper>
       <Link to="/"><MenuItem>Home</MenuItem></Link>
       <Link to="/challenges"><MenuItem>Challenges</MenuItem></Link>
-      <a  onClick={resetAllDataInLocalStorage}><MenuItem>Zresetuj dane</MenuItem></a>
+      <button onClick={()=>openNetlifyModal()}><MenuItem>Login</MenuItem></button>
     </Wrapper>
     </>
   );
