@@ -1,4 +1,4 @@
-import { loadState } from "./src/localStorage"
+import { loadState, saveState } from "./src/localStorage"
 const lazyApp = import('firebase/app')
 const lazyDatabase = import('firebase/database')
 
@@ -27,12 +27,12 @@ Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
   if(user){
     database.ref(user.id).on('value', (snapshot) => {
       const val = snapshot.val();
-      console.log(val.challengesLogs);
-      console.log(val.dayLogs);
-      console.log(val.goalItem);
-      console.log(val.listOfCheckTask);
-      console.log(val.listOfResonsArray);
-      console.log(val.progress);
+      saveState("challengesLogs", val.challengesLogs)
+      saveState("dayLogs", val.dayLogs)
+      saveState("goalItem", val.goalItem)
+      saveState("listOfCheckTask", val.listOfCheckTask)
+      saveState("listOfResonsArray", val.listOfResonsArray)
+      saveState("progress", val.progress)
     })
   }else{
     console.log("Zaloguj się")
