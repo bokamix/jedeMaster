@@ -25,24 +25,21 @@ export const getFirebase = firebase => {
 let database;
 Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
   database = getFirebase(firebase).database()
-
+  if(user){
+    database.ref(user.id).on('value', (snapshot) => {
+      const val = snapshot.val();
+      saveState("challengesLogs", val.challengesLogs)
+      saveState("dayLogs", val.dayLogs)
+      saveState("goalItem", val.goalItem)
+      saveState("listOfCheckTask", val.listOfCheckTask)
+      saveState("listOfResonsArray", val.listOfResonsArray)
+      saveState("progress", val.progress)
+    })
+    console.log("wczytanie bezy")
+  }else{
+    console.log("Zaloguj się")
+  }
   setInterval(()=>{ 
-    if(user){
-      database.ref(user.id).on('value', (snapshot) => {
-        const val = snapshot.val();
-        saveState("challengesLogs", val.challengesLogs)
-        saveState("dayLogs", val.dayLogs)
-        saveState("goalItem", val.goalItem)
-        saveState("listOfCheckTask", val.listOfCheckTask)
-        saveState("listOfResonsArray", val.listOfResonsArray)
-        saveState("progress", val.progress)
-      })
-      console.log("wczytanie bezy")
-      console.log(user.id)
-    }else{
-      console.log("Zaloguj się")
-    }
-    setTimeout(()=>{
       let data = {
         challengesLogs:loadState("challengesLogs"),
         dayLogs:loadState("dayLogs"),
@@ -57,9 +54,6 @@ Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
       }else{
         console.log("nie mogę wysłać danych, moze się zaloguj")
       }
-       }, 2000);
-    
-
   }, 3000);
 
     
