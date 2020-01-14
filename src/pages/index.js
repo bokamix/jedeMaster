@@ -46,9 +46,7 @@ const IndexPage = () => {
   const setHandleFalse =()=>{
     setFirstTime(false)
   }
-  setInterval(()=>{ 
     loadFromFire() 
-  }, 3000);
 
 
 
