@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import MenuPanel from "../components/Menu/MenuPanel";
@@ -16,6 +16,11 @@ const setHandle =()=>{
 }
 const IndexPage = () => {
   const [firstTime, setFirstTime] = React.useState(setHandle())
+  // useEffect(() => {
+  //   document.body.addEventListener('click', console.log('klik klik klik XD'));
+  // })
+
+
   const setHandleFalse =()=>{
     setFirstTime(false)
   }

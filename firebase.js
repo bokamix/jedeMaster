@@ -1,6 +1,8 @@
 import { loadState, saveState } from "./src/localStorage"
+import { useState } from "react"
 const lazyApp = import('firebase/app')
 const lazyDatabase = import('firebase/database')
+let user = loadState('gotrue.user')
 
 let config = {
   apiKey: process.env.GATSBY__FIREBASE_API_KEY,
@@ -24,7 +26,6 @@ let database;
 Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
   database = getFirebase(firebase).database()
 
-  
   setInterval(()=>{ 
     if(user){
       database.ref(user.id).on('value', (snapshot) => {
@@ -36,28 +37,33 @@ Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
         saveState("listOfResonsArray", val.listOfResonsArray)
         saveState("progress", val.progress)
       })
+      console.log("wczytanie bezy")
+      console.log(user.id)
     }else{
       console.log("Zaloguj się")
     }
-    let data = {
-      challengesLogs:loadState("challengesLogs"),
-      dayLogs:loadState("dayLogs"),
-      goalItem:loadState("goalItem"),
-      listOfCheckTask:loadState("listOfCheckTask"),
-      listOfResonsArray:loadState("listOfResonsArray"),
-      progress:loadState("progress")
-    }
-    if(user){
-      database.ref(`${user.id}`).set(data);
-      console.log("Zapis do bazy")
-    }else{
-      console.log("nie mogę wysłać danych, moze się zaloguj")
-    }
+    setTimeout(()=>{
+      let data = {
+        challengesLogs:loadState("challengesLogs"),
+        dayLogs:loadState("dayLogs"),
+        goalItem:loadState("goalItem"),
+        listOfCheckTask:loadState("listOfCheckTask"),
+        listOfResonsArray:loadState("listOfResonsArray"),
+        progress:loadState("progress")
+      }
+      if(user){
+        database.ref(`${user.id}`).set(data);
+        console.log("Zapis do bazy")
+      }else{
+        console.log("nie mogę wysłać danych, moze się zaloguj")
+      }
+       }, 2000);
+    
+
   }, 3000);
 
     
 })
-let user = loadState('gotrue.user')
 
 
 
