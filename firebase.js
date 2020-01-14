@@ -3,7 +3,6 @@ import { useState } from "react"
 const lazyApp = import('firebase/app')
 const lazyDatabase = import('firebase/database')
 let user = loadState('gotrue.user')
-user = {id: "357c7b9a-e719-4309-bf93-8b1b9eafb2e7"}
 
 let config = {
   apiKey: process.env.GATSBY__FIREBASE_API_KEY,
