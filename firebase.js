@@ -24,20 +24,21 @@ let database;
 Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
   database = getFirebase(firebase).database()
 
-  if(user){
-    database.ref(user.id).on('value', (snapshot) => {
-      const val = snapshot.val();
-      saveState("challengesLogs", val.challengesLogs)
-      saveState("dayLogs", val.dayLogs)
-      saveState("goalItem", val.goalItem)
-      saveState("listOfCheckTask", val.listOfCheckTask)
-      saveState("listOfResonsArray", val.listOfResonsArray)
-      saveState("progress", val.progress)
-    })
-  }else{
-    console.log("Zaloguj się")
-  }
+  
   setInterval(()=>{ 
+    if(user){
+      database.ref(user.id).on('value', (snapshot) => {
+        const val = snapshot.val();
+        saveState("challengesLogs", val.challengesLogs)
+        saveState("dayLogs", val.dayLogs)
+        saveState("goalItem", val.goalItem)
+        saveState("listOfCheckTask", val.listOfCheckTask)
+        saveState("listOfResonsArray", val.listOfResonsArray)
+        saveState("progress", val.progress)
+      })
+    }else{
+      console.log("Zaloguj się")
+    }
     let data = {
       challengesLogs:loadState("challengesLogs"),
       dayLogs:loadState("dayLogs"),
