@@ -23,6 +23,20 @@ export const getFirebase = firebase => {
 let database;
 Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
   database = getFirebase(firebase).database()
+
+  if(user){
+    database.ref(user.id).on('value', (snapshot) => {
+      const val = snapshot.val();
+      console.log(val.challengesLogs);
+      console.log(val.dayLogs);
+      console.log(val.goalItem);
+      console.log(val.listOfCheckTask);
+      console.log(val.listOfResonsArray);
+      console.log(val.progress);
+    })
+  }else{
+    console.log("Zaloguj się")
+  }
   setInterval(()=>{ 
     let data = {
       challengesLogs:loadState("challengesLogs"),
@@ -40,14 +54,7 @@ Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
     }
   }, 3000);
 
-    if(user){
-      database.ref(user.id).on('value', (snapshot) => {
-        const val = snapshot.val();
-        console.log(val);
-      })
-    }else{
-      console.log("Zaloguj się")
-    }
+    
 })
 let user = loadState('gotrue.user')
 
