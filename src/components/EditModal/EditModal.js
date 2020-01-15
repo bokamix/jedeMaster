@@ -2,6 +2,7 @@ import React from 'react';
 import styled from "styled-components";
 import EditTextInput from "../EditTextInput"
 import { saveState } from "../../localStorage"
+import { saveToFire, loadFromFire } from "../../../firebase"
 
 const Wrapper = styled.div`
 position:absolute;
@@ -59,7 +60,9 @@ const saveChanges =(e)=>{
 console.log("rerender", data)
 const saveValue = () =>{
   saveState("listOfCheckTask", data)
+  saveToFire()
   closeModal()
+  
 }
 
 const generateInputs =()=>{
