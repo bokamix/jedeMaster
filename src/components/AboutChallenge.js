@@ -24,16 +24,8 @@ const Paper = styled.div`
 `
 
 export default function AboutChallenge() {
-  const [logItems, setlogItems] = React.useState(loadState("dayLogs"))
+  const [logItems] = React.useState(loadState("dayLogs"))
   
-  const [edit, setEdit] = React.useState(false)
-  // const EditLog =()=>{
-  //   setEdit(true)
-  // }
-  // const saveChanges =(e)=>{
-  //   setEdit(false)
-  // }
-
   const logItemsMap = () => {
    if(logItems){
      logItems.reverse()

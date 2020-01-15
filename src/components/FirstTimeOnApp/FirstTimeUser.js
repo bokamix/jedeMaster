@@ -1,9 +1,9 @@
 import React from "react";
-import styled from "styled-components";
+// import styled from "styled-components";
 import { loadState, saveState } from '../../localStorage'
 
 export default function DayLogAccordion({setStart}) {
-  const [open, setOpen] = React.useState(false);
+  // const [open, setOpen] = React.useState(false);
 
   const installDefaultData =()=>{
     if (!loadState("goalItem")) {

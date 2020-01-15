@@ -1,5 +1,4 @@
 import { loadState, saveState } from "./src/localStorage"
-import { useState } from "react"
 const lazyApp = import('firebase/app')
 const lazyDatabase = import('firebase/database')
 let user = loadState('gotrue.user')

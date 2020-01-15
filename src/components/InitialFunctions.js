@@ -161,23 +161,23 @@ export const getGoal = () => {
 
 
 
-const getItemFromLog = (day) => {
-    let dayLogsWork = []
-    if (loadState("dayLogs")) {
-      dayLogsWork = loadState("dayLogs");
-      let result = dayLogsWork.find(({ date }) => date === day);
-      if (result) {
-      }
-    }
-  }
+// const getItemFromLog = (day) => {
+//     let dayLogsWork = []
+//     if (loadState("dayLogs")) {
+//       dayLogsWork = loadState("dayLogs");
+//       let result = dayLogsWork.find(({ date }) => date === day);
+//       if (result) {
+//       }
+//     }
+//   }
 
-  const removeItemFromLog = (day) => {
-    let dayLogsWork = []
-    if (loadState("dayLogs")) {
-      dayLogsWork = loadState("dayLogs");
-      dayLogsWork.forEach((item) => {
-      })
-      dayLogsWork.splice(dayLogsWork.findIndex(item => item.date == `${day}`), 1)
-      saveState("dayLogs", dayLogsWork)
-    }
-  }
+  // const removeItemFromLog = (day) => {
+  //   let dayLogsWork = []
+  //   if (loadState("dayLogs")) {
+  //     dayLogsWork = loadState("dayLogs");
+  //     dayLogsWork.forEach((item) => {
+  //     })
+  //     dayLogsWork.splice(dayLogsWork.findIndex(item => item.date == `${day}`), 1)
+  //     saveState("dayLogs", dayLogsWork)
+  //   }
+  // }

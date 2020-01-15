@@ -63,7 +63,13 @@ export default function Checkbox({label, checkStatus, index, makeProgress, makeR
             }, 50);
             setTimeout(() => {
               saveToFire()
+            }, 100);
+            setTimeout(() => {
+              saveToFire()
             }, 1000);
+            setTimeout(() => {
+              saveToFire()
+            }, 3000);
     }
 
   return (

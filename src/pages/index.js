@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useEffect } from "react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import MenuPanel from "../components/Menu/MenuPanel";
@@ -47,8 +47,6 @@ const IndexPage = () => {
     setFirstTime(false)
   }
     loadFromFire() 
-
-
 
 return(
   <Layout>

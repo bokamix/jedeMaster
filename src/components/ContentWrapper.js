@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { loadState, saveState } from '../localStorage'
-import CheckboxListSecondary from "../components/CheckboxListSecondary";
 import ListOfResons from "../components/ListOfResons";
 import GoalForm from "./GoalForm";
 import ChallengeLogs from './Challengs/ChallengeLogs'
