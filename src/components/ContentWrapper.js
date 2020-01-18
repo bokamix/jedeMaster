@@ -11,6 +11,8 @@ import DoneIcon from "../images/check_circle-24px.svg"
 import UnDoneIcon from "../images/remove_circle-24px.svg"
 import CheckboxWrapper from "./Checkbox/CheckboxesWrapper"
 import {getGoal, isTodayDone, setGoalStatus,howManyInCycle, loadProgress } from "../components/InitialFunctions"
+import { device } from './Composition/Breakpoints';
+
 let toDayIs = loadState("toDayIs")
 // import LogsContainer from "../app/logs/components/LogsContainer"
 // import LogsForm from "../app/logs/components/LogsForm"
@@ -22,7 +24,7 @@ const MainWrapper = styled.div`
   }
 `;
 const Paper = styled.div`
- background: #202334;
+ background: #2023348f;
  padding: 20px;
  margin: 10px;
  border-radius: 20px;
@@ -31,6 +33,9 @@ const Paper = styled.div`
  display: flex;
  flex-wrap: wrap;
  align-items: center;
+ &:last-of-type {
+  margin-bottom: 76px;
+}
 `
 
 const StartButton = styled.div`
@@ -44,9 +49,6 @@ const StartButton = styled.div`
   background: #202334;
   padding: 10px 35px;
 `;
-const MainTitle = styled.h2`
-  text-align: center;
-`;
 
 const PrograsWrapper = styled.div`
 display:flex;
@@ -56,9 +58,12 @@ width:100%;
 `
 
 const Container = styled.div`
-  margin:20px;
+  margin: 0px;
   display:flex;
   flex-wrap:wrap;
+  @media ${device.laptop} {
+    margin:20px;
+  }
 `
 const CircleWrapper = styled.div`
   @media only screen and (min-width: 900px) {

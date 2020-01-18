@@ -7,15 +7,18 @@ const Wrapper = styled.div`
   position:fixed;
   bottom: 0;
   left:0;
-  height: 60px;
   width: 100%;
-  background: #202334;
+  background: #3f3570;
   z-index: 995;
   display:flex;
   justify-content: space-evenly;
   box-shadow: 0 4px 8px 0 rgba(101, 245, 255, 0.2), 0 6px 20px 0 rgba(101, 245, 255, 0.5);
   div{
-    font-size: 20px;
+    font-size: 15px;
+  }
+  button{
+    background: transparent;
+    border: none;
   }
 `
 const Modal = styled.div`
@@ -28,6 +31,9 @@ const Modal = styled.div`
 `
 const MenuItem = styled.div`
   padding:10px;
+  text-transform: uppercase;
+  color: white;
+
 `
 export default function MenuPanel() {
   const [openModal, setOpen] = React.useState(false);
