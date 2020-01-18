@@ -19,6 +19,7 @@
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
     "react": "^16.11.0",
+    "react-async": "^10.0.0",
     "react-circular-progressbar": "^2.0.3",
     "react-dom": "^16.11.0",
     "react-helmet": "^5.2.1",

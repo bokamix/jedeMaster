@@ -3,7 +3,7 @@ const lazyApp = import('firebase/app')
 const lazyDatabase = import('firebase/database')
 let user = loadState('gotrue.user')
 
-let config = {
+export let config = {
   apiKey: process.env.GATSBY__FIREBASE_API_KEY,
   authDomain: process.env.GATSBY__FIREBASE_AUTH_DOMAIN,
   databaseURL: "https://jedesteam.firebaseio.com",
@@ -42,7 +42,7 @@ export const loadFromFire =(_calback)=>{
       console.log("wczytanie bezy")
     }else{
       console.log("Zaloguj się bo nie wczytam do bazy")
-     _calback()
+      _calback()
     }
   })
 }
