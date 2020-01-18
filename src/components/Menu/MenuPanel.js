@@ -10,7 +10,7 @@ const Wrapper = styled.div`
   height: 60px;
   width: 100%;
   background: #202334;
-  z-index: 999;
+  z-index: 995;
   display:flex;
   justify-content: space-evenly;
   box-shadow: 0 4px 8px 0 rgba(101, 245, 255, 0.2), 0 6px 20px 0 rgba(101, 245, 255, 0.5);

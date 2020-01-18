@@ -67,7 +67,8 @@ const CircleWrapper = styled.div`
   width:180px;
   margin:0 auto;
   h2{
-    font-size:40px;
+    font-size:30px;
+    margin: 0;
     margin-top:15px;
   }
 `

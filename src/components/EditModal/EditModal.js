@@ -10,7 +10,7 @@ const Wrapper = styled.div`
 position:fixed;
 left:0;
 top:0;
-z-index:999;
+z-index:997;
 background:#00000094;
 width:100%;
 height:100%;
@@ -18,9 +18,20 @@ height:100%;
    
   }
 `
+// const WrapperClose = styled.div`
+//   position:fixed;
+//   left:0;
+//   top:0;
+//   z-index:999;
+//   background:#00000094;
+//   width:100%;
+//   height:100%;
+// `
 const Modal = styled.div`
   position: fixed;
   z-index: 999;
+  top: 0;
+  right: 0;
   background:#202334;
   padding: 150px 20px;
   @media ${device.laptop} {
@@ -77,17 +88,16 @@ const generateInputs =()=>{
     )
   })
 }
-
   
-console.log("data", data)
   return (
-    <Wrapper>
+    <>
+    <Wrapper onClick={closeModal} />
       <Modal>
         <InputsWrapper >
           {generateInputs()}
           <button onClick={saveValue}>Zapisz zmiany</button>
         </InputsWrapper>
       </Modal>  
-    </Wrapper> 
+    </>
   );
 }
