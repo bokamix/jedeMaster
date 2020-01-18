@@ -3,29 +3,34 @@ import styled from "styled-components";
 import EditTextInput from "../EditTextInput"
 import { saveState } from "../../localStorage"
 import { saveToFire, loadFromFire } from "../../../firebase"
+import { device } from '../Composition/Breakpoints';
+
 
 const Wrapper = styled.div`
-position:absolute;
+position:fixed;
 left:0;
 top:0;
 z-index:999;
 background:#00000094;
 width:100%;
 height:100%;
+@media ${device.laptop} {
+   
+  }
 `
 const Modal = styled.div`
+  position: fixed;
   z-index: 999;
-  width:80%;
-  height:80%;
   background:#202334;
-  position: absolute;
-  left: 50%;
-  margin-left: -40%;
-  top:50px;
-  text-align:center;
-  border-radius:30px;
-  padding:30px;
-  box-shadow: 0 4px 8px 0 rgba(101,245,255,0.2), 0 6px 20px 0 rgba(101,245,255,0.5);
+  padding: 150px 20px;
+  @media ${device.laptop} {
+    width:50%;
+    height:100%;
+    right: 0;
+    text-align:center;
+    padding:30px;
+    box-shadow: 0 4px 8px 0 rgba(101,245,255,0.2), 0 6px 20px 0 rgba(101,245,255,0.5);
+  }
 `
 const InputsWrapper = styled.div`
   input{

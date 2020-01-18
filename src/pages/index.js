@@ -51,8 +51,8 @@ const IndexPage = () => {
 return(
   <Layout>
     <SEO title="Home" />
-    <button onClick={()=>saveToFire()}>Save</button>
-    <button onClick={()=>{loadFromFire()}}>Load</button>
+    {/* <button onClick={()=>saveToFire()}>Save</button>
+    <button onClick={()=>{loadFromFire()}}>Load</button> */}
        {firstTime ? <FirstTimeUser setStart={setHandleFalse} /> : <>
       <MenuPanel /><ContentWrapper />
        </>}
