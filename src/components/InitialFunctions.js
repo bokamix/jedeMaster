@@ -70,7 +70,6 @@ export const getCheckActivity = () => {
   }
   else { resetChecklist() }
 }
-getCheckActivity()
 
 export const setGoalStatus = () => {
   if (loadState("goalItem")) {
@@ -137,7 +136,6 @@ export const isLastLogToday = () => {
   }
 }
 
-isLastLogToday()
 export const loadProgress = () => {
   if (loadState("progress")) {
     return loadState("progress")

@@ -1,5 +1,6 @@
 import React, { useEffect } from "react"
 import { saveToFire, loadFromFire } from "../../firebase"
+import  "../../firebase"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import MenuPanel from "../components/Menu/MenuPanel";
@@ -7,11 +8,12 @@ import ContentWrapper from "../components/ContentWrapper"
 // import AboutChallenge from "../components/AboutChallenge"
 import { loadState } from '../localStorage'
 import FirstTimeUser from "../components/FirstTimeOnApp/FirstTimeUser"
-import  "../../firebase"
+import {getCheckActivity, isLastLogToday } from "../components/InitialFunctions"
 
 const loadApp =()=>{
   console.log("asyn")
-  alert("Wygenerowano zapytanie")
+  getCheckActivity()
+  isLastLogToday()
 }
 loadFromFire(loadApp)
 

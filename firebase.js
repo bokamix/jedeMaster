@@ -25,6 +25,7 @@ let database;
 
 
 export const loadFromFire =(_calback)=>{
+  console.log("load From Fire")
   Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
     database = getFirebase(firebase).database()
     if(user){
@@ -36,12 +37,12 @@ export const loadFromFire =(_calback)=>{
         saveState("listOfCheckTask", val.listOfCheckTask)
         saveState("listOfResonsArray", val.listOfResonsArray)
         saveState("progress", val.progress)
-        _calback()
+         _calback()
       })
       console.log("wczytanie bezy")
     }else{
       console.log("Zaloguj się bo nie wczytam do bazy")
-      _calback()
+     _calback()
     }
   })
 }
