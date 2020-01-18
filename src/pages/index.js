@@ -10,7 +10,6 @@ import ContentWrapper from "../components/ContentWrapper"
 import FirstTimeUser from "../components/FirstTimeOnApp/FirstTimeUser"
 import {getCheckActivity, isLastLogToday } from "../components/InitialFunctions"
 let user = loadState('gotrue.user')
-user = "sdads"
 const lazyApp = import('firebase/app')
 const lazyDatabase = import('firebase/database')
  let config = {
