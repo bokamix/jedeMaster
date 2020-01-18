@@ -1,45 +1,21 @@
 import React, { useEffect } from "react"
+import { saveToFire, loadFromFire } from "../../firebase"
 import  "../../firebase"
-import { useAsync } from 'react-async';
-import { loadState, saveState } from "../localStorage"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import MenuPanel from "../components/Menu/MenuPanel";
 import ContentWrapper from "../components/ContentWrapper"
 // import AboutChallenge from "../components/AboutChallenge"
+import { loadState } from '../localStorage'
 import FirstTimeUser from "../components/FirstTimeOnApp/FirstTimeUser"
 import {getCheckActivity, isLastLogToday } from "../components/InitialFunctions"
-let user = loadState('gotrue.user')
-const lazyApp = import('firebase/app')
-const lazyDatabase = import('firebase/database')
- let config = {
-  apiKey: process.env.GATSBY__FIREBASE_API_KEY,
-  authDomain: process.env.GATSBY__FIREBASE_AUTH_DOMAIN,
-  databaseURL: "https://jedesteam.firebaseio.com",
-  projectId: process.env.GATSBY__FIREBASE_PROJECT_ID,
-  storageBucket: process.env.GATSBY__FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.GATSBY__FIREBASE_MESSAGING_SENDER_ID
-}
-
-let firebaseInstance
- const getFirebase = firebase => {
-  if (firebaseInstance) {
-    return firebaseInstance
-  }
-  firebase.initializeApp(config)
-  firebaseInstance = firebase
-  return firebase
-}
-let database;
-
-
 
 const loadApp =()=>{
   console.log("asyn")
   getCheckActivity()
   isLastLogToday()
-  return true
 }
+loadFromFire(loadApp)
 
 function initNetlifyIdentity() {
   console.log("initNetlifyIdentity called.")
@@ -66,58 +42,25 @@ const setHandle =()=>{
     return(true)
   }
 }
-
-
-const loadFromFire = async () =>{
-  console.log("load From Fire")
-  Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
-    database = getFirebase(firebase).database()
-    if(user){
-      database.ref(user.id).on('value', (snapshot) => {
-        const val = snapshot.val();
-        saveState("challengesLogs", val.challengesLogs)
-        saveState("dayLogs", val.dayLogs)
-        saveState("goalItem", val.goalItem)
-        saveState("listOfCheckTask", val.listOfCheckTask)
-        saveState("listOfResonsArray", val.listOfResonsArray)
-        saveState("progress", val.progress)
-        return(
-          <>
-              <MenuPanel /><ContentWrapper />
-          </>
-        )
-      })
-      console.log("wczytanie bezy")
-    }else{
-      console.log("Zaloguj się bo nie wczytam do bazy")
-      return(
-        <>
-            <MenuPanel /><ContentWrapper />
-        </>
-      )
-    }
-  })
-}
-
-
-
 const IndexPage = () => {
-  const { data, error, isLoading } = useAsync({ promiseFn: loadFromFire })
+  const [firstTime, setFirstTime] = React.useState(setHandle())
+  
   useEffect(() => {
     initNetlifyIdentity();
     console.log("iniet Net... End")})
-    if (isLoading) return "Loading..."
-    if (error) return `Something went wrong: ${error.message}`
-    if (data)
 
-    console.log(data)
+  const setHandleFalse =()=>{
+    setFirstTime(false)
+  }
+
 return(
   <Layout>
     <SEO title="Home" />
     {/* <button onClick={()=>saveToFire()}>Save</button>
     <button onClick={()=>{loadFromFire()}}>Load</button> */}
-       
-   
+       {firstTime ? <FirstTimeUser setStart={setHandleFalse} /> : <>
+      <MenuPanel /><ContentWrapper />
+       </>}
   </Layout>
   )
 }
