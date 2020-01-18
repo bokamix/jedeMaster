@@ -9,7 +9,11 @@ import { loadState } from '../localStorage'
 import FirstTimeUser from "../components/FirstTimeOnApp/FirstTimeUser"
 import  "../../firebase"
 
-
+const loadApp =()=>{
+  console.log("asyn")
+  alert("Wygenerowano zapytanie")
+}
+loadFromFire(loadApp)
 
 function initNetlifyIdentity() {
   console.log("initNetlifyIdentity called.")
@@ -46,7 +50,6 @@ const IndexPage = () => {
   const setHandleFalse =()=>{
     setFirstTime(false)
   }
-    loadFromFire() 
 
 return(
   <Layout>

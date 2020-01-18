@@ -10,6 +10,7 @@ export const lastLogIsToday = () => {
     let today = toDayIs
     let lastElement = listOfCheckTaskWork[listOfCheckTaskWork.length - 1];
     let isSame = moment(lastElement.date).isSame(moment(today), 'day')
+    console.log("last day is today")
     return isSame
   }
 }
@@ -41,6 +42,7 @@ export const addLog = (day, logValue) => {
   dayLogsWork.push(dayToAdd)
   saveState("dayLogs", dayLogsWork)
   sortLogItems()
+  console.log("addLog")
 }
 export const sortLogItems = () => {
   let dayLogsWork = []
@@ -52,6 +54,7 @@ export const sortLogItems = () => {
 }
 sortLogItems()
 export const isTodayDone = () => {
+  console.log("idTodayDone")
   if (loadState("dayLogs")) {
     let dayLogsWork = loadState("dayLogs");
     let lastElement = dayLogsWork[dayLogsWork.length - 1];
@@ -94,6 +97,7 @@ export const howManyInCycle = () => {
 }
 
 export const isLastLogToday = () => {
+  console.log("isLastLogToday")
   sortLogItems();
   let dayLogsWork = []
   if (loadState("dayLogs")) {
