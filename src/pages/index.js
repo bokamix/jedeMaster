@@ -1,4 +1,5 @@
 import React, { useEffect } from "react"
+import { saveToFire, loadFromFire } from "../../firebase"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import MenuPanel from "../components/Menu/MenuPanel";
@@ -7,7 +8,6 @@ import ContentWrapper from "../components/ContentWrapper"
 import { loadState } from '../localStorage'
 import FirstTimeUser from "../components/FirstTimeOnApp/FirstTimeUser"
 import  "../../firebase"
-import { saveToFire, loadFromFire } from "../../firebase"
 
 
 
