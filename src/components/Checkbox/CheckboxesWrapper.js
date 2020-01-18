@@ -4,6 +4,22 @@ import Checkbox from "./Checkbox"
 import { loadState } from "../../localStorage"
 import EditModal from "../EditModal/EditModal"
 const Wrapper = styled.div`
+
+`
+const Title = styled.div`
+  display: flex;
+  align-items: center;
+  button{
+    border: none;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+  }
+  h4{
+    margin: 0;
+    padding: 0;
+
+  }
 `
 let data
 if(loadState("listOfCheckTask")){
@@ -32,7 +48,7 @@ const generateInputs =()=>{
   return (
     <>
      <Wrapper>
-       <button onClick={openModal}>Edit</button>
+     <Title><h4>Co muszę robić codziennie?</h4><button onClick={openModal}>Edit</button></Title>
          {generateInputs()}
      </Wrapper>
      {open ? <EditModal data={data} closeModal={closeModal} /> : null}

@@ -8,6 +8,9 @@ const TitleWrapper = styled.div`
 display:flex;
 align-items:center;
 justify-content:space-around;
+p{
+  margin-left:10px;
+}
 `
 
 
@@ -59,8 +62,8 @@ export default function ListOfResons() {
 
   return (
     <>
-      <TitleWrapper><h3>Dlaczego chcesz to zrobić?</h3><span><p onClick={() => handleOpen()}>Edit</p></span></TitleWrapper>
-      <div component="nav"  aria-label="contacts">
+      <div>
+        <TitleWrapper><h3>Dlaczego chcesz to zrobić?</h3><span><p onClick={() => handleOpen()}>Edit</p></span></TitleWrapper>
         {listItems}
       </div>
     </>

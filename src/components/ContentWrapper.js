@@ -210,7 +210,6 @@ export default function ContentWrapper() {
               </CircularProgressbarWithChildren>
             </CircleWrapper>
             <div>
-              <h3>Co muszę robić codziennie?</h3>
               <CheckboxWrapper makeRegress={makeRegress} makeProgress={makeProgress} checkItemDone={checkItemDone}/>
             </div>
           </Paper>
