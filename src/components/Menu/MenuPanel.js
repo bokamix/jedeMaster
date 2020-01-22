@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from "gatsby"
 import styled from "styled-components";
 import { openNetlifyModal } from "../../pages/index"
-
+import IconPerson from "../../images/account_circle-24px.svg"
 const Wrapper = styled.div`
   position:fixed;
   bottom: 0;
@@ -33,8 +33,16 @@ const MenuItem = styled.div`
   padding:10px;
   text-transform: uppercase;
   color: white;
-
 `
+
+const LoginIcon = styled.img`
+  width:30px;
+  position:absolute;
+  top:30px;
+  right:30px;
+  color: white;
+`
+
 export default function MenuPanel() {
   const [openModal, setOpen] = React.useState(false);
 
@@ -53,10 +61,10 @@ export default function MenuPanel() {
         <p>Zresetować?</p>
         <button onClick={resetData}>No pewex</button><button onClick={handleClose}>Niet!</button>
       </Modal> :null}
+      <LoginIcon src={IconPerson} alt="login" onClick={()=>openNetlifyModal()} />
     <Wrapper>
       <Link to="/"><MenuItem>Home</MenuItem></Link>
       <Link to="/challenges"><MenuItem>Challenges</MenuItem></Link>
-      <button onClick={()=>openNetlifyModal()}><MenuItem>Login</MenuItem></button>
     </Wrapper>
     </>
   );

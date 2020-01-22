@@ -9,7 +9,7 @@ import ContentWrapper from "../components/ContentWrapper"
 import { loadState } from '../localStorage'
 import FirstTimeUser from "../components/FirstTimeOnApp/FirstTimeUser"
 import {getCheckActivity, isLastLogToday } from "../components/InitialFunctions"
-
+import ModalWrapper from "../components/ModalWithData/ModalWrapper"
 const loadApp =()=>{
   console.log("asyn")
   getCheckActivity()
@@ -56,6 +56,7 @@ const IndexPage = () => {
 return(
   <Layout>
     <SEO title="Home" />
+    <ModalWrapper />
     {/* <button onClick={()=>saveToFire()}>Save</button>
     <button onClick={()=>{loadFromFire()}}>Load</button> */}
        {firstTime ? <FirstTimeUser setStart={setHandleFalse} /> : <>

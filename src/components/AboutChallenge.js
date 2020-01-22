@@ -4,7 +4,7 @@ import { loadState } from "../localStorage"
 import LogItemComponent from "./LogsComponents/LogItemComponent"
 
 const MainWrapper = styled.div`
-  width: 70%;
+  width: 90%;
   margin: 0 auto;
   margin-top: 100px;
   display: flex;
@@ -13,15 +13,18 @@ const MainWrapper = styled.div`
 `
 
 const Paper = styled.div`
- background: #202334;
- padding:30px;
+ background: #2023348f;
+ padding: 20px;
+ margin: 10px;
  border-radius: 20px;
  width: 95%;
  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
  display: flex;
  flex-wrap: wrap;
  align-items: center;
-`
+ &:last-of-type {
+  margin-bottom: 76px;
+}`
 
 export default function AboutChallenge() {
   const [logItems] = React.useState(loadState("dayLogs"))

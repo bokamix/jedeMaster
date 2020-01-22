@@ -60,33 +60,18 @@ const InputsWrapper = styled.div`
   }
 `
 
-export default function EditModal({ data, closeModal }) {
+export default function ModalWithData({ data, closeModal }) {
   const [value, setValue] = React.useState();
   
 console.log("data data ", data)
 
 const saveChanges =(e)=>{
-  console.log(data)
-  console.log(e.target.id)
-  console.log(e.target.value)
-  data[e.target.id].item = e.target.value
-  console.log(data)
   setValue(true)
 }
-console.log("rerender", data)
+
 const saveValue = () =>{
-  saveState("listOfCheckTask", data)
-  saveToFire()
   closeModal()
   
-}
-
-const generateInputs =()=>{
-  return data.map((item, itemNumber)=>{
-    return(
-     <EditTextInput key={itemNumber} inputValue={item.item} itemNumber={itemNumber} saveChanges={saveChanges}/>
-    )
-  })
 }
   
   return (
@@ -94,7 +79,6 @@ const generateInputs =()=>{
     <Wrapper onClick={closeModal} />
     <Modal>
         <InputsWrapper >
-          {generateInputs()}
           <button onClick={saveValue}>Zapisz zmiany</button>
         </InputsWrapper>
     </Modal>  
