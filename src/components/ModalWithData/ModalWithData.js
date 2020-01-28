@@ -4,6 +4,7 @@ import EditTextInput from "../EditTextInput"
 import { saveState } from "../../localStorage"
 import { saveToFire, loadFromFire } from "../../../firebase"
 import { device } from '../Composition/Breakpoints';
+import InputItem from './InputItem'
 
 
 const Wrapper = styled.div`
@@ -71,7 +72,13 @@ const saveChanges =(e)=>{
 
 const saveValue = () =>{
   closeModal()
+}
+
+const GenerateCards = () =>{
   
+  return(
+    <InputItem value />
+  )
 }
   
   return (
@@ -79,6 +86,7 @@ const saveValue = () =>{
     <Wrapper onClick={closeModal} />
     <Modal>
         <InputsWrapper >
+          {GenerateCards()}
           <button onClick={saveValue}>Zapisz zmiany</button>
         </InputsWrapper>
     </Modal>  

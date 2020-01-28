@@ -12,6 +12,7 @@ import UnDoneIcon from "../images/remove_circle-24px.svg"
 import CheckboxWrapper from "./Checkbox/CheckboxesWrapper"
 import {getGoal, isTodayDone, setGoalStatus,howManyInCycle, loadProgress } from "../components/InitialFunctions"
 import { device } from './Composition/Breakpoints';
+import iconChecklist from '../images/assignment-24px.svg'
 
 let toDayIs = loadState("toDayIs")
 // import LogsContainer from "../app/logs/components/LogsContainer"
@@ -83,6 +84,16 @@ const Icons = styled.img`
   padding:5px;
 `
 
+const ChecklistShow = styled.button`
+  position: absolute;
+  top:100px;
+  right:30px;
+  border: none;
+  background: transparent;
+  color:white;
+  font-weight:800;
+`
+
 ///////// end style/ /////
 /////////////////////////////////////////////// Start App ////////////////////////////////////////
 //////////////////////////////////////// ////////////////////////////////////////////////////////////////////////////////
@@ -95,6 +106,9 @@ export default function ContentWrapper() {
   const [logList, setLogList] = React.useState()
   const [progress, setProgress] = React.useState(loadProgress())
   const [dayLeft, setDayLeft] = React.useState(getDaysLeft())
+  const [resons, showResons] = React.useState(false)
+  const [checklist, showChecklist] = React.useState(false)
+
   const percentage = progress; /// Progress bar
   let goalItem = getGoal()
   
@@ -181,8 +195,9 @@ export default function ContentWrapper() {
       {/* <button onClick={()=>changeDay(1, true)}>Day+</button>
       <button onClick={()=>changeDay(-1, true)}>Day-</button> */}
       <div >
+        <ChecklistShow onClick={()=>showChecklist(!checklist)}><img  src={iconChecklist} alt="Checklist" /></ChecklistShow>
         <Container>
-        <Paper>
+        {checklist ? <Paper>
         <GoalForm />
         <PrograsWrapper>{dayDone == false ? <Icons src={UnDoneIcon} /> : <Icons src={DoneIcon} />}{showProgresIcons()}</PrograsWrapper>
             <CircleWrapper>
@@ -217,11 +232,14 @@ export default function ContentWrapper() {
             </CircleWrapper>
             <div>
               <CheckboxWrapper makeRegress={makeRegress} makeProgress={makeProgress} checkItemDone={checkItemDone}/>
+               <button onClick={()=>showResons(!resons)}>{resons ? "Schowaj powody" : "Pokaz powody"}</button>
             </div>
-          </Paper>
-          <Paper>
-            <ListOfResons />
-          </Paper>
+          </Paper> : null}
+          {resons ? 
+            <Paper>
+              <ListOfResons />
+            </Paper> 
+          : null}
           {/* <CanbanCard /> */}
           {!active ? (
             <StartButton onClick={startChallenge} >

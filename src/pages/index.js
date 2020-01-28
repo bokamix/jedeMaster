@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { saveToFire, loadFromFire } from "../../firebase"
 import  "../../firebase"
 import Layout from "../components/layout"
@@ -15,7 +15,7 @@ const loadApp =()=>{
   getCheckActivity()
   isLastLogToday()
 }
-loadFromFire(loadApp)
+
 
 function initNetlifyIdentity() {
   console.log("initNetlifyIdentity called.")
@@ -28,6 +28,7 @@ function initNetlifyIdentity() {
 export function openNetlifyModal() {
   const netlifyIdentity = window.netlifyIdentity;
 
+  
   if(netlifyIdentity)
     netlifyIdentity.open();
   else
@@ -44,10 +45,14 @@ const setHandle =()=>{
 }
 const IndexPage = () => {
   const [firstTime, setFirstTime] = React.useState(setHandle())
-  
+  const [aplication, reloadAplication] = useState(false)
   useEffect(() => {
     initNetlifyIdentity();
-    console.log("iniet Net... End")})
+    console.log("iniet Net... End")
+    loadFromFire().then(
+      reloadAplication(true)
+    )
+  },[])
 
   const setHandleFalse =()=>{
     setFirstTime(false)
@@ -60,7 +65,7 @@ return(
     {/* <button onClick={()=>saveToFire()}>Save</button>
     <button onClick={()=>{loadFromFire()}}>Load</button> */}
        {firstTime ? <FirstTimeUser setStart={setHandleFalse} /> : <>
-      <MenuPanel /><ContentWrapper />
+      {aplication ? <><MenuPanel /><ContentWrapper /></> : null}
        </>}
   </Layout>
   )

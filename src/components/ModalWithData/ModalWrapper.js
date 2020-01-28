@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react"
 import ModalWithData from './ModalWithData'
+import styled from "styled-components";
 
-let data;
-const ModalWrapper = () => {
+
+
+const ModalWrapper = (data) => {
     const [open, setOpen] = useState(false)
     
   
