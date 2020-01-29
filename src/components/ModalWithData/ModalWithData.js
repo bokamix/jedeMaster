@@ -70,6 +70,9 @@ const saveChanges =(e)=>{
   setValue(true)
 }
 
+const addToList =()=>{
+  
+}
 const saveValue = () =>{
   closeModal()
 }

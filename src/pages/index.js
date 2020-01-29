@@ -10,11 +10,7 @@ import { loadState } from '../localStorage'
 import FirstTimeUser from "../components/FirstTimeOnApp/FirstTimeUser"
 import {getCheckActivity, isLastLogToday } from "../components/InitialFunctions"
 import ModalWrapper from "../components/ModalWithData/ModalWrapper"
-const loadApp =()=>{
-  console.log("asyn")
-  getCheckActivity()
-  isLastLogToday()
-}
+
 
 
 function initNetlifyIdentity() {
@@ -50,9 +46,17 @@ const IndexPage = () => {
     initNetlifyIdentity();
     console.log("iniet Net... End")
     loadFromFire().then(
-      reloadAplication(true)
+      loadApp()
     )
   },[])
+
+
+  const loadApp =()=>{
+    console.log("asyn")
+    getCheckActivity()
+    isLastLogToday()
+    reloadAplication(true)
+  }
 
   const setHandleFalse =()=>{
     setFirstTime(false)
