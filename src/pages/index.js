@@ -45,7 +45,7 @@ const setHandle =()=>{
 }
 const IndexPage = () => {
   const [firstTime, setFirstTime] = React.useState(setHandle())
-  const [aplication, reloadAplication] = useState(false)
+  const [aplication, reloadAplication] = useState(true)
   useEffect(() => {
     initNetlifyIdentity();
     console.log("iniet Net... End")
