@@ -65,7 +65,7 @@ const IndexPage = () => {
 return(
   <Layout>
     <SEO title="Home" />
-    <ModalWrapper />
+    <ModalWrapper data={["robir cos", "dupa", "sakod"]} />
     {/* <button onClick={()=>saveToFire()}>Save</button>
     <button onClick={()=>{loadFromFire()}}>Load</button> */}
        {firstTime ? <FirstTimeUser setStart={setHandleFalse} /> : <>

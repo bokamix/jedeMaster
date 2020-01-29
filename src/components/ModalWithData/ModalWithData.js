@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from "styled-components";
 import EditTextInput from "../EditTextInput"
 import { saveState } from "../../localStorage"
@@ -63,15 +63,16 @@ const InputsWrapper = styled.div`
 
 export default function ModalWithData({ data, closeModal }) {
   const [value, setValue] = React.useState();
-  
+  const [state, setState] = useState(data.data)
 console.log("data data ", data)
 
 const saveChanges =(e)=>{
   setValue(true)
 }
 
-const addToList =()=>{
-  
+const addToList =(e)=>{
+  console.log(e.target.value)
+  console.log(e.target.id)
 }
 const saveValue = () =>{
   closeModal()
@@ -79,9 +80,16 @@ const saveValue = () =>{
 
 const GenerateCards = () =>{
   
-  return(
-    <InputItem value />
-  )
+  return state.map((item, num)=>{
+   console.log(item)
+    return(
+      <InputItem num={num} key={num} value={item} addToList={addToList} />
+    )
+  })
+}
+
+const addNewItem = () =>{
+  setState([...state, "dodaj coś"])
 }
   
   return (
@@ -91,6 +99,7 @@ const GenerateCards = () =>{
         <InputsWrapper >
           {GenerateCards()}
           <button onClick={saveValue}>Zapisz zmiany</button>
+          <button onClick={addNewItem}>Nowa Karta</button>
         </InputsWrapper>
     </Modal>  
     </>

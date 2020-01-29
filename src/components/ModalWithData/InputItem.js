@@ -3,23 +3,18 @@ import styled from "styled-components";
 import { loadState, saveState } from '../../localStorage'
 
 
-const InputItem = () => {
+const InputItem = ({value, addToList, num}) => {
     const [open, setOpen] = useState(false)
-    const [state, setState] = useState()
-    useEffect(() => {
-        if(loadState("winHistory")){
-            let data = loadState("winHistory")
-            setState(data)
-        }else{
-            let data = ["Wpisz coś"]
-            saveState("winHistory", data)
-        }
-      },[])
+    const [state, setState] = useState(value)
+    
+    const changeValue =(e)=>{
+        setState(e.target.value)
+    }
    
   
   return(
     <>
-        <input value={state}></input>
+        <input id={ num } onChange={ changeValue } value={ state } onBlur={ addToList }></input>
     </>
     )
   }
