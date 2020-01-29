@@ -107,7 +107,7 @@ export default function ContentWrapper() {
   const [progress, setProgress] = React.useState(loadProgress())
   const [dayLeft, setDayLeft] = React.useState(getDaysLeft())
   const [resons, showResons] = React.useState(false)
-  const [checklist, showChecklist] = React.useState(false)
+  const [checklist, showChecklist] = React.useState(true)
 
   const percentage = progress; /// Progress bar
   let goalItem = getGoal()
