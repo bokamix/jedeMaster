@@ -7,7 +7,6 @@ import styled from "styled-components";
 const ModalWrapper = (data) => {
     const [open, setOpen] = useState(false)
     
-  
     const closeModal =()=>{
       setOpen(false)
     }

@@ -107,7 +107,6 @@ export default function ContentWrapper() {
   const [progress, setProgress] = React.useState(loadProgress())
   const [dayLeft, setDayLeft] = React.useState(getDaysLeft())
   const [resons, showResons] = React.useState(false)
-  const [checklist, showChecklist] = React.useState(true)
 
   const percentage = progress; /// Progress bar
   let goalItem = getGoal()
@@ -192,13 +191,10 @@ export default function ContentWrapper() {
 
   return (
     <MainWrapper>
-      {/* <button onClick={()=>changeDay(1, true)}>Day+</button>
-      <button onClick={()=>changeDay(-1, true)}>Day-</button> */}
       <div >
-        <ChecklistShow onClick={()=>showChecklist(!checklist)}><img  src={iconChecklist} alt="Checklist" /></ChecklistShow>
         <Container>
-        {checklist ? <Paper>
-        <GoalForm />
+        <Paper>
+         <GoalForm />
         <PrograsWrapper>{dayDone == false ? <Icons src={UnDoneIcon} /> : <Icons src={DoneIcon} />}{showProgresIcons()}</PrograsWrapper>
             <CircleWrapper>
               <CircularProgressbarWithChildren 
@@ -232,15 +228,14 @@ export default function ContentWrapper() {
             </CircleWrapper>
             <div>
               <CheckboxWrapper makeRegress={makeRegress} makeProgress={makeProgress} checkItemDone={checkItemDone}/>
-               <button onClick={()=>showResons(!resons)}>{resons ? "Schowaj powody" : "Pokaz powody"}</button>
+              <button onClick={()=>showResons(!resons)}>{resons ? "Schowaj powody" : "Pokaz powody"}</button>
             </div>
-          </Paper> : null}
+          </Paper>
           {resons ? 
             <Paper>
               <ListOfResons />
             </Paper> 
           : null}
-          {/* <CanbanCard /> */}
           {!active ? (
             <StartButton onClick={startChallenge} >
               Rozpocznij 90 dniowe wyzwanie
@@ -250,7 +245,6 @@ export default function ContentWrapper() {
             )}
         </Container>
       </div>
-      {/* < LogsContainer/> */}
       <ChallengeLogs />
     </MainWrapper>
   );

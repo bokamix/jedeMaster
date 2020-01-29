@@ -5,11 +5,9 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import MenuPanel from "../components/Menu/MenuPanel";
 import ContentWrapper from "../components/ContentWrapper"
-// import AboutChallenge from "../components/AboutChallenge"
 import { loadState } from '../localStorage'
 import FirstTimeUser from "../components/FirstTimeOnApp/FirstTimeUser"
 import {getCheckActivity, isLastLogToday } from "../components/InitialFunctions"
-import ModalWrapper from "../components/ModalWithData/ModalWrapper"
 
 
 
@@ -65,7 +63,6 @@ const IndexPage = () => {
 return(
   <Layout>
     <SEO title="Home" />
-    <ModalWrapper data={["robir cos", "dupa", "sakod"]} />
     {/* <button onClick={()=>saveToFire()}>Save</button>
     <button onClick={()=>{loadFromFire()}}>Load</button> */}
        {firstTime ? <FirstTimeUser setStart={setHandleFalse} /> : <>
