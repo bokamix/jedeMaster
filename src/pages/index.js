@@ -96,13 +96,14 @@ const IndexPage = () => {
     function loadFromFire(){
 
         Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
-          return getFirebase(firebase).database()
+          return database = getFirebase(firebase).database()
          
         }).then(database => {
         console.log("database", database)
-      }).then(()=>{
         getDataFromDatabase()
-      })}
+        
+        })
+  }
 
       loadFromFire()
 
@@ -130,7 +131,7 @@ return(
     {/* <button onClick={()=>saveToFire()}>Save</button>
     <button onClick={()=>{loadFromFire()}}>Load</button> */}
        {firstTime ? <FirstTimeUser setStart={setHandleFalse} /> : <>
-      {aplication ? <><MenuPanel /><ContentWrapper /></> : null}
+       <MenuPanel /> {aplication ? <ContentWrapper /> : null}
        </>}
   </Layout>
   )
