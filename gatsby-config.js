@@ -1,7 +1,4 @@
-require('dotenv').config({
-  path: `.env.${process.env.NODE_ENV}`, // or '.env'
-});
-const config = require('gatsby-plugin-config');
+require('dotenv').config();
 
 module.exports = {
   siteMetadata: {

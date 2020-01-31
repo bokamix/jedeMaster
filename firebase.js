@@ -24,29 +24,9 @@ export const getFirebase = firebase => {
 let database;
 
 
-export async function loadFromFire(){
-  console.log("load From Fire")
-  Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
-    database = getFirebase(firebase).database()
-    if(user){
-      database.ref(user.id).on('value', (snapshot) => {
-        const val = snapshot.val();
-        saveState("challengesLogs", val.challengesLogs)
-        saveState("dayLogs", val.dayLogs)
-        saveState("goalItem", val.goalItem)
-        saveState("listOfCheckTask", val.listOfCheckTask)
-        saveState("listOfResonsArray", val.listOfResonsArray)
-        saveState("progress", val.progress)
-      })
-      console.log("wczytanie bezy")
-    }else{
-      console.log("Zaloguj się bo nie wczytam do bazy")
-    }
-  })
-}
-
 export const saveToFire =()=>{
   Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
+    
     database = getFirebase(firebase).database()
     let data = {
       challengesLogs:loadState("challengesLogs"),
@@ -63,5 +43,6 @@ export const saveToFire =()=>{
       console.log("nie mogę wysłać danych, moze się zaloguj")
     }
   })
+
 }
 

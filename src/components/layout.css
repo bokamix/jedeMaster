@@ -632,11 +632,11 @@ body {
   background-attachment: fixed;
   background-position: center; 
   color:white;
-  background-image: url(https://picsum.photos/1600/800?grayscale.webp);
+  background-image: url();
 }
 @media only screen and (max-width: 480px) {
   body{
-    background-image: url(https://picsum.photos/480/800?grayscale.webp);
+    background-image: url(https://wallpaperaccess.com/full/19921.jpg);
   }
 }
 
