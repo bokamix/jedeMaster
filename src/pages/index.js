@@ -91,8 +91,7 @@ const IndexPage = () => {
 
 
   useEffect(() => {
-      initNetlifyIdentity();
-
+    initNetlifyIdentity();
     function loadFromFire(){
 
         Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {

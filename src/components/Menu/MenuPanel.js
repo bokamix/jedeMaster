@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   left: 0;
   background: #202334;
   border-radius: 10px;
-  z-index: 995;
+  z-index: 99;
   display:flex;
   justify-content: space-evenly;
   div{

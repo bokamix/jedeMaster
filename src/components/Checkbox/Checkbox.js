@@ -46,12 +46,8 @@ export default function Checkbox({label, checkStatus, index, makeProgress, makeR
             saveToFire()
               setCheck(!check)
               data[index].done = !check
-              console.log(data)
               let AllLogs = loadState("dayLogs")
-              console.log("all logs",AllLogs[AllLogs.length - 1])
-              console.log(data)
               AllLogs[AllLogs.length - 1].details = data
-              console.log("alllogs before", AllLogs)
               saveState("dayLogs", AllLogs)
               saveState("listOfCheckTask", data)
               if(!check){
