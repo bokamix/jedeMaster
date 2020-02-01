@@ -2,7 +2,7 @@ import React from "react";
 import EditTextInput from "./EditTextInput";
 import styled from "styled-components";
 import { loadState, saveState } from '../localStorage'
-import { saveToFire, loadFromFire } from "../../firebase"
+import { saveToFire } from "../../firebase"
 
 const TitleWrapper = styled.div`
 display:flex;

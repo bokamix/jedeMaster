@@ -4,7 +4,7 @@ import Checkbox from "./Checkbox"
 import { loadState } from "../../localStorage"
 import EditModal from "../EditModal/EditModal"
 const Wrapper = styled.div`
-
+  width: 100%;
 `
 const Title = styled.div`
   display: flex;
@@ -46,12 +46,10 @@ const generateInputs =()=>{
     }
 }
   return (
-    <>
-     <Wrapper>
-     <Title><h4>Co muszę robić codziennie?</h4><button onClick={openModal}>Edit</button></Title>
-         {generateInputs()}
-     </Wrapper>
-     {open ? <EditModal data={data} closeModal={closeModal} /> : null}
-    </>
+    <Wrapper>
+    <Title><h4>Co muszę robić codziennie?</h4><button onClick={openModal}>Edit</button></Title>
+        {generateInputs()}
+        {open ? <EditModal data={data} closeModal={closeModal} /> : null}
+    </Wrapper>
   );
 }

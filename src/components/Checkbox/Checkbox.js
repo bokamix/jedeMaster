@@ -7,14 +7,15 @@ import { saveToFire, loadFromFire } from "../../../firebase"
 
 const CheckboxWrapper = styled.div`
   cursor: pointer;
-  margin-bottom:5px;
+  margin-bottom: 5px;
+  width: 100%;
   p{
-    margin:6px;
-    padding:0;
+    margin: 6px;
+    padding: 0;
   }
   img{
-    margin:6px;
-    padding:0;
+    margin: 6px;
+    padding: 0;
   }
 `
 const NoSucces = styled.div`
@@ -73,14 +74,14 @@ export default function Checkbox({label, checkStatus, index, makeProgress, makeR
     }
 
   return (
-    <>
-     <CheckboxWrapper onClick={onCheck}>
-        {check ? 
-          <Succes><img src={DoneIcon} /><p>{label}</p></Succes> 
-          : 
-          <NoSucces><img src={NoDoneIcon} /><p>{label}</p></NoSucces>
-        }
-     </CheckboxWrapper>
-    </>
+  
+    <CheckboxWrapper onClick={onCheck}>
+      {check ? 
+        <Succes><img src={DoneIcon} /><p>{label}</p></Succes> 
+        : 
+        <NoSucces><img src={NoDoneIcon} /><p>{label}</p></NoSucces>
+      }
+    </CheckboxWrapper>
+  
   );
 }

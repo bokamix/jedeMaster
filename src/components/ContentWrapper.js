@@ -226,10 +226,10 @@ export default function ContentWrapper() {
                 </div>
               </CircularProgressbarWithChildren>
             </CircleWrapper>
-            <div>
-              <CheckboxWrapper makeRegress={makeRegress} makeProgress={makeProgress} checkItemDone={checkItemDone}/>
-              <button onClick={()=>showResons(!resons)}>{resons ? "Schowaj powody" : "Pokaz powody"}</button>
-            </div>
+            
+            <CheckboxWrapper makeRegress={makeRegress} makeProgress={makeProgress} checkItemDone={checkItemDone}/>
+            <button onClick={()=>showResons(!resons)}>{resons ? "Schowaj powody" : "Pokaz powody"}</button>
+            
           </Paper>
           {resons ? 
             <Paper>
