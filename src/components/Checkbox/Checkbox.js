@@ -44,7 +44,6 @@ export default function Checkbox({label, checkStatus, index, makeProgress, makeR
             // let clickedElement = e.target
             // clickedElement.style.cssText = "color: blue; border: 1px solid black"; 
             saveToFire()
-            setTimeout(() => {
               setCheck(!check)
               data[index].done = !check
               console.log(data)
@@ -61,7 +60,6 @@ export default function Checkbox({label, checkStatus, index, makeProgress, makeR
                   makeRegress()
               }
               checkItemDone()
-            }, 50);
             setTimeout(() => {
               saveToFire()
             }, 100);
