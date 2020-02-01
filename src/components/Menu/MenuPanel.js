@@ -2,18 +2,20 @@ import React from 'react';
 import { Link } from "gatsby"
 import styled from "styled-components";
 import { openNetlifyModal } from "../../pages/index"
-import IconPerson from "../../images/account_circle-24px.svg"
+import ChallengeIcon from "../../images/golf_course-24px.svg"
+import CalendarIcon from "../../images/calendar_today-24px.svg"
+import PersonIcon from "../../images/assignment_ind-24px.svg"
 
 const Wrapper = styled.div`
   position:fixed;
   bottom: 0;
-  left:0;
   width: 100%;
-  background: #2023348f;
+  left: 0;
+  background: #202334;
+  border-radius: 10px;
   z-index: 995;
   display:flex;
   justify-content: space-evenly;
-  box-shadow: 0 4px 8px 0 rgba(101, 245, 255, 0.2), 0 6px 20px 0 rgba(101, 245, 255, 0.5);
   div{
     font-size: 15px;
   }
@@ -29,12 +31,13 @@ const MenuItem = styled.div`
   color: white;
 `
 
-const LoginIcon = styled.img`
+const Icons = styled.img`
   width: 30px;
   color: white;
   margin: 0;
   padding-top: 5px;
 `
+
 
 export default function MenuPanel() {
 
@@ -42,9 +45,9 @@ export default function MenuPanel() {
     <>
       
       <Wrapper>
-        <Link to="/"><MenuItem>Strona główna</MenuItem></Link>
-        <Link to="/challenges"><MenuItem>Dane</MenuItem></Link>
-        <LoginIcon src={IconPerson} alt="login" onClick={()=>openNetlifyModal()} />
+        <Link to="/"><MenuItem><Icons src={ChallengeIcon} /></MenuItem></Link>
+        <Link to="/challenges"><MenuItem><Icons src={CalendarIcon} /></MenuItem></Link>
+        <Icons src={PersonIcon} alt="login" onClick={()=>openNetlifyModal()} />
       </Wrapper>
     </>
   );
