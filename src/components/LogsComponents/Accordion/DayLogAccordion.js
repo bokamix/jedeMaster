@@ -1,5 +1,6 @@
 import React from "react";
 // import styled from "styled-components";
+import moment from "moment";
 
 export default function DayLogAccordion({dayData}) {
   const [open, setOpen] = React.useState(false);
@@ -28,7 +29,8 @@ export default function DayLogAccordion({dayData}) {
 
   return (
     <>
-        <h3 onClick={toggleAccordion}>{dayData.date} - {`${dayData.isDone}`}</h3>
+   
+        <h3 onClick={toggleAccordion}> {moment(dayData.date).format("DD-MM-YYYY")} - {`${dayData.isDone}`}</h3>
         {open? getItemDetails() : null}
     </>
   );

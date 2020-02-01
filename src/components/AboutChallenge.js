@@ -2,6 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import { loadState } from "../localStorage"
 import LogItemComponent from "./LogsComponents/LogItemComponent"
+import moment from "moment";
 
 const MainWrapper = styled.div`
   width: 90%;
@@ -10,6 +11,9 @@ const MainWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 100px;
+`
+const ChalenngeWrapper = styled.div`
+  margin: 20px;
 `
 
 const Paper = styled.div`
@@ -45,11 +49,11 @@ export default function AboutChallenge() {
       console.log("challenge", challengesLogs)
       return challengesLogs.map((item, number)=>{
        return(
-        <div key={number}>
+        <ChalenngeWrapper key={number}>
           <h2>{item.goal}</h2>
-          <p>{item.endDate}</p>
-          <p>{item.startDate}</p>
-        </div>
+          <p>End Data: {moment(item.endDate).format("DD-MM-YYYY")}</p>
+          <p>Start Data {moment(item.startDate).format("DD-MM-YYYY")}</p>
+        </ChalenngeWrapper>
        ) 
       })
     }
@@ -57,8 +61,8 @@ export default function AboutChallenge() {
 
   return (
     <MainWrapper>
-      <Paper>{mapChalanges()}</Paper>
-      <Paper>{logItemsMap()}</Paper>
+      <Paper>{ mapChalanges() }</Paper>
+      <Paper>{ logItemsMap() }</Paper>
     </MainWrapper>
   )
 }
