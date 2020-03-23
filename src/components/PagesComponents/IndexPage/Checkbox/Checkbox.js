@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { loadState, saveState } from "../../localStorage";
-import DoneIcon from "../../images/done-24px.svg"
-import NoDoneIcon from "../../images/remove_circle-24px.svg"
-import { saveToFire, loadFromFire } from "../../../firebase"
+import { loadState, saveState } from "../../../../localStorage";
+import DoneIcon from "../../../../images/done-24px.svg"
+import NoDoneIcon from "../../../../images/remove_circle-24px.svg"
+import { saveToFire, loadFromFire } from "../../../../../firebase"
 
 const CheckboxWrapper = styled.div`
   cursor: pointer;

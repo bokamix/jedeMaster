@@ -1,18 +1,18 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { loadState, saveState } from '../localStorage'
-import ListOfResons from "../components/ListOfResons";
-import GoalForm from "./GoalForm";
-import ChallengeLogs from './Challengs/ChallengeLogs'
-import { getDaysLeft, changeDay } from "./DateManipulation"
+import { loadState, saveState } from '../../../localStorage'
+import ListOfResons from "../../ListOfResons";
+import GoalForm from "../IndexPage/GoalForm";
+import ChallengeLogs from '../ChallengesPage/Challengs/ChallengeLogs'
+import { getDaysLeft, changeDay } from "../Common/DateManipulation"
 import { CircularProgressbarWithChildren, CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import DoneIcon from "../images/check_circle-24px.svg"
-import UnDoneIcon from "../images/remove_circle-24px.svg"
+import DoneIcon from "../../../images/check_circle-24px.svg"
+import UnDoneIcon from "../../../images/remove_circle-24px.svg"
 import CheckboxWrapper from "./Checkbox/CheckboxesWrapper"
-import {getGoal, isTodayDone, setGoalStatus,howManyInCycle, loadProgress } from "../components/InitialFunctions"
-import { device } from './Composition/Breakpoints';
-import iconChecklist from '../images/assignment-24px.svg'
+import {getGoal, isTodayDone, setGoalStatus,howManyInCycle, loadProgress } from "../Common/InitialFunctions"
+import { device } from '../Common/Composition/Breakpoints';
+import iconChecklist from '../../../images/assignment-24px.svg'
 
 let toDayIs = loadState("toDayIs")
 // import LogsContainer from "../app/logs/components/LogsContainer"
@@ -191,6 +191,8 @@ export default function ContentWrapper() {
 
   return (
     <MainWrapper>
+        <button onClick={()=>changeDay(1, true)}>Day+</button>
+      <button onClick={()=>changeDay(-1, true)}>Day-</button> 
       <div >
         <Container>
         <Paper>

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from "gatsby"
 import styled from "styled-components";
-import { openNetlifyModal } from "../../pages/index"
-import ChallengeIcon from "../../images/golf_course-24px.svg"
-import CalendarIcon from "../../images/calendar_today-24px.svg"
-import PersonIcon from "../../images/assignment_ind-24px.svg"
+import { openNetlifyModal } from "../../../../pages/index"
+import ChallengeIcon from "../../../../images/golf_course-24px.svg"
+import CalendarIcon from "../../../../images/calendar_today-24px.svg"
+import PersonIcon from "../../../../images/assignment_ind-24px.svg"
 
 const Wrapper = styled.div`
   position:fixed;

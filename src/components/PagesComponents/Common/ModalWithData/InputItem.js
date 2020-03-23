@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import styled from "styled-components";
-import { loadState, saveState } from '../../localStorage'
+import { loadState, saveState } from '../../../localStorage'
 
 
 const InputItem = ({value, addToList, num}) => {

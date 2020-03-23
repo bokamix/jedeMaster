@@ -1,5 +1,5 @@
 import React from "react";
-import EditTextInput from "./EditTextInput";
+import EditTextInput from "./PagesComponents/Common/EditTextInput";
 import styled from "styled-components";
 import { loadState, saveState } from '../localStorage'
 import { saveToFire } from "../../firebase"

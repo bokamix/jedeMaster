@@ -29,7 +29,6 @@ export default function DayLogAccordion({dayData}) {
 
   return (
     <>
-   
         <h3 onClick={toggleAccordion}> {moment(dayData.date).format("DD-MM-YYYY")} - {`${dayData.isDone}`}</h3>
         {open? getItemDetails() : null}
     </>

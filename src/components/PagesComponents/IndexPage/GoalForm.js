@@ -1,7 +1,7 @@
 import React from "react";
-import EditTextInput from "./EditTextInput";
-import { loadState, saveState } from '../localStorage'
-import { saveToFire } from "../../firebase"
+import EditTextInput from "../Common/EditTextInput";
+import { loadState, saveState } from '../../../localStorage'
+import { saveToFire } from "../../../../firebase"
 
 export default function GoalForm() {
   let goalItem

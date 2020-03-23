@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from "styled-components"
 import { navigate } from "gatsby-link"
-import { loadState } from "../../localStorage"
+import { loadState } from "../../../../localStorage"
 const FormWrapper = styled.div`
   width: 80%;
   margin: 0 auto;

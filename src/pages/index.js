@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react"
 import { saveToFire, loadFromFire } from "../../firebase"
 import  "../../firebase"
-import Layout from "../components/layout"
-import SEO from "../components/seo"
-import MenuPanel from "../components/Menu/MenuPanel";
-import ContentWrapper from "../components/ContentWrapper"
+import Layout from "../components/PagesComponents/Common/layout"
+import SEO from "../components/PagesComponents/Common/seo"
+import MenuPanel from "../components/PagesComponents/Common/Menu/MenuPanel";
+import ContentWrapper from "../components/PagesComponents/IndexPage/ContentWrapper"
 import { loadState, saveState } from '../localStorage'
-import FirstTimeUser from "../components/FirstTimeOnApp/FirstTimeUser"
-import {getCheckActivity, isLastLogToday } from "../components/InitialFunctions"
+import FirstTimeUser from "../components/PagesComponents/FirstTimeOnApp/FirstTimeUser"
+import {getCheckActivity, isLastLogToday } from "../components/PagesComponents/Common/InitialFunctions"
 const lazyApp = import('firebase/app')
 const lazyDatabase = import('firebase/database')
 let user = loadState('gotrue.user')

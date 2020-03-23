@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from "styled-components";
 import EditTextInput from "../EditTextInput"
-import { saveState } from "../../localStorage"
-import { saveToFire, loadFromFire } from "../../../firebase"
+import { saveState } from "../../../../localStorage"
+import { saveToFire, loadFromFire } from "../../../../../firebase"
 import { device } from '../Composition/Breakpoints';
 
 

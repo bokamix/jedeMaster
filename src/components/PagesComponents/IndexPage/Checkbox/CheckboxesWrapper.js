@@ -1,10 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import Checkbox from "./Checkbox"
-import { loadState } from "../../localStorage"
-import EditModal from "../EditModal/EditModal"
+import { loadState } from "../../../../localStorage"
+import EditModal from "../../Common/EditModal/EditModal"
 const Wrapper = styled.div`
   width: 100%;
+  background: #202334;
+  padding: 10px;
+  border-radius: 10px;
 `
 const Title = styled.div`
   display: flex;

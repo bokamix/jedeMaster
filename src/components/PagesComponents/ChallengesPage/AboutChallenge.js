@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { loadState } from "../localStorage"
+import { loadState } from "../../../localStorage"
 import LogItemComponent from "./LogsComponents/LogItemComponent"
 import moment from "moment";
 
