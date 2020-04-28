@@ -1,4 +1,3 @@
-
 export const loadState = (item) => {
   try {
     const serializedState = localStorage.getItem(`${item}`);
@@ -26,6 +25,8 @@ export const removeState = (item) => {
   }
 };
 
+////
+////Local storage default data
 
 
 
